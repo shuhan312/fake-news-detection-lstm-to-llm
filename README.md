@@ -1,18 +1,19 @@
 # Fake News Detection: LSTM to LLM
 
-Reimplementation and extension of a published LSTM-based fake news detection study, upgraded with Transformer and LLM-based NLP methods.
+Extension of my own published LSTM-based fake news detection study, upgraded with a corrected dataset, optimised model architecture, and Transformer-based NLP methods.
 
 ## Background
 
-This project is based on:
+This project extends my own prior publication:
 
 > Liu, S. (2023). *Social Media Fake Information Identification Method Based on LSTM*. Highlights in Business, Economics and Management, Vol. 21, pp. 703–709. (GEFHR 2023)
 
-The original paper achieved 99% accuracy and 100% AUC on the Kaggle Fake and Real News Dataset using an LSTM model. This project:
+My original paper achieved 99% accuracy and 100% AUC on the Kaggle Fake and Real News Dataset using an LSTM model. This project:
 
-1. **Reproduces** the original LSTM pipeline in a clean, documented codebase
-2. **Extends** it with Transformer (DistilBERT) and LLM prompting experiments
-3. **Critically analyses** the dataset's known source-leakage bias and its effect on reported metrics
+1. **Reproduces** my original LSTM pipeline in a clean, documented codebase
+2. **Critically re-examines** the dataset and identifies source-leakage bias that inflated the reported metrics
+3. **Optimises** the model with a corrected dataset and improved architecture (Bidirectional LSTM), achieving 97.9% accuracy and 99.7% AUC on clean data
+4. **Extends** the work further with Transformer (DistilBERT) and LLM prompting experiments
 
 ## Project Structure
 
@@ -23,10 +24,10 @@ fake-news-detection-lstm-to-llm/
 │   └── README.md         # Dataset description and known bias notes
 ├── notebooks/
 │   ├── 00_eda.ipynb                    # EDA + dataset bias analysis
-│   ├── 01_lstm_reimplementation.ipynb  # Paper reproduction
-│   ├── 02_baseline_comparison.ipynb    # Naive Bayes, LR, RF, KNN
+│   ├── 01_lstm_reimplementation.ipynb  # Reproduction of my original paper
+│   ├── 02_lstm_corrected.ipynb         # Optimised LSTM on debiased data
 │   ├── 03_transformer_distilbert.ipynb # DistilBERT fine-tuning
-│   ├── 04_llm_prompting.ipynb          # Zero-shot / few-shot with Claude
+│   ├── 04_llm_prompting.ipynb          # Zero-shot / few-shot prompting
 │   └── 05_error_analysis.ipynb         # FP/FN analysis across all models
 ├── src/                  # Shared utility functions
 ├── results/              # Saved metrics, plots, error cases
@@ -39,23 +40,20 @@ fake-news-detection-lstm-to-llm/
 | Notebook | Purpose |
 |----------|---------|
 | `00_eda` | Explore data distribution; confirm subject-column and Reuters-byline leakage |
-| `01_lstm_reimplementation` | Reproduce original paper (Tokenizer → Embedding → LSTM → Dense → Sigmoid) |
-| `02_baseline_comparison` | TF-IDF + Naive Bayes / Logistic Regression / Random Forest / KNN |
+| `01_lstm_reimplementation` | Reproduce my original paper (Tokenizer → Embedding → LSTM → Dense → Sigmoid) |
+| `02_lstm_corrected` | Optimised Bidirectional LSTM on debiased data; nine-step cleaning pipeline |
 | `03_transformer_distilbert` | Fine-tune DistilBERT without leaking features |
-| `04_llm_prompting` | Claude zero-shot & few-shot on LSTM error cases; reasoning traces |
+| `04_llm_prompting` | LLM zero-shot & few-shot on LSTM error cases; reasoning traces |
 | `05_error_analysis` | Cross-model FP/FN breakdown; dataset-artifact investigation |
 
 ## Results Summary
 
-| Model | Accuracy | AUC |
-|-------|----------|-----|
-| Naive Bayes | 93% | 98% |
-| Logistic Regression | — | — |
-| Random Forest | 86% | 94% |
-| KNN | 91% | 97% |
-| **LSTM (paper)** | **99%** | **100%** |
-| DistilBERT | — | — |
-| LLM (Claude) | — | — |
+| Model | Accuracy | AUC | Notes |
+|-------|----------|-----|-------|
+| **LSTM (my paper)** | **99.1%** | **99.8%** | Original result — includes dataset leakage |
+| **Optimised LSTM** | **97.9%** | **99.7%** | Bidirectional LSTM on debiased data |
+| DistilBERT | — | — | In progress |
+| LLM | — | — | In progress |
 
 *Results will be updated as experiments complete.*
 
