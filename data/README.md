@@ -29,3 +29,14 @@ This dataset has a well-documented source-leakage issue:
 - **`subject` column**: Real news uses `politicsNews` / `worldNews`; fake news uses `News` / `politics` / etc. The subject column alone is nearly a perfect classifier.
 
 Any model trained on this dataset without removing these signals may learn source style rather than content truthfulness. Experiment notebooks control for this explicitly.
+
+## Processed data
+
+`src/data.py` builds the cleaned dataset used by every notebook:
+
+| File | In git | Content |
+|------|--------|---------|
+| `processed/splits.csv` | yes | `doc_id` → `train` / `val` / `test`. Locks the split so all models share it. |
+| `processed/clean_dataset.csv` | no | Cached cleaned text; rebuilt automatically when `src/data.py` or the raw CSVs change. |
+
+`doc_id` is `fake_<row>` / `true_<row>`, the row number in the raw CSV. The cleaning rules and their rationale are documented in `src/data.py`; `notebooks/04_leakage_audit.ipynb` measures what is left after cleaning.

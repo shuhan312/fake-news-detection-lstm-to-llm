@@ -27,9 +27,14 @@ fake-news-detection-lstm-to-llm/
 │   ├── 01_lstm_reimplementation.ipynb  # Reproduction of my original paper
 │   ├── 02_lstm_corrected.ipynb         # Optimised LSTM on debiased data
 │   ├── 03_transformer_distilbert.ipynb # DistilBERT fine-tuning
-│   ├── 04_llm_prompting.ipynb          # Zero-shot / few-shot prompting
-│   └── 05_error_analysis.ipynb         # FP/FN analysis across all models
-├── src/                  # Shared utility functions
+│   ├── 04_leakage_audit.ipynb          # Shortcut probes + split-integrity checks
+│   ├── 05_llm_prompting.ipynb          # Zero-shot / few-shot prompting
+│   └── 06_error_analysis.ipynb         # FP/FN analysis across all models
+├── src/
+│   ├── data.py           # Shared pipeline: symmetric cleaning, de-dup, grouped split
+│   ├── probes.py         # Leakage-audit tools (artefact rates, shortcut probes)
+│   └── utils.py          # set_seed()
+├── tests/                # Unit tests for the cleaning rules (python -m pytest tests/)
 ├── results/              # Saved metrics, plots, error cases
 ├── reports/              # Written summaries
 └── paper/                # Reference to original publication
@@ -43,8 +48,9 @@ fake-news-detection-lstm-to-llm/
 | `01_lstm_reimplementation` | Reproduce my original paper (Tokenizer → Embedding → LSTM → Dense → Sigmoid) |
 | `02_lstm_corrected` | Optimised Bidirectional LSTM on debiased data; nine-step cleaning pipeline |
 | `03_transformer_distilbert` | Fine-tune DistilBERT without leaking features |
-| `04_llm_prompting` | LLM zero-shot & few-shot on LSTM error cases; reasoning traces |
-| `05_error_analysis` | Cross-model FP/FN breakdown; dataset-artifact investigation |
+| `04_leakage_audit` | Audit of the shared pipeline: residual artefacts, duplicate overlap, shortcut probes |
+| `05_llm_prompting` | LLM zero-shot & few-shot on LSTM error cases; reasoning traces |
+| `06_error_analysis` | Cross-model FP/FN breakdown; dataset-artifact investigation |
 
 ## Results Summary
 
@@ -65,8 +71,18 @@ Download the [Kaggle Fake and Real News Dataset](https://www.kaggle.com/clmentbi
 
 ```bash
 pip install -r requirements.txt
+python -m pytest tests/    # check the cleaning rules
 jupyter lab
 ```
+
+All notebooks should load data through the shared pipeline so every model sees the same cleaned text and the same split:
+
+```python
+from src.data import load_dataset, get_splits
+train, val, test = get_splits(load_dataset())   # models read the `model_text` column
+```
+
+The split is locked in `data/processed/splits.csv` (committed); the cleaned-text cache next to it is rebuilt automatically when `src/data.py` or the raw data changes.
 
 ## Key Findings (in progress)
 
