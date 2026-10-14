@@ -224,3 +224,6 @@ __marimo__/
 # data/processed/splits.csv is intentionally NOT ignored: it locks the split.
 data/processed/clean_dataset.csv
 data/processed/clean_dataset_meta.json
+
+# External datasets (downloaded and MD5-checked by src/external.py; LIAR is research-use only)
+data/external/

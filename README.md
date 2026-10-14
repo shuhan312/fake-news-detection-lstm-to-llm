@@ -28,10 +28,12 @@ fake-news-detection-lstm-to-llm/
 │   ├── 02_lstm_corrected.ipynb         # Optimised LSTM on debiased data
 │   ├── 03_transformer_distilbert.ipynb # DistilBERT fine-tuning
 │   ├── 04_leakage_audit.ipynb          # Shortcut probes + split-integrity checks
-│   ├── 05_llm_prompting.ipynb          # Zero-shot / few-shot prompting
-│   └── 06_error_analysis.ipynb         # FP/FN analysis across all models
+│   ├── 05_cross_dataset.ipynb          # External test sets (WELFake minus ISOT, LIAR)
+│   ├── 06_llm_prompting.ipynb          # Zero-shot / few-shot prompting
+│   └── 07_error_analysis.ipynb         # FP/FN analysis across all models
 ├── src/
 │   ├── data.py           # Shared pipeline: symmetric cleaning, de-dup, grouped split
+│   ├── external.py       # External datasets: download, MD5 check, same cleaning, ISOT-overlap removal
 │   ├── probes.py         # Leakage-audit tools (artefact rates, shortcut probes)
 │   └── utils.py          # set_seed()
 ├── tests/                # Unit tests for the cleaning rules (python -m pytest tests/)
@@ -49,8 +51,9 @@ fake-news-detection-lstm-to-llm/
 | `02_lstm_corrected` | Optimised Bidirectional LSTM on debiased data; nine-step cleaning pipeline |
 | `03_transformer_distilbert` | Fine-tune DistilBERT without leaking features |
 | `04_leakage_audit` | Audit of the shared pipeline: residual artefacts, duplicate overlap, shortcut probes |
-| `05_llm_prompting` | LLM zero-shot & few-shot on LSTM error cases; reasoning traces |
-| `06_error_analysis` | Cross-model FP/FN breakdown; dataset-artifact investigation |
+| `05_cross_dataset` | Does an ISOT-trained model transfer to other sources? External sets: WELFake minus ISOT, LIAR |
+| `06_llm_prompting` | LLM zero-shot & few-shot on LSTM error cases; reasoning traces |
+| `07_error_analysis` | Cross-model FP/FN breakdown; dataset-artifact investigation |
 
 ## Results Summary
 
