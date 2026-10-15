@@ -38,7 +38,9 @@ from pathlib import Path
 import pandas as pd
 
 from src.data import (MIN_BODY_WORDS, NEAR_DUP_LEAD_WORDS, NEAR_DUP_MIN_TITLE_WORDS,
-                      PROJECT_ROOT, clean_text, clean_title, load_dataset, to_model_text)
+                      OUTPUT_COLUMNS, PROCESSED_DIR, PROJECT_ROOT, SEED, _assign_splits,
+                      _check_splits_locked, _group_near_duplicates, clean_text, clean_title,
+                      load_dataset, to_model_text)
 
 EXTERNAL_DIR = PROJECT_ROOT / 'data' / 'external'
 
@@ -63,6 +65,9 @@ LIAR_MD5 = '437541ca9957e993634f9c1e71a26748'
 # 外部数据处理结果的缓存 / Cache of the processed external data
 WELFAKE_CACHE = EXTERNAL_DIR / 'welfake_external_clean.csv'
 WELFAKE_CACHE_META = EXTERNAL_DIR / 'welfake_external_clean_meta.json'
+# 划分文件和 ISOT 的 splits.csv 放在一起，并提交到 git（只有 doc_id 和 split，不含文章内容）
+# The split file sits next to ISOT's splits.csv and is committed (doc_id + split only)
+WELFAKE_SPLITS_PATH = PROCESSED_DIR / 'welfake_external_splits.csv'
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -138,6 +143,131 @@ _RE_PUBLISHER_SUFFIX = re.compile(
     r'USAPoliticsNow|Morning News USA|New Earth Media)\s*$')
 
 
+# 文章结尾的推广语和作者简介。只在 WELFake 中大量出现，在 ISOT 里各项都 ≤ 1.4%：
+#   真新闻侧：Breitbart 作者简介（"Follow him on Twitter… email him at…"、
+#            "is available from Regnery"）、电台节目时间、《纽约时报》简报页脚
+#   假新闻侧："please like and share this story"、"Stay updated via email newsletter" 等
+# 去重分析发现，146 种这样的固定结尾覆盖了 2,865 篇文章（12%）。
+# Trailing promos and author bios. Common only in WELFake (each <= 1.4% in ISOT):
+# Breitbart bios / radio slots / NYT briefing footers on the real side, share /
+# subscribe plugs on the fake side — 146 shared endings covering 2,865 articles.
+_RE_PROMO_SENTENCE = re.compile(
+    r'(?i)\bfollow (?:him|her|them|us|me)\b|\bemail (?:him|her|the author)\b'
+    r'|\breach (?:him|her) (?:directly )?at\b|\blike us on\b'
+    r'|\bis (?:also )?(?:the |a |an )?(?:[\w-]+ ){0,4}(?:author|contributor|editor|reporter|'
+    r'columnist|correspondent|writer|analyst|host)\b(?: of| for| at)?'
+    r'|\bis available from\b|\bweekdays from\b|\blisten (?:to|live)\b|\bsirius ?xm\b'
+    r'|\blet us know\b|\bbriefing\b|\bwant to look back\b|\bwhat did you like\b'
+    r'|\bwhat do you want to see\b'
+    r'|\blike and share\b|\bshare this\b|\bsharing our articles\b|\bspread the word\b'
+    r'|\bnewsletter\b|\bsubscrib\w*\b|\bsign up\b|\bstay updated\b|\bin your (?:mail|in)box\b'
+    r'|\bhelp (?:me|us) continue\b|\bsupport (?:our|my) work\b|\bdonat\w+\b'
+    r'|\bthe deeper meanings\b|\bshow archives\b|\biframe\b')
+_RE_SENTENCE_SPLIT = re.compile(r'(?<=[.!?])\s+')
+# 来源名称，和 ISOT 里的 "Reuters" 一样：11.7% 的真新闻含 "Breitbart"，假新闻 1.4%
+# Source name, like "Reuters" in ISOT: in 11.7% of real vs 1.4% of fake articles
+_RE_SOURCE_NAME = re.compile(r'\bBreitbart(?: News(?: Daily| Network)?| Texas| London| Jerusalem)?\b')
+
+# 三道保护，防止误删正文 / Three guards against deleting real body text:
+#   - 最多从结尾删 10 句（《纽约时报》简报页脚就有 7 句以上）
+#     at most 10 trailing sentences (NYT briefing footers alone have 7+)
+#   - 超过 80 个词的"句子"不删：作者简介和推广语都是短句；这么长的"句子"
+#     通常是没有句号的正文（例如讽刺新闻的列表），被拆句当成了一句
+#     never remove a "sentence" over 80 words: bios and plugs are short; a
+#     sentence that long is usually unpunctuated body text (e.g. satire lists)
+#   - 每篇最多删 150 个词 / at most 150 words removed per article
+MAX_PROMO_SENTENCES = 10
+MAX_PROMO_SENTENCE_WORDS = 80
+MAX_TAIL_WORDS_REMOVED = 150
+# 同一句话一字不差地出现在至少这么多篇不同文章的结尾时，视为固定页脚（作者简介、节目介绍等）。
+# 新闻正文几乎不可能在 10 篇不同文章里逐字重复同一句话。
+# A sentence repeated verbatim at the end of at least this many different
+# articles is treated as boilerplate (author bio, show blurb, ...). News text
+# almost never repeats a sentence word-for-word across 10 articles.
+BOILERPLATE_MIN_DOCS = 10
+TAIL_SENTENCES_CHECKED = 8      # 统计重复时，每篇只看最后 8 句 / last 8 sentences per article
+MIN_SENTENCE_WORDS = 4          # 少于 4 个词的碎片并回前一句 / shorter fragments merge backwards
+
+
+def _split_sentences(text: str) -> list:
+    """拆成句子，并把很短的碎片并回前一句。
+    Split into sentences, merging very short fragments into the previous one.
+
+    为什么要合并：原始数据里邮箱被切成 "awrhawkins@breitbart. com"，清洗后结尾变成
+    "Reach him directly at . com."，拆句会得到一个只有 "com." 的"句子"。如果不合并，
+    从结尾往前检查时第一句就是 "com."，它不是推广语，检查会立刻停止。
+    Why: e-mails appear as "awrhawkins@breitbart. com" in the raw data, so the
+    cleaned tail ends "... at . com." and splitting yields a lone "com."
+    sentence; without merging, the backwards check would stop there at once.
+    """
+    merged = []
+    for s in _RE_SENTENCE_SPLIT.split(text.strip()):
+        if merged and len(re.findall(r'[A-Za-z0-9]+', s)) < MIN_SENTENCE_WORDS:
+            merged[-1] = merged[-1] + ' ' + s
+        else:
+            merged.append(s)
+    return merged
+
+
+def _sentence_key(sentence: str) -> str:
+    """句子的规范化形式（小写，只保留字母数字），用来统计逐字重复。
+    Normalised sentence (lower-case alphanumerics) for counting verbatim repeats."""
+    return re.sub(r'[^a-z0-9]+', ' ', sentence.lower()).strip()
+
+
+def _trim_tail(sentences: list, repeated: frozenset = frozenset()) -> str:
+    """从结尾开始逐句删除：命中推广语规则，或者属于"在很多文章结尾重复出现"的句子。
+    遇到第一句正常的正文就停止，最多删 MAX_PROMO_SENTENCES 句。
+    Remove sentences from the end while they match the promo rule or are a
+    widely repeated tail sentence; stop at the first normal sentence."""
+    sentences = list(sentences)
+    removed_sentences = removed_words = 0
+    while sentences and removed_sentences < MAX_PROMO_SENTENCES:
+        last = sentences[-1]
+        n_words = len(last.split())
+        is_boilerplate = (_RE_PROMO_SENTENCE.search(last)
+                          or _sentence_key(last) in repeated)
+        if (not is_boilerplate or n_words > MAX_PROMO_SENTENCE_WORDS
+                or removed_words + n_words > MAX_TAIL_WORDS_REMOVED):
+            break
+        sentences.pop()
+        removed_sentences += 1
+        removed_words += n_words
+    return ' '.join(sentences)
+
+
+def strip_promo_tail(text: str) -> str:
+    """只用规则删除单篇文章结尾的推广语和作者简介（不统计重复句）。
+    Rule-only removal of trailing promos / bios for a single article.
+
+    只看结尾，所以正文中间提到 "Twitter" 的句子不受影响。
+    Only the tail is examined, so mid-body sentences mentioning Twitter are kept.
+    """
+    return _trim_tail(_split_sentences(text))
+
+
+def strip_boilerplate_tails(texts: pd.Series) -> pd.Series:
+    """对整个数据集删除结尾的推广语，以及"在至少 BOILERPLATE_MIN_DOCS 篇文章结尾逐字重复"的句子。
+    Remove trailing promos plus sentences repeated verbatim at the end of at
+    least BOILERPLATE_MIN_DOCS articles, across a whole dataset.
+
+    重复句是在整个数据集上统计的，*不看标签*，所以对真假两类一视同仁。
+    Repeats are counted over the whole dataset WITHOUT looking at labels, so
+    both classes are treated identically.
+    """
+    from collections import Counter
+
+    sentences = texts.map(_split_sentences)
+    doc_count = Counter()
+    for sents in sentences:
+        # 每篇文章里同一句只算一次（set），这样统计的是"出现在多少篇文章里"
+        # Count each sentence once per article (set) → number of articles it appears in
+        doc_count.update({k for k in map(_sentence_key, sents[-TAIL_SENTENCES_CHECKED:])
+                          if len(k.split()) >= MIN_SENTENCE_WORDS})
+    repeated = frozenset(k for k, n in doc_count.items() if n >= BOILERPLATE_MIN_DOCS)
+    return sentences.map(lambda s: _trim_tail(s, repeated))
+
+
 def load_welfake_raw() -> pd.DataFrame:
     """读取原始 WELFake，并把标签改成本项目的约定（1 = 真，0 = 假）。
     Read raw WELFake and convert labels to this project's convention (1 = real, 0 = fake).
@@ -197,8 +327,11 @@ def build_welfake_external(verbose: bool = True):
     步骤 / Steps
         1. 读取并转换标签方向，再用 ISOT 重叠部分验证一遍
            load, convert labels, re-verify against the ISOT overlap
-        2. 用 src/data.py 的同一套规则清洗标题和正文，再删除出版方后缀
-           clean with the SAME rules as src/data.py, then strip publisher suffixes
+        2. 用 src/data.py 的同一套规则清洗标题和正文；再处理 WELFake 特有的来源痕迹：
+           标题的出版方后缀、结尾的推广语和作者简介、"Breitbart" 这个来源名称
+           clean with the SAME rules as src/data.py, then WELFake-specific source
+           artefacts: publisher title suffixes, trailing promos / author bios,
+           and the source name "Breitbart"
         3. 和 ISOT 管线一样：删除正文少于 MIN_BODY_WORDS 的文章、规范化后完全重复的文章；
            另外删除非英文文章
            as in the ISOT pipeline: drop short bodies and exact duplicates; also
@@ -212,9 +345,12 @@ def build_welfake_external(verbose: bool = True):
            ISOT's internal split: one shared fingerprint is enough, because any
            ISOT article in the external set inflates the result.
 
+        5. 和 ISOT 一样做近似重复分组和按组分层划分（64/16/20）
+           near-duplicate grouping and a grouped, stratified 64/16/20 split, as for ISOT
+
     Returns:
-        (df, report)：列与 load_dataset() 一致（没有 group_id / split）。
-        (df, report): same columns as load_dataset() minus group_id / split.
+        (df, report)：列与 load_dataset() 完全一致。
+        (df, report): exactly the same columns as load_dataset().
     """
     from src.data import load_raw   # 只在构建时需要 / only needed when building
 
@@ -233,8 +369,15 @@ def build_welfake_external(verbose: bool = True):
     report['removed_isot_copies_raw_match'] = _count_by_label(raw[is_isot_copy])
     df = raw[~is_isot_copy].copy()
 
-    df['title'] = df['title'].map(clean_title).str.replace(_RE_PUBLISHER_SUFFIX, '', regex=True)
-    df['text'] = df['text'].map(clean_text)
+    df['title'] = (df['title'].map(clean_title)
+                              .str.replace(_RE_PUBLISHER_SUFFIX, '', regex=True)
+                              .str.replace(_RE_SOURCE_NAME, '', regex=True)
+                              .str.replace(r'\s+', ' ', regex=True).str.strip())
+    # 先用和 ISOT 相同的规则清洗，再处理 WELFake 特有的结尾推广语和来源名称
+    # Same rules as ISOT first, then WELFake-specific promo tails and source names
+    df['text'] = (strip_boilerplate_tails(df['text'].map(clean_text))
+                  .str.replace(_RE_SOURCE_NAME, '', regex=True)
+                  .str.replace(r'\s+', ' ', regex=True).str.strip())
     df['content'] = (df['title'] + ' ' + df['text']).str.strip()
 
     short = df['text'].str.split().str.len() < MIN_BODY_WORDS
@@ -259,9 +402,9 @@ def build_welfake_external(verbose: bool = True):
     report['removed_exact_duplicates'] = _count_by_label(df[dup])
     df = df[~dup].copy()
 
-    # 剩下的再和 *清洗后* 的 ISOT 比较四种指纹，任何一个相同就删除。
+    # 剩下的再和 *清洗后* 的 ISOT 比较五种指纹，任何一个相同就删除。
     # 能抓到原文略有差异、但清洗后相同的副本，以及换了开头或标题的近似重复。
-    # Then compare four fingerprints against CLEANED ISOT; any match removes the
+    # Then compare five fingerprints against CLEANED ISOT; any match removes the
     # article. This catches copies whose raw text differed slightly, and
     # near-duplicates with a changed lead or title.
     # 注意：清洗后的 ISOT 是 load_dataset() 的全部 37,982 篇（train + val + test），
@@ -279,9 +422,22 @@ def build_welfake_external(verbose: bool = True):
 
     report['final_total'] = len(df)
     report['final_by_label'] = _count_by_label(df)
+
+    # 5. 划分：和 ISOT 完全相同的方法 —— 近似重复分组 + 按组分层的 64/16/20 划分。
+    #    用于"WELFake → WELFake"参照实验。ISOT 训练的模型不需要这个划分，但它也会在同一个
+    #    test 上评估，两个实验才能在 *同一批文章* 上比较。
+    # 5. Split exactly like ISOT: near-duplicate groups + grouped, stratified
+    #    64/16/20. Needed by the WELFake → WELFake reference experiment; the
+    #    ISOT-trained model is scored on the same test split so both experiments
+    #    are compared on the SAME articles.
+    df['group_id'] = _group_near_duplicates(df)
+    df['split'] = _assign_splits(df, SEED)
+    report['final_by_split_and_label'] = {
+        name: _count_by_label(part) for name, part in df.groupby('split')}
+
     if verbose:
         print(json.dumps(report, indent=2, default=str))
-    return df[['doc_id', 'label', 'title', 'text', 'content', 'model_text']], report
+    return df[OUTPUT_COLUMNS], report
 
 
 def load_welfake_external(use_cache: bool = True) -> pd.DataFrame:
@@ -296,9 +452,14 @@ def load_welfake_external(use_cache: bool = True) -> pd.DataFrame:
     if use_cache and WELFAKE_CACHE.exists() and WELFAKE_CACHE_META.exists():
         meta = json.loads(WELFAKE_CACHE_META.read_text())
         if meta.get('fingerprint') == fingerprint:
-            return pd.read_csv(WELFAKE_CACHE, keep_default_na=False)
+            df = pd.read_csv(WELFAKE_CACHE, keep_default_na=False)
+            _check_splits_locked(df, WELFAKE_SPLITS_PATH)
+            return df
 
     df, report = build_welfake_external()
+    # 和 ISOT 一样锁定划分：以后重建时划分如果变了会直接报错
+    # Lock the split like ISOT's: a changed split on rebuild raises an error
+    _check_splits_locked(df, WELFAKE_SPLITS_PATH)
     df.to_csv(WELFAKE_CACHE, index=False)
     WELFAKE_CACHE_META.write_text(json.dumps(
         {'fingerprint': fingerprint, 'report': report}, indent=2, default=str))

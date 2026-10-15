@@ -63,3 +63,52 @@ def test_fingerprints_include_middle_window_only_for_long_bodies():
     assert fp['middle'][0] == ' '.join(f'w{i}' for i in range(50, 75))
     assert pd.isna(fp['middle'][1])      # 少于 100 词不比较中间段 / <100 words: no middle key
     assert pd.isna(fp['title'][1])       # 少于 5 个词的标题不比较 / <5-word title: no title key
+
+
+def test_strip_promo_tail_removes_bios_and_plugs_but_keeps_body():
+    body = 'The committee voted on Tuesday. Officials said the plan would take effect in May.'
+    # Breitbart 作者简介 / Breitbart author bio
+    assert external.strip_promo_tail(
+        body + ' He is also the political analyst for Armed American Radio. '
+               'Follow him on Twitter: . Reach him directly at .') == body
+    # 假新闻侧的分享推广 / fake-side share plug
+    assert external.strip_promo_tail(
+        body + ' Please like and share this story on Facebook or Twitter.') == body
+    # 正文结尾提到 Twitter 的普通句子必须保留 / a normal last sentence mentioning Twitter stays
+    tweet_end = body + ' He said on Twitter that the vote was rigged.'
+    assert external.strip_promo_tail(tweet_end) == tweet_end
+
+
+def test_source_name_breitbart_removed():
+    out = external._RE_SOURCE_NAME.sub('', 'He told Breitbart News Daily and Breitbart Texas that')
+    assert 'Breitbart' not in out
+
+
+def test_promo_tail_survives_split_email_fragment():
+    # 原始数据里邮箱被切开（"briefing@nytimes. com"），清洗后结尾会出现 "com." 碎片；
+    # 碎片必须并回前一句，否则推广语检查会在 "com." 处停下
+    # Split e-mails leave a trailing "com." fragment; it must merge backwards
+    body = 'The committee voted on Tuesday. Officials said the plan would take effect in May.'
+    assert external.strip_promo_tail(body + ' What do you want to see here? Let us know at . com.') == body
+
+
+def test_repeated_tail_sentences_are_removed_but_unique_endings_kept():
+    bio = 'He was named one of the most influential people in news media in 2016.'
+    body = 'Officials said the measure passed {} votes to 40 on Tuesday.'
+    texts = pd.Series([body.format(50 + i) + ' ' + bio for i in range(external.BOILERPLATE_MIN_DOCS)]
+                      + [body.format(99) + ' The final sentence is unique to this article.'])
+    out = external.strip_boilerplate_tails(texts)
+    # 在 10 篇文章结尾重复的简介被删除 / the bio repeated across 10 articles is removed
+    assert all(bio not in t for t in out[:-1])
+    assert out[0] == body.format(50)
+    # 只出现一次的结尾保留 / a unique ending is kept
+    assert out.iloc[-1].endswith('unique to this article.')
+
+
+def test_promo_tail_never_removes_long_unpunctuated_body():
+    # 没有句号的长段落（例如讽刺新闻的列表）即使包含 "subscribe" 也不能被整段删掉
+    # A long unpunctuated block (e.g. a satire list) must not be removed whole,
+    # even if it contains a promo word
+    body = 'The committee voted on Tuesday. Officials said the plan would take effect in May.'
+    long_block = ' '.join(['item'] * 90) + ' subscribe now'
+    assert external.strip_promo_tail(body + ' ' + long_block).endswith('subscribe now')

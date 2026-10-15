@@ -741,25 +741,31 @@ def _fingerprint() -> str:
     return h.hexdigest()
 
 
-def _check_splits_locked(df: pd.DataFrame) -> None:
+def _check_splits_locked(df: pd.DataFrame, path: Path = None) -> None:
     """第一次运行时保存划分；之后每次都检查划分是否和保存的一致。
     Save the split on first run; afterwards verify it never changes silently.
 
-    如果你 *有意* 修改了清洗规则并接受新的划分，删除 data/processed/splits.csv 后重新运行。
+    path 默认是 ISOT 的 data/processed/splits.csv；外部数据集传入自己的划分文件路径。
+    path defaults to ISOT's data/processed/splits.csv; external datasets pass their own.
+    （默认值在运行时读取 SPLITS_PATH，所以单元测试可以替换它。
+    The default is read at call time, so unit tests can monkeypatch SPLITS_PATH.）
+
+    如果你 *有意* 修改了清洗规则并接受新的划分，删除对应的划分文件后重新运行。
     注意：划分改变后，之前所有模型的结果都要用新划分重新跑，否则对比不公平。
-    If you INTENTIONALLY changed the cleaning and accept a new split, delete
-    data/processed/splits.csv and re-run — then re-run every model on the new split.
+    If you INTENTIONALLY changed the cleaning and accept a new split, delete the
+    split file and re-run — then re-run every model on the new split.
     """
+    path = SPLITS_PATH if path is None else path
     current = df[['doc_id', 'split']].sort_values('doc_id').reset_index(drop=True)
-    if not SPLITS_PATH.exists():
-        PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
-        current.to_csv(SPLITS_PATH, index=False)
+    if not path.exists():
+        path.parent.mkdir(parents=True, exist_ok=True)
+        current.to_csv(path, index=False)
         return
 
-    saved = pd.read_csv(SPLITS_PATH, keep_default_na=False)
+    saved = pd.read_csv(path, keep_default_na=False)
     saved = saved.sort_values('doc_id').reset_index(drop=True)
     if not current.equals(saved):
         raise RuntimeError(
-            'The rebuilt train/val/test split differs from data/processed/splits.csv. '
-            'If the cleaning change was intentional, delete splits.csv, rebuild, and '
+            f'The rebuilt train/val/test split differs from {path.name}. '
+            f'If the cleaning change was intentional, delete {path.name}, rebuild, and '
             're-run ALL models so they share the new split.')

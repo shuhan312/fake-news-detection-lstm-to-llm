@@ -34,6 +34,7 @@ fake-news-detection-lstm-to-llm/
 ├── src/
 │   ├── data.py           # Shared pipeline: symmetric cleaning, de-dup, grouped split
 │   ├── external.py       # External datasets: download, MD5 check, same cleaning, ISOT-overlap removal
+│   ├── baselines.py      # TF-IDF + logistic regression, C selection, metrics, bootstrap CIs
 │   ├── probes.py         # Leakage-audit tools (artefact rates, shortcut probes)
 │   └── utils.py          # set_seed()
 ├── tests/                # Unit tests for the cleaning rules (python -m pytest tests/)
