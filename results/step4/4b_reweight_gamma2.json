@@ -1,0 +1,47 @@
+{
+  "name": "4b_reweight_gamma2",
+  "C": 16.0,
+  "gamma": 2.0,
+  "bias_model_oof_accuracy": 0.9606227860614548,
+  "weight_quantiles": {
+    "0.1": 0.030138446445826955,
+    "0.5": 0.030138446445826955,
+    "0.9": 1.7218774399615402,
+    "0.99": 22.169524558299596
+  },
+  "metrics": {
+    "ISOT val": {
+      "n": 6074,
+      "real %": 55.0,
+      "majority baseline %": 55.0,
+      "accuracy %": 96.7,
+      "balanced accuracy %": 96.7,
+      "AUC": 0.995,
+      "F1 fake": 0.963,
+      "F1 real": 0.969,
+      "predicted real %": 53.8
+    },
+    "WELFake val": {
+      "n": 3775,
+      "real %": 57.9,
+      "majority baseline %": 57.9,
+      "accuracy %": 53.7,
+      "balanced accuracy %": 58.4,
+      "AUC": 0.678,
+      "F1 fake": 0.617,
+      "F1 real": 0.414,
+      "predicted real %": 21.2
+    },
+    "WELFake test": {
+      "n": 4691,
+      "real %": 56.1,
+      "majority baseline %": 56.1,
+      "accuracy %": 55.4,
+      "balanced accuracy %": 59.1,
+      "AUC": 0.679,
+      "F1 fake": 0.638,
+      "F1 real": 0.42,
+      "predicted real %": 20.9
+    }
+  }
+}

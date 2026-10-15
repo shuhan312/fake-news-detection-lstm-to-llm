@@ -1,0 +1,21 @@
+{
+  "name": "4c_breitbart_isot_only",
+  "held_out": "Breitbart",
+  "n_train": 37628,
+  "n_test_real": 440,
+  "n_test_fake": 2060,
+  "C": 64.0,
+  "metrics": {
+    "held-out Breitbart + fakes": {
+      "n": 2500,
+      "real %": 17.6,
+      "majority baseline %": 82.4,
+      "accuracy %": 76.7,
+      "balanced accuracy %": 50.6,
+      "AUC": 0.605,
+      "F1 fake": 0.865,
+      "F1 real": 0.136,
+      "predicted real %": 9.4
+    }
+  }
+}

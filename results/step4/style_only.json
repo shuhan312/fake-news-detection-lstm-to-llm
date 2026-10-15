@@ -1,0 +1,39 @@
+{
+  "name": "style_only",
+  "C": 64.0,
+  "metrics": {
+    "ISOT val": {
+      "n": 6074,
+      "real %": 55.0,
+      "majority baseline %": 55.0,
+      "accuracy %": 96.6,
+      "balanced accuracy %": 96.6,
+      "AUC": 0.993,
+      "F1 fake": 0.962,
+      "F1 real": 0.969,
+      "predicted real %": 55.2
+    },
+    "WELFake val": {
+      "n": 3775,
+      "real %": 57.9,
+      "majority baseline %": 57.9,
+      "accuracy %": 51.4,
+      "balanced accuracy %": 56.4,
+      "AUC": 0.649,
+      "F1 fake": 0.606,
+      "F1 real": 0.366,
+      "predicted real %": 18.8
+    },
+    "WELFake test": {
+      "n": 4691,
+      "real %": 56.1,
+      "majority baseline %": 56.1,
+      "accuracy %": 52.2,
+      "balanced accuracy %": 56.1,
+      "AUC": 0.65,
+      "F1 fake": 0.618,
+      "F1 real": 0.36,
+      "predicted real %": 18.6
+    }
+  }
+}

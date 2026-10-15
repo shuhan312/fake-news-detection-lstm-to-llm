@@ -77,12 +77,18 @@ def _predict(model, ids, mask, device, batch_size=64):
     return np.concatenate(probs)
 
 
-def train_and_predict(config: DistilBertConfig, seed: int, train, val, eval_sets: dict):
+def train_and_predict(config: DistilBertConfig, seed: int, train, val, eval_sets: dict,
+                      sample_weight=None):
     """微调一个 (配置, 种子)，返回训练信息和每个评估集上的"真新闻概率"。
     Fine-tune one (config, seed); return training info and P(real) per eval set.
 
     和 src/lstm_model.train_and_predict 的输入输出格式完全相同，方便统一管理实验。
     Same inputs / outputs as src/lstm_model.train_and_predict.
+
+    sample_weight：每篇训练文章的权重（第 4 步 4b 去偏重加权用）。None 时所有文章权重相同，
+    和原来的训练完全一样。
+    sample_weight: per-article training weights (step 4b). None = equal weights,
+    identical to the original training.
     """
     import torch
     from torch.optim import AdamW
@@ -100,6 +106,8 @@ def train_and_predict(config: DistilBertConfig, seed: int, train, val, eval_sets
     train_ids, train_mask = _encode(tokenizer, train['model_text'], config.max_length)
     val_ids, val_mask = _encode(tokenizer, val['model_text'], config.max_length)
     train_y = torch.tensor(train['label'].to_numpy())
+    train_w = torch.tensor(np.ones(len(train)) if sample_weight is None else np.asarray(sample_weight),
+                           dtype=torch.float32)
     val_y = val['label'].to_numpy()
 
     optimizer = AdamW(model.parameters(), lr=config.learning_rate, weight_decay=config.weight_decay)
@@ -121,14 +129,20 @@ def train_and_predict(config: DistilBertConfig, seed: int, train, val, eval_sets
         epoch_loss = 0.0
         for i in range(0, len(order), config.batch_size):
             batch = order[i:i + config.batch_size]
-            out = model(input_ids=train_ids[batch].to(device),
-                        attention_mask=train_mask[batch].to(device),
-                        labels=train_y[batch].to(device))
+            logits = model(input_ids=train_ids[batch].to(device),
+                           attention_mask=train_mask[batch].to(device)).logits
+            # 逐篇计算交叉熵，再按权重加权平均。权重全为 1 时，等于原来的平均 loss。
+            # Per-article cross-entropy, then a weighted mean; with all weights = 1
+            # this equals the original mean loss.
+            per_article = torch.nn.functional.cross_entropy(logits, train_y[batch].to(device),
+                                                            reduction='none')
+            w = train_w[batch].to(device)
+            loss = (per_article * w).sum() / w.sum()
             optimizer.zero_grad()
-            out.loss.backward()
+            loss.backward()
             optimizer.step()
             scheduler.step()
-            epoch_loss += out.loss.item() * len(batch)
+            epoch_loss += loss.item() * len(batch)
 
         # 每个 epoch 结束后在 *验证集* 上评估；保留验证 loss 最低的那一版权重
         # After each epoch, score the VALIDATION set; keep the lowest-val-loss weights

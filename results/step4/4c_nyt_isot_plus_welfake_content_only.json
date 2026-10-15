@@ -1,0 +1,21 @@
+{
+  "name": "4c_nyt_isot_plus_welfake_content_only",
+  "held_out": "The New York Times",
+  "n_train": 35195,
+  "n_test_real": 1251,
+  "n_test_fake": 2060,
+  "C": 64.0,
+  "metrics": {
+    "held-out The New York Times + fakes": {
+      "n": 3311,
+      "real %": 37.8,
+      "majority baseline %": 62.2,
+      "accuracy %": 89.7,
+      "balanced accuracy %": 88.3,
+      "AUC": 0.96,
+      "F1 fake": 0.919,
+      "F1 real": 0.858,
+      "predicted real %": 34.9
+    }
+  }
+}
