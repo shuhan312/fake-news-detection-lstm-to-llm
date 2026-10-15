@@ -227,3 +227,6 @@ data/processed/clean_dataset_meta.json
 
 # External datasets (downloaded and MD5-checked by src/external.py; LIAR is research-use only)
 data/external/
+
+# Training logs (results JSON/NPZ files are kept)
+results/experiments/logs/
