@@ -16,7 +16,7 @@ from src import experiments, lstm_model  # noqa: E402
 def test_ablation_ladder_changes_exactly_one_setting_per_step():
     # 消融实验的前提：每一步只比上一步多改一项设置（name / description 除外）
     # The point of the ablation: each step changes exactly ONE setting
-    ladder = [lstm_model.CONFIGS[n] for n in ('A0', 'A1', 'A2', 'A3', 'A4', 'A5')]
+    ladder = [lstm_model.CONFIGS[n] for n in lstm_model.LADDER]
     for prev, cur in zip(ladder, ladder[1:]):
         a, b = lstm_model.config_dict(prev), lstm_model.config_dict(cur)
         changed = [k for k in a if k not in ('name', 'description') and a[k] != b[k]]
@@ -38,3 +38,13 @@ def test_summarize_reports_mean_std_and_seed_count():
     row = experiments.summarize(results).loc[('lstm', 'A0', 'ISOT test')]
     assert row['accuracy %'] == '98.0 ± 1.0'
     assert row['seeds'] == 3
+
+
+def test_new_settings_keep_a0_to_a5_unchanged():
+    # A6 新增的设置，默认值必须等于原论文 / Keras 默认，否则已经跑完的 A0–A5 结果就和代码对不上了
+    # A6's new settings must default to the paper / Keras values, or the finished
+    # A0–A5 results would no longer match the code
+    for name in lstm_model.LADDER:
+        c = lstm_model.CONFIGS[name]
+        assert (c.padding, c.mask_zero, c.learning_rate, c.clipnorm) == ('pre', False, 1e-3, None)
+    assert 'A6' in lstm_model.CONFIGS and 'A6' not in lstm_model.LADDER

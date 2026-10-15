@@ -1,0 +1,97 @@
+{
+  "model": "lstm",
+  "config": "A2",
+  "seed": 43,
+  "config_detail": {
+    "name": "A2",
+    "description": "+ Bidirectional",
+    "vocab_size": 5000,
+    "oov_token": true,
+    "maxlen": 200,
+    "truncating": "pre",
+    "embedding_dim": 100,
+    "lstm_units": 128,
+    "bidirectional": true,
+    "dense_dropout": 0.5
+  },
+  "info": {
+    "epochs_run": 7,
+    "best_epoch": 4,
+    "train_seconds": 1758.4,
+    "history": {
+      "accuracy": [
+        0.86712,
+        0.92676,
+        0.94374,
+        0.9591,
+        0.95428,
+        0.96837,
+        0.97253
+      ],
+      "loss": [
+        0.32735,
+        0.21175,
+        0.16197,
+        0.11823,
+        0.13194,
+        0.09637,
+        0.08287
+      ],
+      "val_accuracy": [
+        0.93283,
+        0.93826,
+        0.9483,
+        0.94797,
+        0.94155,
+        0.946,
+        0.94419
+      ],
+      "val_loss": [
+        0.19187,
+        0.17789,
+        0.15395,
+        0.15242,
+        0.17562,
+        0.1906,
+        0.1711
+      ]
+    }
+  },
+  "metrics": {
+    "ISOT val": {
+      "n": 6074,
+      "real %": 55.0,
+      "majority baseline %": 55.0,
+      "accuracy %": 94.8,
+      "balanced accuracy %": 94.6,
+      "AUC": 0.985,
+      "F1 fake": 0.941,
+      "F1 real": 0.953,
+      "predicted real %": 56.2
+    },
+    "ISOT test": {
+      "n": 7630,
+      "real %": 55.0,
+      "majority baseline %": 55.0,
+      "accuracy %": 94.8,
+      "balanced accuracy %": 94.6,
+      "AUC": 0.983,
+      "F1 fake": 0.941,
+      "F1 real": 0.953,
+      "predicted real %": 56.5
+    },
+    "WELFake test": {
+      "n": 4691,
+      "real %": 56.1,
+      "majority baseline %": 56.1,
+      "accuracy %": 54.9,
+      "balanced accuracy %": 58.2,
+      "AUC": 0.627,
+      "F1 fake": 0.624,
+      "F1 real": 0.438,
+      "predicted real %": 24.1
+    }
+  },
+  "finished_at": "2026-10-15T16:57:19",
+  "machine": "macOS-27.0.1-arm64-arm-64bit"
+}

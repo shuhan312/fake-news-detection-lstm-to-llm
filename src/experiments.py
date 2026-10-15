@@ -71,7 +71,9 @@ def _save(model, config_name, seed, config, info, probs, doc_ids):
     path.with_suffix('.json').write_text(json.dumps(record, indent=2))
     np.savez_compressed(path.with_suffix('.npz'),
                         **{f'prob::{k}': v for k, v in probs.items()},
-                        **{f'doc_id::{k}': np.asarray(v) for k, v in doc_ids['ids'].items()})
+                        # doc_id 存成普通字符串数组（不是 Python 对象数组），读取时就不需要 pickle
+                        # Store doc_ids as a plain string array (not objects), so no pickle is needed
+                        **{f'doc_id::{k}': np.asarray(v, dtype=str) for k, v in doc_ids['ids'].items()})
     return metrics
 
 
@@ -147,9 +149,13 @@ def load_results() -> pd.DataFrame:
 def load_probs(model: str, config: str, seed: int) -> dict:
     """读取一次运行的逐篇概率：{评估集: (doc_id 数组, 概率数组)}。
     Per-article probabilities of one run: {eval set: (doc_ids, probs)}."""
-    data = np.load(result_path(model, config, seed).with_suffix('.npz'), allow_pickle=False)
+    # allow_pickle=True 只是为了兼容早期保存的文件（doc_id 曾存成对象数组）。
+    # 这些文件都是本项目自己生成的，可以信任；不要用这个函数读取来源不明的 .npz 文件。
+    # allow_pickle=True only for early files that stored doc_ids as object arrays.
+    # They are produced by this project; never use this on untrusted .npz files.
+    data = np.load(result_path(model, config, seed).with_suffix('.npz'), allow_pickle=True)
     names = [k.split('::', 1)[1] for k in data.files if k.startswith('prob::')]
-    return {n: (data[f'doc_id::{n}'], data[f'prob::{n}']) for n in names}
+    return {n: (data[f'doc_id::{n}'].astype(str), data[f'prob::{n}']) for n in names}
 
 
 def summarize(results: pd.DataFrame, metrics=('accuracy %', 'balanced accuracy %', 'AUC')) -> pd.DataFrame:

@@ -1,0 +1,49 @@
+{
+  "model": "tfidf",
+  "config": "C64",
+  "seed": 0,
+  "config_detail": {
+    "C": 64.0
+  },
+  "info": {
+    "C": 64.0,
+    "train_seconds": 34.9
+  },
+  "metrics": {
+    "ISOT val": {
+      "n": 6074,
+      "real %": 55.0,
+      "majority baseline %": 55.0,
+      "accuracy %": 98.6,
+      "balanced accuracy %": 98.5,
+      "AUC": 0.998,
+      "F1 fake": 0.984,
+      "F1 real": 0.987,
+      "predicted real %": 55.3
+    },
+    "ISOT test": {
+      "n": 7630,
+      "real %": 55.0,
+      "majority baseline %": 55.0,
+      "accuracy %": 98.7,
+      "balanced accuracy %": 98.6,
+      "AUC": 0.999,
+      "F1 fake": 0.985,
+      "F1 real": 0.988,
+      "predicted real %": 55.5
+    },
+    "WELFake test": {
+      "n": 4691,
+      "real %": 56.1,
+      "majority baseline %": 56.1,
+      "accuracy %": 56.7,
+      "balanced accuracy %": 60.4,
+      "AUC": 0.714,
+      "F1 fake": 0.648,
+      "F1 real": 0.438,
+      "predicted real %": 20.9
+    }
+  },
+  "finished_at": "2026-10-15T11:38:52",
+  "machine": "macOS-27.0.1-arm64-arm-64bit"
+}

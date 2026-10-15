@@ -1,0 +1,105 @@
+{
+  "model": "lstm",
+  "config": "A1",
+  "seed": 44,
+  "config_detail": {
+    "name": "A1",
+    "description": "+ OOV token",
+    "vocab_size": 5000,
+    "oov_token": true,
+    "maxlen": 200,
+    "truncating": "pre",
+    "embedding_dim": 100,
+    "lstm_units": 128,
+    "bidirectional": false,
+    "dense_dropout": 0.5
+  },
+  "info": {
+    "epochs_run": 9,
+    "best_epoch": 6,
+    "train_seconds": 1304.5,
+    "history": {
+      "accuracy": [
+        0.87231,
+        0.91235,
+        0.94073,
+        0.95391,
+        0.95893,
+        0.96795,
+        0.97442,
+        0.97323,
+        0.97817
+      ],
+      "loss": [
+        0.31677,
+        0.24515,
+        0.17811,
+        0.13956,
+        0.12675,
+        0.09961,
+        0.08106,
+        0.08081,
+        0.06717
+      ],
+      "val_accuracy": [
+        0.91538,
+        0.92361,
+        0.93217,
+        0.93102,
+        0.94106,
+        0.9488,
+        0.93876,
+        0.94402,
+        0.94172
+      ],
+      "val_loss": [
+        0.24588,
+        0.2064,
+        0.19477,
+        0.19808,
+        0.19017,
+        0.18982,
+        0.23939,
+        0.23791,
+        0.24308
+      ]
+    }
+  },
+  "metrics": {
+    "ISOT val": {
+      "n": 6074,
+      "real %": 55.0,
+      "majority baseline %": 55.0,
+      "accuracy %": 94.9,
+      "balanced accuracy %": 94.8,
+      "AUC": 0.982,
+      "F1 fake": 0.943,
+      "F1 real": 0.953,
+      "predicted real %": 55.0
+    },
+    "ISOT test": {
+      "n": 7630,
+      "real %": 55.0,
+      "majority baseline %": 55.0,
+      "accuracy %": 94.6,
+      "balanced accuracy %": 94.5,
+      "AUC": 0.981,
+      "F1 fake": 0.94,
+      "F1 real": 0.951,
+      "predicted real %": 55.5
+    },
+    "WELFake test": {
+      "n": 4691,
+      "real %": 56.1,
+      "majority baseline %": 56.1,
+      "accuracy %": 52.9,
+      "balanced accuracy %": 56.3,
+      "AUC": 0.628,
+      "F1 fake": 0.612,
+      "F1 real": 0.399,
+      "predicted real %": 22.3
+    }
+  },
+  "finished_at": "2026-10-15T15:56:58",
+  "machine": "macOS-27.0.1-arm64-arm-64bit"
+}

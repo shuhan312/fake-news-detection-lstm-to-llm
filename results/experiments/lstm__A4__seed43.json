@@ -1,0 +1,85 @@
+{
+  "model": "lstm",
+  "config": "A4",
+  "seed": 43,
+  "config_detail": {
+    "name": "A4",
+    "description": "+ Dropout 0.6 (= notebook 02 BiLSTM)",
+    "vocab_size": 5000,
+    "oov_token": true,
+    "maxlen": 300,
+    "truncating": "pre",
+    "embedding_dim": 100,
+    "lstm_units": 128,
+    "bidirectional": true,
+    "dense_dropout": 0.6
+  },
+  "info": {
+    "epochs_run": 4,
+    "best_epoch": 1,
+    "train_seconds": 1692.8,
+    "history": {
+      "accuracy": [
+        0.84797,
+        0.90325,
+        0.92022,
+        0.91536
+      ],
+      "loss": [
+        0.36911,
+        0.27765,
+        0.22555,
+        0.22323
+      ],
+      "val_accuracy": [
+        0.92065,
+        0.87883,
+        0.90188,
+        0.85479
+      ],
+      "val_loss": [
+        0.23688,
+        0.30543,
+        0.24985,
+        0.30911
+      ]
+    }
+  },
+  "metrics": {
+    "ISOT val": {
+      "n": 6074,
+      "real %": 55.0,
+      "majority baseline %": 55.0,
+      "accuracy %": 92.1,
+      "balanced accuracy %": 92.0,
+      "AUC": 0.964,
+      "F1 fake": 0.912,
+      "F1 real": 0.928,
+      "predicted real %": 54.7
+    },
+    "ISOT test": {
+      "n": 7630,
+      "real %": 55.0,
+      "majority baseline %": 55.0,
+      "accuracy %": 91.3,
+      "balanced accuracy %": 91.2,
+      "AUC": 0.961,
+      "F1 fake": 0.903,
+      "F1 real": 0.922,
+      "predicted real %": 55.4
+    },
+    "WELFake test": {
+      "n": 4691,
+      "real %": 56.1,
+      "majority baseline %": 56.1,
+      "accuracy %": 58.0,
+      "balanced accuracy %": 60.9,
+      "AUC": 0.687,
+      "F1 fake": 0.639,
+      "F1 real": 0.5,
+      "predicted real %": 27.9
+    }
+  },
+  "finished_at": "2026-10-15T14:02:32",
+  "machine": "macOS-27.0.1-arm64-arm-64bit"
+}

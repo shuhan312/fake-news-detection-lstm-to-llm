@@ -52,6 +52,13 @@ class LSTMConfig:
     lstm_units: int = 128
     bidirectional: bool = False
     dense_dropout: float = 0.5
+    # 以下设置只有 A6 会改；默认值等于原论文 / Keras 默认，所以 A0–A5 不受影响
+    # The settings below are changed only by A6; defaults equal the paper / Keras
+    # defaults, so A0–A5 are unaffected
+    padding: str = 'pre'            # 短文章在前面补 0（Keras 默认）/ pad short articles at the front
+    mask_zero: bool = False         # 是否让模型忽略补齐的 0 / let the model skip padding zeros
+    learning_rate: float = 1e-3     # Adam 默认学习率 / Adam's default
+    clipnorm: float = None          # 梯度裁剪，None = 不裁剪 / gradient clipping, None = off
 
 
 # 消融阶梯：每一步只比上一步多改一项 / Ablation ladder: one change per step
@@ -61,7 +68,25 @@ A2 = replace(A1, name='A2', description='+ Bidirectional', bidirectional=True)
 A3 = replace(A2, name='A3', description='+ maxlen 300', maxlen=300)
 A4 = replace(A3, name='A4', description='+ Dropout 0.6 (= notebook 02 BiLSTM)', dense_dropout=0.6)
 A5 = replace(A4, name='A5', description='+ keep the start (truncating=post)', truncating='post')
-CONFIGS = {c.name: c for c in (A0, A1, A2, A3, A4, A5)}
+
+# A6：调优版 BiLSTM。它 *不是* 消融阶梯的一级（一次改了多项），而是回答"把 LSTM 尽量调好，
+# 上限在哪里"。每项改动都针对 A0–A5 中诊断出的具体问题，并且只根据 ISOT 验证集来判断：
+# A6: tuned BiLSTM. NOT a ladder step (it changes several things); it asks how
+# good an LSTM can get. Each change targets a problem diagnosed in A0–A5:
+#   - 词表 5,000 → 20,000：太多词被丢掉或变成 <OOV>
+#     vocab 5k → 20k: too many words dropped / mapped to <OOV>
+#   - maxlen 400、在后面补 0、忽略补齐的 0：文章中位数约 368 词；短文章前面大量的 0
+#     也会被 LSTM 当成内容去读
+#     maxlen 400, pad at the end, mask padding: median article ~368 words, and
+#     front-padding zeros were being read as content
+#   - 学习率减半 + 梯度裁剪：部分种子在第 1 个 epoch 后就开始过拟合，训练不稳定
+#     half learning rate + gradient clipping: some seeds overfit after epoch 1
+A6 = replace(A5, name='A6', description='Tuned BiLSTM (vocab 20k, maxlen 400, masking, lr 5e-4, clipnorm 1)',
+             vocab_size=20000, maxlen=400, padding='post', mask_zero=True,
+             learning_rate=5e-4, clipnorm=1.0)
+
+LADDER = ('A0', 'A1', 'A2', 'A3', 'A4', 'A5')     # 消融阶梯 / the ablation ladder
+CONFIGS = {c.name: c for c in (A0, A1, A2, A3, A4, A5, A6)}
 
 
 def build_model(config: LSTMConfig):
@@ -77,13 +102,16 @@ def build_model(config: LSTMConfig):
     lstm = layers.LSTM(config.lstm_units, dropout=0.2, recurrent_dropout=0.2)
     model = keras.Sequential([
         keras.Input(shape=(config.maxlen,)),
-        layers.Embedding(config.vocab_size, config.embedding_dim),
+        # mask_zero=True：编号为 0 的位置（补齐用的空白）会被后面的 LSTM 跳过
+        # mask_zero=True: positions with index 0 (padding) are skipped by the LSTM
+        layers.Embedding(config.vocab_size, config.embedding_dim, mask_zero=config.mask_zero),
         layers.Bidirectional(lstm) if config.bidirectional else lstm,
         layers.Dense(64, activation='relu'),
         layers.Dropout(config.dense_dropout),
         layers.Dense(1, activation='sigmoid'),
     ])
-    model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+    optimizer = keras.optimizers.Adam(learning_rate=config.learning_rate, clipnorm=config.clipnorm)
+    model.compile(loss='binary_crossentropy', optimizer=optimizer, metrics=['accuracy'])
     return model
 
 
@@ -104,7 +132,7 @@ def make_encoder(config: LSTMConfig, train_texts):
 
     def encode(texts):
         return pad_sequences(tokenizer.texts_to_sequences(texts), maxlen=config.maxlen,
-                             truncating=config.truncating)
+                             padding=config.padding, truncating=config.truncating)
     return encode
 
 

@@ -12,7 +12,7 @@ My original paper achieved 99% accuracy and 100% AUC on the Kaggle Fake and Real
 
 1. **Reproduces** my original LSTM pipeline in a clean, documented codebase
 2. **Critically re-examines** the dataset and identifies source-leakage bias that inflated the reported metrics
-3. **Optimises** the model with a corrected dataset and improved architecture (Bidirectional LSTM), achieving 97.9% accuracy and 99.7% AUC on clean data
+3. **Re-evaluates** LSTM, BiLSTM and DistilBERT on a cleaned, de-duplicated dataset with 3 seeds each, both inside ISOT and on news from other sources (cross-dataset)
 4. **Extends** the work further with Transformer (DistilBERT) and LLM prompting experiments
 
 ## Project Structure
@@ -58,14 +58,19 @@ fake-news-detection-lstm-to-llm/
 
 ## Results Summary
 
-| Model | Accuracy | AUC | Notes |
-|-------|----------|-----|-------|
-| **LSTM (my paper)** | **99.1%** | **99.8%** | Original result — includes dataset leakage |
-| **Optimised LSTM** | **97.9%** | **99.7%** | Bidirectional LSTM on debiased data |
-| DistilBERT | — | — | In progress |
-| LLM | — | — | In progress |
+Accuracy on the ISOT test set (in-domain) and on WELFake minus ISOT (cross-dataset: real news from other outlets, never Reuters). Mean ± std over 3 seeds; TF-IDF is deterministic. WELFake's majority baseline (always "real") is **56.1%**.
 
-*Results will be updated as experiments complete.*
+| Model | ISOT test acc. | ISOT AUC | WELFake acc. | WELFake AUC | Notebook |
+|-------|---------------:|---------:|-------------:|------------:|----------|
+| LSTM, my paper (original run, leaky data) | 99.1% | 0.998 | — | — | `01` |
+| TF-IDF + logistic regression (baseline) | 98.7% | 0.999 | 56.7% | **0.714** | `05` |
+| LSTM, paper settings (A0) | 93.5 ± 1.0% | 0.975 | 54.9 ± 5.0% | 0.628 | `02` |
+| BiLSTM, old notebook 02 settings (A4) | 94.2 ± 2.6% | 0.979 | 56.6 ± 1.2% | 0.647 | `02` |
+| BiLSTM, tuned (A6) | 97.6 ± 0.4% | 0.997 | 56.4 ± 0.2% | 0.673 | `02` |
+| DistilBERT | **99.0 ± 0.3%** | 0.999 | 58.6 ± 0.7% | 0.693 | `03` |
+| LLM | — | — | — | — | in progress |
+
+Every model scores 93–99% inside ISOT but barely beats the majority baseline on other sources.
 
 ## Data
 
@@ -88,8 +93,9 @@ train, val, test = get_splits(load_dataset())   # models read the `model_text` c
 
 The split is locked in `data/processed/splits.csv` (committed); the cleaned-text cache next to it is rebuilt automatically when `src/data.py` or the raw data changes.
 
-## Key Findings (in progress)
+## Key Findings
 
-- The `subject` column is a near-perfect classifier on its own, suggesting the 99% LSTM accuracy partially reflects dataset artifacts rather than genuine language understanding.
-- DistilBERT trained without leaking features will reveal how much accuracy is attributable to content alone.
-- LLM prompting provides reasoning traces for cases where all other models fail.
+- **ISOT's labels equal its sources** (all real news is Reuters). After removing formatting artefacts and duplicates, a bag-of-words model still reaches 94% from the title alone, by recognising writing style (`04_leakage_audit`).
+- **Nothing transfers**: TF-IDF, LSTM, BiLSTM and DistilBERT all drop from 93–99% inside ISOT to 52–59% on other outlets (majority baseline 56.1%). The ISOT model calls most New York Times articles fake (`05`, `02`, `03`).
+- **Architecture is not the bottleneck**: DistilBERT ties TF-IDF in-domain and transfers no better (its WELFake AUC is reliably lower). The old notebook 02 "optimisations" are mostly within seed noise; the largest single gain is keeping the start of each article (Keras keeps the end by default).
+- Next: methods that reduce reliance on source style (content-only input, de-biasing, multi-source training with a held-out outlet), then evidence-based LLM fact-checking.

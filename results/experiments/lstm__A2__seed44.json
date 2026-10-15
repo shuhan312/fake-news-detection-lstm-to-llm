@@ -1,0 +1,101 @@
+{
+  "model": "lstm",
+  "config": "A2",
+  "seed": 44,
+  "config_detail": {
+    "name": "A2",
+    "description": "+ Bidirectional",
+    "vocab_size": 5000,
+    "oov_token": true,
+    "maxlen": 200,
+    "truncating": "pre",
+    "embedding_dim": 100,
+    "lstm_units": 128,
+    "bidirectional": true,
+    "dense_dropout": 0.5
+  },
+  "info": {
+    "epochs_run": 8,
+    "best_epoch": 5,
+    "train_seconds": 1809.1,
+    "history": {
+      "accuracy": [
+        0.88648,
+        0.94003,
+        0.94958,
+        0.9619,
+        0.9586,
+        0.97043,
+        0.97838,
+        0.98328
+      ],
+      "loss": [
+        0.29088,
+        0.17552,
+        0.14919,
+        0.11752,
+        0.11803,
+        0.08964,
+        0.06336,
+        0.0525
+      ],
+      "val_accuracy": [
+        0.93727,
+        0.94896,
+        0.94369,
+        0.94435,
+        0.95538,
+        0.94221,
+        0.9409,
+        0.93069
+      ],
+      "val_loss": [
+        0.17484,
+        0.16458,
+        0.16422,
+        0.16702,
+        0.15266,
+        0.17504,
+        0.2105,
+        0.2113
+      ]
+    }
+  },
+  "metrics": {
+    "ISOT val": {
+      "n": 6074,
+      "real %": 55.0,
+      "majority baseline %": 55.0,
+      "accuracy %": 95.5,
+      "balanced accuracy %": 95.5,
+      "AUC": 0.986,
+      "F1 fake": 0.95,
+      "F1 real": 0.959,
+      "predicted real %": 55.0
+    },
+    "ISOT test": {
+      "n": 7630,
+      "real %": 55.0,
+      "majority baseline %": 55.0,
+      "accuracy %": 95.1,
+      "balanced accuracy %": 95.0,
+      "AUC": 0.984,
+      "F1 fake": 0.945,
+      "F1 real": 0.956,
+      "predicted real %": 55.3
+    },
+    "WELFake test": {
+      "n": 4691,
+      "real %": 56.1,
+      "majority baseline %": 56.1,
+      "accuracy %": 53.1,
+      "balanced accuracy %": 56.5,
+      "AUC": 0.605,
+      "F1 fake": 0.613,
+      "F1 real": 0.407,
+      "predicted real %": 23.0
+    }
+  },
+  "finished_at": "2026-10-15T17:27:56",
+  "machine": "macOS-27.0.1-arm64-arm-64bit"
+}

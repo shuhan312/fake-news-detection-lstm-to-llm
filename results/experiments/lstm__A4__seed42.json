@@ -1,0 +1,109 @@
+{
+  "model": "lstm",
+  "config": "A4",
+  "seed": 42,
+  "config_detail": {
+    "name": "A4",
+    "description": "+ Dropout 0.6 (= notebook 02 BiLSTM)",
+    "vocab_size": 5000,
+    "oov_token": true,
+    "maxlen": 300,
+    "truncating": "pre",
+    "embedding_dim": 100,
+    "lstm_units": 128,
+    "bidirectional": true,
+    "dense_dropout": 0.6
+  },
+  "info": {
+    "epochs_run": 10,
+    "best_epoch": 9,
+    "train_seconds": 4102.2,
+    "history": {
+      "accuracy": [
+        0.86255,
+        0.92672,
+        0.91396,
+        0.88726,
+        0.91634,
+        0.94971,
+        0.96359,
+        0.97174,
+        0.97681,
+        0.95659
+      ],
+      "loss": [
+        0.35077,
+        0.2233,
+        0.25067,
+        0.29603,
+        0.23188,
+        0.14561,
+        0.11421,
+        0.09347,
+        0.07553,
+        0.12744
+      ],
+      "val_accuracy": [
+        0.93316,
+        0.94633,
+        0.7807,
+        0.9297,
+        0.95044,
+        0.94765,
+        0.9595,
+        0.95555,
+        0.96279,
+        0.96115
+      ],
+      "val_loss": [
+        0.19821,
+        0.18162,
+        0.47898,
+        0.20161,
+        0.15482,
+        0.15665,
+        0.12412,
+        0.12831,
+        0.11636,
+        0.12135
+      ]
+    }
+  },
+  "metrics": {
+    "ISOT val": {
+      "n": 6074,
+      "real %": 55.0,
+      "majority baseline %": 55.0,
+      "accuracy %": 96.3,
+      "balanced accuracy %": 96.1,
+      "AUC": 0.992,
+      "F1 fake": 0.958,
+      "F1 real": 0.967,
+      "predicted real %": 56.8
+    },
+    "ISOT test": {
+      "n": 7630,
+      "real %": 55.0,
+      "majority baseline %": 55.0,
+      "accuracy %": 96.1,
+      "balanced accuracy %": 95.8,
+      "AUC": 0.991,
+      "F1 fake": 0.955,
+      "F1 real": 0.965,
+      "predicted real %": 57.2
+    },
+    "WELFake test": {
+      "n": 4691,
+      "real %": 56.1,
+      "majority baseline %": 56.1,
+      "accuracy %": 55.7,
+      "balanced accuracy %": 58.8,
+      "AUC": 0.633,
+      "F1 fake": 0.625,
+      "F1 real": 0.458,
+      "predicted real %": 25.6
+    }
+  },
+  "finished_at": "2026-10-15T13:32:55",
+  "machine": "macOS-27.0.1-arm64-arm-64bit"
+}

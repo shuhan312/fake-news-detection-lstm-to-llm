@@ -1,0 +1,75 @@
+{
+  "model": "distilbert",
+  "config": "DistilBERT",
+  "seed": 44,
+  "config_detail": {
+    "name": "DistilBERT",
+    "description": "distilbert-base-uncased, max_length 128 (notebook 03 settings)",
+    "checkpoint": "distilbert-base-uncased",
+    "max_length": 128,
+    "batch_size": 16,
+    "learning_rate": 2e-05,
+    "weight_decay": 0.01,
+    "epochs": 3,
+    "warmup_fraction": 0.1
+  },
+  "info": {
+    "epochs_run": 3,
+    "best_epoch": 2,
+    "train_seconds": 7620.1,
+    "history": {
+      "loss": [
+        0.12702,
+        0.02447,
+        0.0061
+      ],
+      "val_loss": [
+        0.05665,
+        0.0353,
+        0.03909
+      ],
+      "val_accuracy": [
+        0.98321,
+        0.98716,
+        0.98946
+      ]
+    }
+  },
+  "metrics": {
+    "ISOT val": {
+      "n": 6074,
+      "real %": 55.0,
+      "majority baseline %": 55.0,
+      "accuracy %": 98.7,
+      "balanced accuracy %": 98.7,
+      "AUC": 0.999,
+      "F1 fake": 0.986,
+      "F1 real": 0.988,
+      "predicted real %": 54.7
+    },
+    "ISOT test": {
+      "n": 7630,
+      "real %": 55.0,
+      "majority baseline %": 55.0,
+      "accuracy %": 99.0,
+      "balanced accuracy %": 99.0,
+      "AUC": 0.999,
+      "F1 fake": 0.989,
+      "F1 real": 0.991,
+      "predicted real %": 54.9
+    },
+    "WELFake test": {
+      "n": 4691,
+      "real %": 56.1,
+      "majority baseline %": 56.1,
+      "accuracy %": 58.3,
+      "balanced accuracy %": 61.7,
+      "AUC": 0.688,
+      "F1 fake": 0.655,
+      "F1 real": 0.472,
+      "predicted real %": 23.0
+    }
+  },
+  "finished_at": "2026-10-15T17:24:53",
+  "machine": "macOS-27.0.1-arm64-arm-64bit"
+}

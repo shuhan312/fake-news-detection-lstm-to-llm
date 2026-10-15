@@ -1,0 +1,97 @@
+{
+  "model": "lstm",
+  "config": "A6",
+  "seed": 44,
+  "config_detail": {
+    "name": "A6",
+    "description": "Tuned BiLSTM (vocab 20k, maxlen 400, masking, lr 5e-4, clipnorm 1)",
+    "vocab_size": 20000,
+    "oov_token": true,
+    "maxlen": 400,
+    "truncating": "post",
+    "embedding_dim": 100,
+    "lstm_units": 128,
+    "bidirectional": true,
+    "dense_dropout": 0.6,
+    "padding": "post",
+    "mask_zero": true,
+    "learning_rate": 0.0005,
+    "clipnorm": 1.0
+  },
+  "info": {
+    "epochs_run": 6,
+    "best_epoch": 3,
+    "train_seconds": 1418.8,
+    "history": {
+      "accuracy": [
+        0.90551,
+        0.98237,
+        0.99098,
+        0.9946,
+        0.99662,
+        0.99666
+      ],
+      "loss": [
+        0.24058,
+        0.06048,
+        0.03198,
+        0.02019,
+        0.01292,
+        0.01035
+      ],
+      "val_accuracy": [
+        0.96954,
+        0.97366,
+        0.97909,
+        0.97744,
+        0.97893,
+        0.97777
+      ],
+      "val_loss": [
+        0.0907,
+        0.06983,
+        0.06928,
+        0.08733,
+        0.08755,
+        0.09698
+      ]
+    }
+  },
+  "metrics": {
+    "ISOT val": {
+      "n": 6074,
+      "real %": 55.0,
+      "majority baseline %": 55.0,
+      "accuracy %": 97.9,
+      "balanced accuracy %": 97.9,
+      "AUC": 0.998,
+      "F1 fake": 0.977,
+      "F1 real": 0.981,
+      "predicted real %": 55.3
+    },
+    "ISOT test": {
+      "n": 7630,
+      "real %": 55.0,
+      "majority baseline %": 55.0,
+      "accuracy %": 98.0,
+      "balanced accuracy %": 97.9,
+      "AUC": 0.998,
+      "F1 fake": 0.977,
+      "F1 real": 0.982,
+      "predicted real %": 55.7
+    },
+    "WELFake test": {
+      "n": 4691,
+      "real %": 56.1,
+      "majority baseline %": 56.1,
+      "accuracy %": 56.6,
+      "balanced accuracy %": 59.4,
+      "AUC": 0.676,
+      "F1 fake": 0.625,
+      "F1 real": 0.484,
+      "predicted real %": 28.0
+    }
+  },
+  "finished_at": "2026-10-15T20:50:01",
+  "machine": "macOS-27.0.1-arm64-arm-64bit"
+}
