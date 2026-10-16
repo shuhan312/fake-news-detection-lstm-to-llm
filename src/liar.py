@@ -45,6 +45,15 @@ RESULTS_DIR = PROJECT_ROOT / 'results' / 'liar'
 # 99.95% and is about twice as fast as ISOT's 128.
 LIAR_MAX_LENGTH = 64
 
+# LIAR 的 C 搜索范围向下扩展：第一次运行时，默认范围（0.25–256）选中了最小的 0.25，落在边界上。
+# LIAR 很小（1 万条、每条十几个词），需要更强的正则化（更小的 C）。
+# The C grid extends downwards: with the default grid (0.25–256) LIAR picked
+# the smallest value, 0.25 — on the edge. LIAR is small (10k short statements)
+# and needs stronger regularisation (smaller C).
+# 扩展后 0.25 仍然最好，并且落在范围内部（0.0625 和 1.0 都更差），说明调参充分。
+# With the extended grid 0.25 is still best and now interior (0.0625 and 1.0 are worse).
+LIAR_C_GRID = (0.004, 0.016, 0.0625, 0.25, 1.0, 4.0)
+
 
 def _splits():
     liar = load_liar()
@@ -69,13 +78,17 @@ def run_tfidf():
     train, val, test = _splits()
     eval_sets = {'LIAR val': val, 'LIAR test': test}
 
-    C, table = B.select_C(train, val)
+    C, table = B.select_C(train, val, grid=LIAR_C_GRID)
     vec, clf = B.fit_tfidf_lr(train, C)
     _save('tfidf_liar', eval_sets, {k: B.predict_proba_real(vec, clf, d) for k, d in eval_sets.items()},
           {'C': C, 'C_table': table.reset_index().to_dict('records')})
 
     # ISOT 模型 → LIAR：ISOT 是几百词的整篇文章，LIAR 是一句话，格式差别很大，结果只作参考
     # ISOT model → LIAR: whole articles vs one sentence, so this is only indicative
+    # （C 在 ISOT 上选择，和 LIAR 的范围无关；已完成就跳过 / C is chosen on ISOT; skipped if done）
+    if (RESULTS_DIR / 'tfidf_isot.json').exists():
+        print('skip tfidf_isot (done)', flush=True)
+        return
     from src.data import get_splits, load_dataset
     isot_train, isot_val, _ = get_splits(load_dataset(verbose=False))
     C_isot, _ = B.select_C(isot_train, isot_val)
