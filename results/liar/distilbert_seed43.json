@@ -1,0 +1,61 @@
+{
+  "name": "distilbert_seed43",
+  "seed": 43,
+  "config": {
+    "name": "DistilBERT-LIAR",
+    "description": "distilbert-base-uncased on LIAR, max_length 64",
+    "checkpoint": "distilbert-base-uncased",
+    "max_length": 64,
+    "batch_size": 16,
+    "learning_rate": 2e-05,
+    "weight_decay": 0.01,
+    "epochs": 3,
+    "warmup_fraction": 0.1
+  },
+  "info": {
+    "epochs_run": 3,
+    "best_epoch": 2,
+    "train_seconds": 11803.3,
+    "history": {
+      "loss": [
+        0.666,
+        0.60887,
+        0.49295
+      ],
+      "val_loss": [
+        0.65131,
+        0.64576,
+        0.71327
+      ],
+      "val_accuracy": [
+        0.62928,
+        0.63318,
+        0.62928
+      ]
+    }
+  },
+  "metrics": {
+    "LIAR val": {
+      "n": 1284,
+      "real %": 52.0,
+      "majority baseline %": 52.0,
+      "accuracy %": 63.3,
+      "balanced accuracy %": 63.0,
+      "AUC": 0.682,
+      "F1 fake": 0.593,
+      "F1 real": 0.666,
+      "predicted real %": 57.9
+    },
+    "LIAR test": {
+      "n": 1283,
+      "real %": 56.7,
+      "majority baseline %": 56.7,
+      "accuracy %": 65.0,
+      "balanced accuracy %": 63.8,
+      "AUC": 0.687,
+      "F1 fake": 0.574,
+      "F1 real": 0.703,
+      "predicted real %": 61.1
+    }
+  }
+}

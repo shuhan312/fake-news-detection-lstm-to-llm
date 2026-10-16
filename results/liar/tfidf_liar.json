@@ -1,0 +1,60 @@
+{
+  "name": "tfidf_liar",
+  "C": 0.25,
+  "C_table": [
+    {
+      "C": 0.004,
+      "val accuracy %": 52.0249,
+      "val AUC": 0.6708
+    },
+    {
+      "C": 0.016,
+      "val accuracy %": 52.0249,
+      "val AUC": 0.6722
+    },
+    {
+      "C": 0.0625,
+      "val accuracy %": 54.8287,
+      "val AUC": 0.6766
+    },
+    {
+      "C": 0.25,
+      "val accuracy %": 62.1495,
+      "val AUC": 0.681
+    },
+    {
+      "C": 1.0,
+      "val accuracy %": 62.3053,
+      "val AUC": 0.6769
+    },
+    {
+      "C": 4.0,
+      "val accuracy %": 62.6947,
+      "val AUC": 0.6608
+    }
+  ],
+  "metrics": {
+    "LIAR val": {
+      "n": 1284,
+      "real %": 52.0,
+      "majority baseline %": 52.0,
+      "accuracy %": 62.1,
+      "balanced accuracy %": 61.2,
+      "AUC": 0.681,
+      "F1 fake": 0.484,
+      "F1 real": 0.701,
+      "predicted real %": 74.6
+    },
+    "LIAR test": {
+      "n": 1283,
+      "real %": 56.7,
+      "majority baseline %": 56.7,
+      "accuracy %": 62.5,
+      "balanced accuracy %": 58.9,
+      "AUC": 0.672,
+      "F1 fake": 0.421,
+      "F1 real": 0.723,
+      "predicted real %": 78.6
+    }
+  }
+}

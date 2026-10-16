@@ -1,0 +1,74 @@
+{
+  "name": "distilbert_4c_seed44",
+  "method": "4c",
+  "held_out": "The New York Times",
+  "seed": 44,
+  "info": {
+    "epochs_run": 3,
+    "best_epoch": 2,
+    "train_seconds": 5380.2,
+    "history": {
+      "loss": [
+        0.22723,
+        0.08263,
+        0.02861
+      ],
+      "val_loss": [
+        0.13904,
+        0.12791,
+        0.1406
+      ],
+      "val_accuracy": [
+        0.94807,
+        0.95374,
+        0.95997
+      ]
+    }
+  },
+  "metrics": {
+    "mixed val": {
+      "n": 8819,
+      "real %": 51.0,
+      "majority baseline %": 51.0,
+      "accuracy %": 95.4,
+      "balanced accuracy %": 95.4,
+      "AUC": 0.992,
+      "F1 fake": 0.954,
+      "F1 real": 0.954,
+      "predicted real %": 48.9
+    },
+    "held-out The New York Times + fakes": {
+      "n": 3311,
+      "real %": 37.8,
+      "majority baseline %": 62.2,
+      "accuracy %": 89.2,
+      "balanced accuracy %": 86.3,
+      "AUC": 0.975,
+      "F1 fake": 0.918,
+      "F1 real": 0.838,
+      "predicted real %": 29.3
+    },
+    "WELFake val": {
+      "n": 3775,
+      "real %": 57.9,
+      "majority baseline %": 57.9,
+      "accuracy %": 85.3,
+      "balanced accuracy %": 86.9,
+      "AUC": 0.977,
+      "F1 fake": 0.848,
+      "F1 real": 0.857,
+      "predicted real %": 45.2
+    },
+    "WELFake test": {
+      "n": 4691,
+      "real %": 56.1,
+      "majority baseline %": 56.1,
+      "accuracy %": 86.0,
+      "balanced accuracy %": 87.3,
+      "AUC": 0.977,
+      "F1 fake": 0.86,
+      "F1 real": 0.86,
+      "predicted real %": 43.7
+    }
+  }
+}
