@@ -25,3 +25,24 @@ def test_parse_probability_rejects_free_text():
     assert math.isnan(parse_probability(''))
     assert math.isnan(parse_probability(None))
     assert math.isnan(parse_probability('{"probability": "high"}'))
+
+
+def test_parse_relevant_and_probability_from_evidence_reply():
+    from src.llm_factcheck import parse_relevant
+    reply = '{"probability": 20, "evidence_relevant": true}'
+    assert parse_probability(reply) == 0.20
+    assert parse_relevant(reply) is True
+    assert parse_relevant('{"probability": 20}') is None
+    assert parse_relevant('not json') is None
+
+
+def test_random_evidence_control_never_gives_a_statement_its_own_evidence(monkeypatch):
+    from src import evidence, llm_factcheck
+    ids = [f'liar_{i}' for i in range(50)]
+    fake = {d: {'passages': [{'title': d, 'text': f'evidence for {d}'}]} for d in ids}
+    monkeypatch.setattr(evidence, 'load_evidence', lambda split='test': fake)
+    own = llm_factcheck.passages_for('evidence', ids)
+    shuffled = llm_factcheck.passages_for('random_evidence', ids)
+    assert all(own[d][0]['title'] == d for d in ids)
+    assert all(shuffled[d][0]['title'] != d for d in ids)                  # 没有一条拿到自己的证据 / no self-matches
+    assert sorted(p[0]['title'] for p in shuffled.values()) == sorted(ids)  # 每份证据恰好用一次 / each used once

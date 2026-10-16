@@ -20,6 +20,14 @@
                       Statement only. Also a memorisation check: LIAR's PolitiFact
                       verdicts are public web pages the model may have seen.
 
+    5b  evidence      陈述 + 为它检索到的维基百科证据（src/evidence.py）
+                      statement + Wikipedia evidence retrieved for it
+        random_evidence  对照组：陈述 + *另一条* 陈述的证据。格式和长度一样，只是内容不相关。
+                      如果 5b 的提升只来自"提示变长、格式变了"，这个对照组也会一样好。
+                      control: statement + ANOTHER statement's evidence (same format,
+                      unrelated content). If 5b's gain came only from the longer prompt,
+                      this control would match it.
+
 只使用陈述文本，和 07 中的模型保持一致（不给说话人、党派等信息）。
 Only the statement text is given, as for the models in notebook 07.
 
@@ -78,17 +86,92 @@ OUTPUT_FORMAT = {
 MAX_TOKENS = 20
 TEMPERATURE = 0.0
 
+# 5b 的提示词：和 5a 相同的任务，只是多了证据；明确要求"证据不相关时依靠常识"，
+# 这样证据没用的陈述不会因为"被迫使用证据"而判断得更差
+# 5b prompt: the same task as 5a plus evidence; told to fall back on general
+# knowledge when the evidence is irrelevant, so useless evidence cannot force worse answers
+SYSTEM_EVIDENCE = (
+    'You are a professional political fact-checker. You will be given a statement made by a '
+    'US political figure, followed by passages retrieved from Wikipedia. Estimate the probability '
+    'that a professional fact-checker would rate the statement as true, mostly true, or half true '
+    '(rather than barely true, false, or "pants on fire"). Use the passages when they are relevant; '
+    'when they are not, rely on your general knowledge. Also say whether the passages were '
+    'relevant to checking the statement.')
+
+# 多一个字段 evidence_relevant：模型认为证据是否有用，之后可以按它分组分析
+# Extra field evidence_relevant: whether the model found the passages useful, for analysis
+OUTPUT_FORMAT_EVIDENCE = {
+    'format': {
+        'type': 'json_schema',
+        'schema': {
+            'type': 'object',
+            'properties': {'probability': {'type': 'integer'},
+                           'evidence_relevant': {'type': 'boolean'}},
+            'required': ['probability', 'evidence_relevant'],
+            'additionalProperties': False,
+        },
+    },
+}
+MAX_TOKENS_EVIDENCE = 40     # 两个字段的 JSON 约 25 个 token / a two-field JSON is ~25 tokens
+
 
 def _client():
     import anthropic
     return anthropic.Anthropic()
 
 
-def _params(statement: str) -> dict:
-    """一条陈述对应的请求参数 / Request parameters for one statement."""
-    return {'model': MODEL, 'max_tokens': MAX_TOKENS, 'temperature': TEMPERATURE,
-            'system': SYSTEM_NO_EVIDENCE, 'output_config': OUTPUT_FORMAT,
-            'messages': [{'role': 'user', 'content': f'Statement: {statement}'}]}
+def format_evidence(passages: list) -> str:
+    """把证据段落排成带编号和文章标题的文本 / Number the passages with their article titles."""
+    if not passages:
+        return 'Wikipedia passages: none were found.'
+    return 'Wikipedia passages:\n' + '\n'.join(
+        f'[{i}] ({p["title"]}) {p["text"]}' for i, p in enumerate(passages, 1))
+
+
+def _params(statement: str, passages: list = None) -> dict:
+    """一条陈述对应的请求参数；passages 为 None 时是 5a（不给证据），否则是 5b。
+    Request parameters; passages=None gives 5a (no evidence), otherwise 5b."""
+    if passages is None:
+        return {'model': MODEL, 'max_tokens': MAX_TOKENS, 'temperature': TEMPERATURE,
+                'system': SYSTEM_NO_EVIDENCE, 'output_config': OUTPUT_FORMAT,
+                'messages': [{'role': 'user', 'content': f'Statement: {statement}'}]}
+    return {'model': MODEL, 'max_tokens': MAX_TOKENS_EVIDENCE, 'temperature': TEMPERATURE,
+            'system': SYSTEM_EVIDENCE, 'output_config': OUTPUT_FORMAT_EVIDENCE,
+            'messages': [{'role': 'user',
+                          'content': f'Statement: {statement}\n\n{format_evidence(passages)}'}]}
+
+
+def parse_relevant(text: str):
+    """读出 evidence_relevant（True / False），没有这个字段返回 None。
+    Read evidence_relevant (True / False); None if absent."""
+    try:
+        value = json.loads(text).get('evidence_relevant')
+    except (TypeError, ValueError, AttributeError):
+        return None
+    return value if isinstance(value, bool) else None
+
+
+def passages_for(experiment: str, doc_ids, seed: int = 42) -> dict:
+    """每条陈述要给模型看的证据：5a 为 None；5b 是它自己的证据；对照组是另一条陈述的证据。
+    Evidence shown per statement: None (5a), its own (5b) or another statement's (control).
+
+    对照组用"错位"分配：先固定种子打乱顺序，再整体移动一位，保证没有任何一条拿到自己的证据。
+    The control uses a derangement: shuffle with a fixed seed, then shift by one, so
+    no statement ever receives its own evidence.
+    """
+    doc_ids = list(doc_ids)
+    if experiment == 'no_evidence':
+        return {d: None for d in doc_ids}
+    from src.evidence import load_evidence
+    evidence = load_evidence('test')
+    own = {d: evidence.get(d, {}).get('passages', []) for d in doc_ids}
+    if experiment == 'evidence':
+        return own
+    if experiment == 'random_evidence':
+        order = list(np.random.default_rng(seed).permutation(doc_ids))
+        donor = {order[i]: order[(i + 1) % len(order)] for i in range(len(order))}
+        return {d: own[donor[d]] for d in doc_ids}
+    raise ValueError(f'unknown experiment: {experiment}')
 
 
 def parse_probability(text: str) -> float:
@@ -143,13 +226,18 @@ def submit(experiment: str = 'no_evidence', sets=('LIAR test',)) -> str:
     from anthropic.types.messages.batch_create_params import Request
 
     chosen = {k: v for k, v in _liar_sets().items() if k in sets}
-    requests = [Request(custom_id=doc_id, params=MessageCreateParamsNonStreaming(**_params(text)))
-                for df in chosen.values() for doc_id, text in zip(df['doc_id'], df['text'])]
+    requests = []
+    for df in chosen.values():
+        shown = passages_for(experiment, df['doc_id'])
+        requests += [Request(custom_id=doc_id,
+                             params=MessageCreateParamsNonStreaming(**_params(text, shown[doc_id])))
+                     for doc_id, text in zip(df['doc_id'], df['text'])]
     batch = _client().messages.batches.create(requests=requests)
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
     (RESULTS_DIR / f'{experiment}_batch.json').write_text(json.dumps(
         {'batch_id': batch.id, 'model': MODEL, 'n_requests': len(requests), 'sets': list(chosen),
-         'system_prompt': SYSTEM_NO_EVIDENCE, 'max_tokens': MAX_TOKENS,
+         'system_prompt': SYSTEM_NO_EVIDENCE if experiment == 'no_evidence' else SYSTEM_EVIDENCE,
+         'max_tokens': MAX_TOKENS if experiment == 'no_evidence' else MAX_TOKENS_EVIDENCE,
          'temperature': TEMPERATURE}, indent=2))
     print(f'submitted batch {batch.id} with {len(requests)} requests')
     return batch.id
@@ -180,8 +268,11 @@ def collect(experiment: str = 'no_evidence', poll_seconds: int = 60):
             failed[result.custom_id] = result.result.type
 
     eval_sets = {k: v for k, v in _liar_sets().items() if k in meta['sets']}
-    probs, metrics, unparsed = {}, {}, {}
+    probs, metrics, unparsed, relevant_share = {}, {}, {}, {}
     for name, df in eval_sets.items():
+        relevant = [parse_relevant(replies.get(d)) for d in df['doc_id']]
+        flags = [r for r in relevant if r is not None]
+        relevant_share[name] = round(100 * sum(flags) / len(flags), 1) if flags else None
         p = np.array([parse_probability(replies.get(d)) for d in df['doc_id']])
         unparsed[name] = int(np.isnan(p).sum())
         # 无法解析或失败的请求按 0.5（"不知道"）处理，并单独报告数量
@@ -191,6 +282,7 @@ def collect(experiment: str = 'no_evidence', poll_seconds: int = 60):
 
     record = {'name': f'llm_{experiment}', **meta, 'metrics': metrics,
               'unparsed_or_failed': unparsed, 'failed_types': failed,
+              'evidence_relevant_%': relevant_share,
               'usage': {'input_tokens': usage_in, 'output_tokens': usage_out}}
     path = RESULTS_DIR / f'llm_{experiment}'
     path.with_suffix('.json').write_text(json.dumps(record, indent=2))
