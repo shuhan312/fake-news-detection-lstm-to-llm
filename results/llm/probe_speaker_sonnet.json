@@ -1,0 +1,4872 @@
+{
+  "batch_id": "msgbatch_01ETq88n21WdofXiiWGiDZse",
+  "model": "claude-sonnet-5-5",
+  "n_requests": 971,
+  "system_prompt": "You will be given a statement from US politics. Who made this statement? If you are not sure, give your best guess. Reply with the name of the person or organisation only.",
+  "retry_batch_ids": [
+    "msgbatch_01Tu1GkB7V7SbbZizhqdtgsV"
+  ],
+  "usage": {
+    "input_tokens": 273341,
+    "output_tokens": 16559
+  },
+  "n_answered": 971,
+  "recall %": 23.1,
+  "rows": {
+    "liar_11972": {
+      "answer": "Barack Obama",
+      "speaker": "rick-perry",
+      "correct": false
+    },
+    "liar_11685": {
+      "answer": "Mark Pocan",
+      "speaker": "katrina-shankland",
+      "correct": false
+    },
+    "liar_11096": {
+      "answer": "Donald Trump",
+      "speaker": "donald-trump",
+      "correct": true
+    },
+    "liar_5209": {
+      "answer": "Republican Party of Oregon",
+      "speaker": "rob-cornilles",
+      "correct": false
+    },
+    "liar_9524": {
+      "answer": "Democratic Party of Wisconsin",
+      "speaker": "state-democratic-party-wisconsin",
+      "correct": false
+    },
+    "liar_5962": {
+      "answer": "Tom Coburn",
+      "speaker": "brendan-doherty",
+      "correct": false
+    },
+    "liar_1046": {
+      "answer": "Mitch McConnell",
+      "speaker": "john-boehner",
+      "correct": false
+    },
+    "liar_12849": {
+      "answer": "Hillary Clinton",
+      "speaker": "sean-patrick-maloney",
+      "correct": false
+    },
+    "liar_13270": {
+      "answer": "Donald Trump",
+      "speaker": "mike-pence",
+      "correct": false
+    },
+    "liar_6649": {
+      "answer": "Stacey Abrams",
+      "speaker": "mike-berlon",
+      "correct": false
+    },
+    "liar_4888": {
+      "answer": "Barack Obama",
+      "speaker": "rick-santorum",
+      "correct": false
+    },
+    "liar_3331": {
+      "answer": "Kevin Stitt",
+      "speaker": "tom-niehaus",
+      "correct": false
+    },
+    "liar_9198": {
+      "answer": "Mitt Romney",
+      "speaker": "marsha-blackburn",
+      "correct": false
+    },
+    "liar_73": {
+      "answer": "Bernie Sanders",
+      "speaker": "hillary-clinton",
+      "correct": false
+    },
+    "liar_1328": {
+      "answer": "Barack Obama",
+      "speaker": "sarah-palin",
+      "correct": false
+    },
+    "liar_12996": {
+      "answer": "Donald Trump",
+      "speaker": "donald-trump",
+      "correct": true
+    },
+    "liar_10064": {
+      "answer": "Marco Rubio",
+      "speaker": "republican-party-florida",
+      "correct": false
+    },
+    "liar_1084": {
+      "answer": "Chuck Schumer",
+      "speaker": "lindsey-graham",
+      "correct": false
+    },
+    "liar_13231": {
+      "answer": "Donald Trump",
+      "speaker": "hillary-clinton",
+      "correct": false
+    },
+    "liar_13089": {
+      "answer": "Republican National Committee",
+      "speaker": "republican-national-committee-republican",
+      "correct": true
+    },
+    "liar_1051": {
+      "answer": "John McCain",
+      "speaker": "mike-pence",
+      "correct": false
+    },
+    "liar_4161": {
+      "answer": "Ron Johnson",
+      "speaker": "cliff-stearns",
+      "correct": false
+    },
+    "liar_11966": {
+      "answer": "Mitch McConnell",
+      "speaker": "cory-gardner",
+      "correct": false
+    },
+    "liar_9800": {
+      "answer": "Mark Pryor",
+      "speaker": "sarah-palin",
+      "correct": false
+    },
+    "liar_816": {
+      "answer": "Barack Obama",
+      "speaker": "barack-obama",
+      "correct": true
+    },
+    "liar_2646": {
+      "answer": "Sherrod Brown",
+      "speaker": "democratic-congressional-campaign-committee",
+      "correct": false
+    },
+    "liar_12381": {
+      "answer": "Barack Obama",
+      "speaker": "mamie-locke",
+      "correct": false
+    },
+    "liar_8567": {
+      "answer": "Jim Webb",
+      "speaker": "herman-cain",
+      "correct": false
+    },
+    "liar_9092": {
+      "answer": "Marco Rubio",
+      "speaker": "rick-scott",
+      "correct": false
+    },
+    "liar_10055": {
+      "answer": "Elizabeth Warren",
+      "speaker": "jeanne-shaheen",
+      "correct": false
+    },
+    "liar_4513": {
+      "answer": "Bernie Sanders",
+      "speaker": "dennis-kucinich",
+      "correct": false
+    },
+    "liar_10340": {
+      "answer": "Kevin Brady",
+      "speaker": "kevin-brady",
+      "correct": true
+    },
+    "liar_6849": {
+      "answer": "Donald Trump",
+      "speaker": "mitt-romney",
+      "correct": false
+    },
+    "liar_13251": {
+      "answer": "Donald Trump",
+      "speaker": "donald-trump",
+      "correct": true
+    },
+    "liar_7545": {
+      "answer": "Chris Cox",
+      "speaker": "drew-springer",
+      "correct": false
+    },
+    "liar_4929": {
+      "answer": "Barack Obama",
+      "speaker": "michele-bachmann",
+      "correct": false
+    },
+    "liar_6239": {
+      "answer": "Barack Obama",
+      "speaker": "robert-menendez",
+      "correct": false
+    },
+    "liar_266": {
+      "answer": "Hillary Clinton",
+      "speaker": "hillary-clinton",
+      "correct": true
+    },
+    "liar_8841": {
+      "answer": "Barack Obama",
+      "speaker": "barack-obama",
+      "correct": true
+    },
+    "liar_6313": {
+      "answer": "Scott Walker",
+      "speaker": "steve-brown",
+      "correct": false
+    },
+    "liar_9550": {
+      "answer": "Hillary Clinton",
+      "speaker": "hillary-clinton",
+      "correct": true
+    },
+    "liar_9612": {
+      "answer": "Marco Rubio",
+      "speaker": "republican-party-florida",
+      "correct": false
+    },
+    "liar_7562": {
+      "answer": "Barack Obama",
+      "speaker": "jeb-bush",
+      "correct": false
+    },
+    "liar_3121": {
+      "answer": "Rick Perry",
+      "speaker": "david-dewhurst",
+      "correct": false
+    },
+    "liar_9578": {
+      "answer": "Donald Trump",
+      "speaker": "jeff-flake",
+      "correct": false
+    },
+    "liar_2356": {
+      "answer": "Vincent 'Buddy' Cianci",
+      "speaker": "steven-costantino",
+      "correct": false
+    },
+    "liar_3453": {
+      "answer": "Planned Parenthood",
+      "speaker": "hank-johnson",
+      "correct": false
+    },
+    "liar_1066": {
+      "answer": "Michele Bachmann",
+      "speaker": "michele-bachmann",
+      "correct": true
+    },
+    "liar_2092": {
+      "answer": "Jan Brewer",
+      "speaker": "russell-pearce",
+      "correct": false
+    },
+    "liar_7442": {
+      "answer": "Eric Holder",
+      "speaker": "barack-obama",
+      "correct": false
+    },
+    "liar_11083": {
+      "answer": "Donald Trump",
+      "speaker": "carlos-curbelo",
+      "correct": false
+    },
+    "liar_11443": {
+      "answer": "Gina Raimondo",
+      "speaker": "steven-costantino",
+      "correct": false
+    },
+    "liar_11539": {
+      "answer": "Mick Mulvaney",
+      "speaker": "ezekiel-emanuel",
+      "correct": false
+    },
+    "liar_2966": {
+      "answer": "Bernie Sanders",
+      "speaker": "sherrod-brown",
+      "correct": false
+    },
+    "liar_13367": {
+      "answer": "Democratic Party of Florida",
+      "speaker": "patrick-murphy",
+      "correct": false
+    },
+    "liar_1087": {
+      "answer": "Joe Biden",
+      "speaker": "joe-biden",
+      "correct": true
+    },
+    "liar_4272": {
+      "answer": "Bill White",
+      "speaker": "lloyd-doggett",
+      "correct": false
+    },
+    "liar_8849": {
+      "answer": "Brendan Doherty",
+      "speaker": "ian-prior",
+      "correct": false
+    },
+    "liar_12542": {
+      "answer": "Hillary Clinton",
+      "speaker": "priorities-usa-action",
+      "correct": false
+    },
+    "liar_3518": {
+      "answer": "Barack Obama",
+      "speaker": "tim-pawlenty",
+      "correct": false
+    },
+    "liar_8340": {
+      "answer": "John Boehner",
+      "speaker": "ted-cruz",
+      "correct": false
+    },
+    "liar_12698": {
+      "answer": "Mike Huckabee",
+      "speaker": "reince-priebus",
+      "correct": false
+    },
+    "liar_2357": {
+      "answer": "Scott Walker",
+      "speaker": "scott-walker",
+      "correct": true
+    },
+    "liar_7823": {
+      "answer": "Barbara Buono",
+      "speaker": "barbara-buono",
+      "correct": true
+    },
+    "liar_2072": {
+      "answer": "Jorge Elorza",
+      "speaker": "david-cicilline",
+      "correct": false
+    },
+    "liar_2885": {
+      "answer": "Barack Obama",
+      "speaker": "bill-nelson",
+      "correct": false
+    },
+    "liar_13334": {
+      "answer": "Rick Scott",
+      "speaker": "gerald-daugherty",
+      "correct": false
+    },
+    "liar_12309": {
+      "answer": "Marco Rubio",
+      "speaker": "paul-ryan",
+      "correct": false
+    },
+    "liar_1420": {
+      "answer": "Rick Perry",
+      "speaker": "debra-medina",
+      "correct": false
+    },
+    "liar_2491": {
+      "answer": "Barack Obama",
+      "speaker": "dave-yost",
+      "correct": false
+    },
+    "liar_5935": {
+      "answer": "Georgia Public Policy Foundation",
+      "speaker": "brett-bittner",
+      "correct": false
+    },
+    "liar_2821": {
+      "answer": "Mitt Romney",
+      "speaker": "george-allen",
+      "correct": false
+    },
+    "liar_6370": {
+      "answer": "Julian Castro",
+      "speaker": "julian-castro",
+      "correct": true
+    },
+    "liar_3706": {
+      "answer": "Donald Trump",
+      "speaker": "mike-bennett",
+      "correct": false
+    },
+    "liar_10163": {
+      "answer": "Barack Obama",
+      "speaker": "james-carr",
+      "correct": false
+    },
+    "liar_6083": {
+      "answer": "Rick Scott",
+      "speaker": "rick-scott",
+      "correct": true
+    },
+    "liar_5913": {
+      "answer": "Jason Villalba",
+      "speaker": "conservative-renewal-pac",
+      "correct": false
+    },
+    "liar_934": {
+      "answer": "Barack Obama",
+      "speaker": "barack-obama",
+      "correct": true
+    },
+    "liar_2162": {
+      "answer": "Kasim Reed",
+      "speaker": "kasim-reed",
+      "correct": true
+    },
+    "liar_2679": {
+      "answer": "Charlie Crist",
+      "speaker": "charlie-crist",
+      "correct": true
+    },
+    "liar_8929": {
+      "answer": "Tammy Baldwin",
+      "speaker": "mark-pocan",
+      "correct": false
+    },
+    "liar_12398": {
+      "answer": "Hillary Clinton",
+      "speaker": "priorities-usa-action",
+      "correct": false
+    },
+    "liar_2690": {
+      "answer": "Donald Trump",
+      "speaker": "kendrick-meek",
+      "correct": false
+    },
+    "liar_6821": {
+      "answer": "Mitt Romney",
+      "speaker": "chris-christie",
+      "correct": false
+    },
+    "liar_10631": {
+      "answer": "Ben Carson",
+      "speaker": "william-obrien",
+      "correct": false
+    },
+    "liar_6579": {
+      "answer": "Mitt Romney",
+      "speaker": "nikki-haley",
+      "correct": false
+    },
+    "liar_3228": {
+      "answer": "Mitt Romney",
+      "speaker": "cenk-uygur",
+      "correct": false
+    },
+    "liar_1915": {
+      "answer": "Lamar Smith",
+      "speaker": "donna-campbell",
+      "correct": false
+    },
+    "liar_12456": {
+      "answer": "Carly Fiorina",
+      "speaker": "pat-toomey",
+      "correct": false
+    },
+    "liar_2585": {
+      "answer": "Christine O'Donnell",
+      "speaker": "christine-odonnell",
+      "correct": false
+    },
+    "liar_6604": {
+      "answer": "George Allen",
+      "speaker": "crossroads-gps",
+      "correct": false
+    },
+    "liar_4495": {
+      "answer": "Donald Trump",
+      "speaker": "michele-bachmann",
+      "correct": false
+    },
+    "liar_8406": {
+      "answer": "Ted Cruz",
+      "speaker": "ted-cruz",
+      "correct": true
+    },
+    "liar_10147": {
+      "answer": "Roy Barnes",
+      "speaker": "jason-carter",
+      "correct": false
+    },
+    "liar_10623": {
+      "answer": "Tom Barrett",
+      "speaker": "mark-pocan",
+      "correct": false
+    },
+    "liar_2277": {
+      "answer": "Unknown",
+      "speaker": "roy-barnes",
+      "correct": false
+    },
+    "liar_8146": {
+      "answer": "Chain email",
+      "speaker": "al-sharpton",
+      "correct": false
+    },
+    "liar_6026": {
+      "answer": "Scott Walker",
+      "speaker": "scott-walker",
+      "correct": true
+    },
+    "liar_13056": {
+      "answer": "Bruce Blakeman",
+      "speaker": "national-republican-congressional-committee",
+      "correct": false
+    },
+    "liar_9269": {
+      "answer": "Mike Huckabee",
+      "speaker": "matt-bevin",
+      "correct": false
+    },
+    "liar_4105": {
+      "answer": "Pat Kreitlow",
+      "speaker": "shelly-moore",
+      "correct": false
+    },
+    "liar_8533": {
+      "answer": "Harry Reid",
+      "speaker": "frank-fahrenkopf",
+      "correct": false
+    },
+    "liar_6950": {
+      "answer": "Rick Scott",
+      "speaker": "connie-mack",
+      "correct": false
+    },
+    "liar_13125": {
+      "answer": "Donald Trump",
+      "speaker": "donald-trump",
+      "correct": true
+    },
+    "liar_8294": {
+      "answer": "Bill Nelson",
+      "speaker": "nan-rich",
+      "correct": false
+    },
+    "liar_12424": {
+      "answer": "Dick Cheney",
+      "speaker": "todd-wilcox",
+      "correct": false
+    },
+    "liar_110": {
+      "answer": "George W. Bush",
+      "speaker": "fred-thompson",
+      "correct": false
+    },
+    "liar_4780": {
+      "answer": "Barack Obama",
+      "speaker": "jim-webb",
+      "correct": false
+    },
+    "liar_715": {
+      "answer": "Unknown",
+      "speaker": "sarah-palin",
+      "correct": false
+    },
+    "liar_3107": {
+      "answer": "Dennis Kucinich",
+      "speaker": "dean-cannon",
+      "correct": false
+    },
+    "liar_7565": {
+      "answer": "Mitt Romney",
+      "speaker": "steve-latourette",
+      "correct": false
+    },
+    "liar_8606": {
+      "answer": "John Boehner",
+      "speaker": "ron-johnson",
+      "correct": false
+    },
+    "liar_3869": {
+      "answer": "Randi Weingarten",
+      "speaker": "chris-christie",
+      "correct": false
+    },
+    "liar_12210": {
+      "answer": "Pat McCrory",
+      "speaker": "dan-forest",
+      "correct": false
+    },
+    "liar_4119": {
+      "answer": "Barack Obama",
+      "speaker": "barack-obama",
+      "correct": true
+    },
+    "liar_7272": {
+      "answer": "Bernie Sanders",
+      "speaker": "hank-johnson",
+      "correct": false
+    },
+    "liar_12236": {
+      "answer": "Michael Bloomberg",
+      "speaker": "hillary-clinton",
+      "correct": false
+    },
+    "liar_4016": {
+      "answer": "Scott Walker",
+      "speaker": "alberta-darling",
+      "correct": false
+    },
+    "liar_6765": {
+      "answer": "Ted Cruz",
+      "speaker": "joaquin-castro",
+      "correct": false
+    },
+    "liar_11777": {
+      "answer": "Paul Ryan",
+      "speaker": "paul-ryan",
+      "correct": true
+    },
+    "liar_4243": {
+      "answer": "Barack Obama",
+      "speaker": "jon-huntsman",
+      "correct": false
+    },
+    "liar_7818": {
+      "answer": "Planned Parenthood",
+      "speaker": "carolyn-tomei",
+      "correct": false
+    },
+    "liar_4710": {
+      "answer": "Clackamas County Citizens for Responsible Government",
+      "speaker": "john-lee",
+      "correct": false
+    },
+    "liar_11324": {
+      "answer": "Scott Walker",
+      "speaker": "dale-kooyenga",
+      "correct": false
+    },
+    "liar_6046": {
+      "answer": "Tom Ganley",
+      "speaker": "jim-renacci",
+      "correct": false
+    },
+    "liar_3637": {
+      "answer": "George W. Bush",
+      "speaker": "donald-trump",
+      "correct": false
+    },
+    "liar_7744": {
+      "answer": "Glenn Beck",
+      "speaker": "george-lavender",
+      "correct": false
+    },
+    "liar_6060": {
+      "answer": "Bernie Sanders",
+      "speaker": "jeanne-shaheen",
+      "correct": false
+    },
+    "liar_603": {
+      "answer": "Barack Obama",
+      "speaker": "john-mccain",
+      "correct": false
+    },
+    "liar_11545": {
+      "answer": "Bernie Sanders",
+      "speaker": "bernie-s",
+      "correct": false
+    },
+    "liar_5461": {
+      "answer": "Ronald Reagan",
+      "speaker": "newt-gingrich",
+      "correct": false
+    },
+    "liar_450": {
+      "answer": "Mitt Romney",
+      "speaker": "hillary-clinton",
+      "correct": false
+    },
+    "liar_769": {
+      "answer": "John McCain",
+      "speaker": "sarah-palin",
+      "correct": false
+    },
+    "liar_6425": {
+      "answer": "Mitt Romney",
+      "speaker": "eric-hovde",
+      "correct": false
+    },
+    "liar_502": {
+      "answer": "Barack Obama",
+      "speaker": "barack-obama",
+      "correct": true
+    },
+    "liar_11711": {
+      "answer": "Donald Trump",
+      "speaker": "donald-trump",
+      "correct": true
+    },
+    "liar_5470": {
+      "answer": "Pasco County School District",
+      "speaker": "heather-fiorentino",
+      "correct": false
+    },
+    "liar_8869": {
+      "answer": "Ruth Bader Ginsburg",
+      "speaker": "scott-surovell",
+      "correct": false
+    },
+    "liar_8159": {
+      "answer": "Barack Obama",
+      "speaker": "wendy-davis",
+      "correct": false
+    },
+    "liar_6884": {
+      "answer": "Rick Scott",
+      "speaker": "american-crossroads",
+      "correct": false
+    },
+    "liar_10250": {
+      "answer": "Ed Gillespie",
+      "speaker": "david-hallock",
+      "correct": false
+    },
+    "liar_10757": {
+      "answer": "John McCain",
+      "speaker": "marco-rubio",
+      "correct": false
+    },
+    "liar_8320": {
+      "answer": "Rick Scott",
+      "speaker": "charlie-crist",
+      "correct": false
+    },
+    "liar_5505": {
+      "answer": "Mitt Romney",
+      "speaker": "lenny-curry",
+      "correct": false
+    },
+    "liar_11778": {
+      "answer": "Donald Trump",
+      "speaker": "donald-trump",
+      "correct": true
+    },
+    "liar_12961": {
+      "answer": "Donald Trump",
+      "speaker": "reince-priebus",
+      "correct": false
+    },
+    "liar_2833": {
+      "answer": "Rick Perry",
+      "speaker": "rick-perry",
+      "correct": true
+    },
+    "liar_6110": {
+      "answer": "Chain email",
+      "speaker": "rick-perry",
+      "correct": false
+    },
+    "liar_13400": {
+      "answer": "Eric Greitens",
+      "speaker": "eric-greitens",
+      "correct": true
+    },
+    "liar_1251": {
+      "answer": "Barack Obama",
+      "speaker": "jay-rockefeller",
+      "correct": false
+    },
+    "liar_6112": {
+      "answer": "Hillary Clinton",
+      "speaker": "jeff-merkley",
+      "correct": false
+    },
+    "liar_2615": {
+      "answer": "John Kasich",
+      "speaker": "rob-portman",
+      "correct": false
+    },
+    "liar_3709": {
+      "answer": "Rand Paul",
+      "speaker": "robert-watson",
+      "correct": false
+    },
+    "liar_2652": {
+      "answer": "Bill White",
+      "speaker": "kathie-glass",
+      "correct": false
+    },
+    "liar_9146": {
+      "answer": "Gina Raimondo",
+      "speaker": "linda-finn",
+      "correct": false
+    },
+    "liar_184": {
+      "answer": "Barack Obama",
+      "speaker": "barack-obama",
+      "correct": true
+    },
+    "liar_7692": {
+      "answer": "Rick Perry",
+      "speaker": "dan-patrick",
+      "correct": false
+    },
+    "liar_5171": {
+      "answer": "Marco Rubio",
+      "speaker": "rick-santorum",
+      "correct": false
+    },
+    "liar_11185": {
+      "answer": "Ted Cruz",
+      "speaker": "carly-fiorina",
+      "correct": false
+    },
+    "liar_2412": {
+      "answer": "Florida Republican Party",
+      "speaker": "republican-party-florida",
+      "correct": true
+    },
+    "liar_3215": {
+      "answer": "Wisconsin Republican Party",
+      "speaker": "scott-suder",
+      "correct": false
+    },
+    "liar_948": {
+      "answer": "Nancy Pelosi",
+      "speaker": "john-boehner",
+      "correct": false
+    },
+    "liar_11766": {
+      "answer": "Planned Parenthood",
+      "speaker": "wendy-davis",
+      "correct": false
+    },
+    "liar_592": {
+      "answer": "John McCain",
+      "speaker": "john-mccain",
+      "correct": true
+    },
+    "liar_5732": {
+      "answer": "Donald Trump",
+      "speaker": "mitt-romney",
+      "correct": false
+    },
+    "liar_12745": {
+      "answer": "Marco Rubio",
+      "speaker": "donald-trump",
+      "correct": false
+    },
+    "liar_5017": {
+      "answer": "Paul Ryan",
+      "speaker": "john-boehner",
+      "correct": false
+    },
+    "liar_10424": {
+      "answer": "Barack Obama",
+      "speaker": "barack-obama",
+      "correct": true
+    },
+    "liar_2547": {
+      "answer": "Bernie Sanders",
+      "speaker": "lloyd-doggett",
+      "correct": false
+    },
+    "liar_12571": {
+      "answer": "Donald Trump",
+      "speaker": "paul-ryan",
+      "correct": false
+    },
+    "liar_7810": {
+      "answer": "Rick Scott",
+      "speaker": "rick-scott",
+      "correct": true
+    },
+    "liar_8433": {
+      "answer": "Barbara Buono",
+      "speaker": "milly-silva",
+      "correct": false
+    },
+    "liar_7087": {
+      "answer": "Scott Walker",
+      "speaker": "robin-vos",
+      "correct": false
+    },
+    "liar_1025": {
+      "answer": "John McCain",
+      "speaker": "michele-bachmann",
+      "correct": false
+    },
+    "liar_6386": {
+      "answer": "Shelley Adler",
+      "speaker": "democratic-congressional-campaign-committee",
+      "correct": false
+    },
+    "liar_4708": {
+      "answer": "Barack Obama",
+      "speaker": "nina-turner",
+      "correct": false
+    },
+    "liar_8676": {
+      "answer": "Alex Sink",
+      "speaker": "florida-democratic-party",
+      "correct": false
+    },
+    "liar_8809": {
+      "answer": "Jason Carter",
+      "speaker": "jason-carter",
+      "correct": true
+    },
+    "liar_4095": {
+      "answer": "Barack Obama",
+      "speaker": "barack-obama",
+      "correct": true
+    },
+    "liar_12167": {
+      "answer": "Bernie Sanders",
+      "speaker": "bernie-s",
+      "correct": false
+    },
+    "liar_2876": {
+      "answer": "Ted Strickland",
+      "speaker": "john-kasich",
+      "correct": false
+    },
+    "liar_1760": {
+      "answer": "Rick Perry",
+      "speaker": "rick-perry",
+      "correct": true
+    },
+    "liar_12943": {
+      "answer": "Donald Trump",
+      "speaker": "donald-trump",
+      "correct": true
+    },
+    "liar_7780": {
+      "answer": "Hillary Clinton",
+      "speaker": "barack-obama",
+      "correct": false
+    },
+    "liar_7418": {
+      "answer": "Rick Scott",
+      "speaker": "jon-bramnick",
+      "correct": false
+    },
+    "liar_2777": {
+      "answer": "Michael Bloomberg",
+      "speaker": "michael-bloomberg",
+      "correct": true
+    },
+    "liar_8853": {
+      "answer": "Mitt Romney",
+      "speaker": "rand-paul",
+      "correct": false
+    },
+    "liar_7758": {
+      "answer": "Marco Rubio",
+      "speaker": "bill-richardson",
+      "correct": false
+    },
+    "liar_11796": {
+      "answer": "Donald Trump",
+      "speaker": "donald-trump",
+      "correct": true
+    },
+    "liar_11573": {
+      "answer": "Bernie Sanders",
+      "speaker": "hillary-clinton",
+      "correct": false
+    },
+    "liar_9521": {
+      "answer": "Ted Cruz",
+      "speaker": "ted-cruz",
+      "correct": true
+    },
+    "liar_5756": {
+      "answer": "Barack Obama",
+      "speaker": "barack-obama",
+      "correct": true
+    },
+    "liar_805": {
+      "answer": "Hillary Clinton",
+      "speaker": "john-mccain",
+      "correct": false
+    },
+    "liar_139": {
+      "answer": "Mike Huckabee",
+      "speaker": "tom-tancredo",
+      "correct": false
+    },
+    "liar_7271": {
+      "answer": "Bill Clinton",
+      "speaker": "john-kitzhaber",
+      "correct": false
+    },
+    "liar_11409": {
+      "answer": "Mark Meadows",
+      "speaker": "dave-brat",
+      "correct": false
+    },
+    "liar_688": {
+      "answer": "Sarah Palin",
+      "speaker": "fred-thompson",
+      "correct": false
+    },
+    "liar_7461": {
+      "answer": "Barack Obama",
+      "speaker": "arne-duncan",
+      "correct": false
+    },
+    "liar_3575": {
+      "answer": "Barack Obama",
+      "speaker": "scott-walker",
+      "correct": false
+    },
+    "liar_7552": {
+      "answer": "Sonny Perdue",
+      "speaker": "jeff-mullis",
+      "correct": false
+    },
+    "liar_12994": {
+      "answer": "Hillary Clinton",
+      "speaker": "hilary-rosen",
+      "correct": false
+    },
+    "liar_3436": {
+      "answer": "Kyle Koehler",
+      "speaker": "matt-gaetz",
+      "correct": false
+    },
+    "liar_6141": {
+      "answer": "Sarah Palin",
+      "speaker": "tommy-thompson",
+      "correct": false
+    },
+    "liar_9891": {
+      "answer": "Ted Cruz",
+      "speaker": "ted-cruz",
+      "correct": true
+    },
+    "liar_1971": {
+      "answer": "Mitt Romney",
+      "speaker": "john-albers",
+      "correct": false
+    },
+    "liar_7008": {
+      "answer": "Sherrod Brown",
+      "speaker": "mitt-romney",
+      "correct": false
+    },
+    "liar_8963": {
+      "answer": "Chris McDaniel",
+      "speaker": "matt-bevin",
+      "correct": false
+    },
+    "liar_13040": {
+      "answer": "Russ Feingold",
+      "speaker": "russ-feingold",
+      "correct": true
+    },
+    "liar_8151": {
+      "answer": "Mitt Romney",
+      "speaker": "rand-paul",
+      "correct": false
+    },
+    "liar_6236": {
+      "answer": "Newt Gingrich",
+      "speaker": "eric-hovde",
+      "correct": false
+    },
+    "liar_6974": {
+      "answer": "Mitch McConnell",
+      "speaker": "tennessee-republican-party",
+      "correct": false
+    },
+    "liar_6879": {
+      "answer": "Jon Husted",
+      "speaker": "josh-mandel",
+      "correct": false
+    },
+    "liar_11639": {
+      "answer": "Rudy Giuliani",
+      "speaker": "jeb-bush",
+      "correct": false
+    },
+    "liar_9343": {
+      "answer": "Mitt Romney",
+      "speaker": "dick-cheney",
+      "correct": false
+    },
+    "liar_422": {
+      "answer": "Donald Trump",
+      "speaker": "hillary-clinton",
+      "correct": false
+    },
+    "liar_1448": {
+      "answer": "Barack Obama",
+      "speaker": "barack-obama",
+      "correct": true
+    },
+    "liar_737": {
+      "answer": "Barack Obama",
+      "speaker": "barack-obama",
+      "correct": true
+    },
+    "liar_4750": {
+      "answer": "Mitt Romney",
+      "speaker": "allen-west",
+      "correct": false
+    },
+    "liar_729": {
+      "answer": "I cannot determine who made this statement",
+      "speaker": "john-mccain",
+      "correct": false
+    },
+    "liar_8901": {
+      "answer": "Barack Obama",
+      "speaker": "van-jones",
+      "correct": false
+    },
+    "liar_1353": {
+      "answer": "Donald Trump",
+      "speaker": "john-murtha",
+      "correct": false
+    },
+    "liar_12158": {
+      "answer": "Rick Scott",
+      "speaker": "rick-scott",
+      "correct": true
+    },
+    "liar_656": {
+      "answer": "Jon Tester",
+      "speaker": "joe-biden",
+      "correct": false
+    },
+    "liar_10085": {
+      "answer": "Ross Perot",
+      "speaker": "larry-pressler",
+      "correct": false
+    },
+    "liar_5824": {
+      "answer": "Marion Hammer",
+      "speaker": "jennifer-carroll",
+      "correct": false
+    },
+    "liar_5753": {
+      "answer": "Gina Raimondo",
+      "speaker": "lisa-tomasso",
+      "correct": false
+    },
+    "liar_5512": {
+      "answer": "Bill Haslam",
+      "speaker": "stephen-laffey",
+      "correct": false
+    },
+    "liar_6010": {
+      "answer": "Kevin McCarthy",
+      "speaker": "lenny-curry",
+      "correct": false
+    },
+    "liar_727": {
+      "answer": "John McCain",
+      "speaker": "john-mccain",
+      "correct": true
+    },
+    "liar_42": {
+      "answer": "Rudy Giuliani",
+      "speaker": "rudy-giuliani",
+      "correct": true
+    },
+    "liar_6262": {
+      "answer": "Donald Trump",
+      "speaker": "democratic-congressional-campaign-committee",
+      "correct": false
+    },
+    "liar_9502": {
+      "answer": "Bernie Sanders",
+      "speaker": "barack-obama",
+      "correct": false
+    },
+    "liar_11351": {
+      "answer": "Tom Barrett",
+      "speaker": "jennifer-shilling",
+      "correct": false
+    },
+    "liar_8558": {
+      "answer": "Gina Raimondo",
+      "speaker": "kenneth-block",
+      "correct": false
+    },
+    "liar_7537": {
+      "answer": "Mitt Romney",
+      "speaker": "sean-duffy",
+      "correct": false
+    },
+    "liar_9708": {
+      "answer": "Ted Cruz",
+      "speaker": "rick-perry",
+      "correct": false
+    },
+    "liar_7524": {
+      "answer": "Bob McDonnell",
+      "speaker": "jamie-radtke",
+      "correct": false
+    },
+    "liar_4537": {
+      "answer": "Rick Perry",
+      "speaker": "rick-perry",
+      "correct": true
+    },
+    "liar_11736": {
+      "answer": "Jeb Bush",
+      "speaker": "jeb-bush",
+      "correct": true
+    },
+    "liar_8062": {
+      "answer": "Joe Biden",
+      "speaker": "barack-obama",
+      "correct": false
+    },
+    "liar_3158": {
+      "answer": "Rick Scott",
+      "speaker": "john-kitzhaber",
+      "correct": false
+    },
+    "liar_10794": {
+      "answer": "Mitt Romney",
+      "speaker": "robert-hurt",
+      "correct": false
+    },
+    "liar_8609": {
+      "answer": "Barack Obama",
+      "speaker": "kurt-schrader",
+      "correct": false
+    },
+    "liar_63": {
+      "answer": "Barack Obama",
+      "speaker": "chris-dodd",
+      "correct": false
+    },
+    "liar_6560": {
+      "answer": "Donald Trump",
+      "speaker": "jeb-bush",
+      "correct": false
+    },
+    "liar_3546": {
+      "answer": "John Boehner",
+      "speaker": "john-boehner",
+      "correct": true
+    },
+    "liar_11910": {
+      "answer": "Facebook posts",
+      "speaker": "ben-carson",
+      "correct": false
+    },
+    "liar_4101": {
+      "answer": "Barack Obama",
+      "speaker": "marco-rubio",
+      "correct": false
+    },
+    "liar_10175": {
+      "answer": "Kevin McCarthy",
+      "speaker": "scott-walker",
+      "correct": false
+    },
+    "liar_4593": {
+      "answer": "Virginia Democratic Party",
+      "speaker": "edd-houck",
+      "correct": false
+    },
+    "liar_5985": {
+      "answer": "Tom Tancredo",
+      "speaker": "anastasia-williams",
+      "correct": false
+    },
+    "liar_1881": {
+      "answer": "Chuck Grassley",
+      "speaker": "thomas-melsheimer",
+      "correct": false
+    },
+    "liar_204": {
+      "answer": "George W. Bush",
+      "speaker": "mitt-romney",
+      "correct": false
+    },
+    "liar_1409": {
+      "answer": "Rick Perry",
+      "speaker": "kay-bailey-hutchison",
+      "correct": false
+    },
+    "liar_2600": {
+      "answer": "Betty Sutton",
+      "speaker": "betty-sutton",
+      "correct": true
+    },
+    "liar_4822": {
+      "answer": "Scott Walker",
+      "speaker": "rebecca-kleefisch",
+      "correct": false
+    },
+    "liar_5536": {
+      "answer": "Rick Perry",
+      "speaker": "stephen-sweeney",
+      "correct": false
+    },
+    "liar_2911": {
+      "answer": "Bernie Sanders",
+      "speaker": "dennis-kucinich",
+      "correct": false
+    },
+    "liar_12787": {
+      "answer": "Donald Trump",
+      "speaker": "donald-trump",
+      "correct": true
+    },
+    "liar_2442": {
+      "answer": "Americans for Prosperity",
+      "speaker": "delia-lopez",
+      "correct": false
+    },
+    "liar_12006": {
+      "answer": "Mitch McConnell",
+      "speaker": "paul-ryan",
+      "correct": false
+    },
+    "liar_12661": {
+      "answer": "Bernie Sanders",
+      "speaker": "cory-booker",
+      "correct": false
+    },
+    "liar_2983": {
+      "answer": "Michael Bloomberg",
+      "speaker": "sam-adams",
+      "correct": false
+    },
+    "liar_921": {
+      "answer": "Barack Obama",
+      "speaker": "barack-obama",
+      "correct": true
+    },
+    "liar_3674": {
+      "answer": "Charles Soechting",
+      "speaker": "troy-fraser",
+      "correct": false
+    },
+    "liar_6577": {
+      "answer": "Barack Obama",
+      "speaker": "scott-walker",
+      "correct": false
+    },
+    "liar_8240": {
+      "answer": "Donald Trump",
+      "speaker": "james-oneil",
+      "correct": false
+    },
+    "liar_9405": {
+      "answer": "Rick Scott",
+      "speaker": "rick-scott",
+      "correct": true
+    },
+    "liar_1892": {
+      "answer": "Paul Ryan",
+      "speaker": "john-boehner",
+      "correct": false
+    },
+    "liar_2754": {
+      "answer": "Democratic Party of Ohio",
+      "speaker": "john-boccieri",
+      "correct": false
+    },
+    "liar_4711": {
+      "answer": "Greg Abbott",
+      "speaker": "lloyd-doggett",
+      "correct": false
+    },
+    "liar_664": {
+      "answer": "Barack Obama",
+      "speaker": "hillary-clinton",
+      "correct": false
+    },
+    "liar_11865": {
+      "answer": "Brad Sherman",
+      "speaker": "adrian-garcia",
+      "correct": false
+    },
+    "liar_9312": {
+      "answer": "John Boehner",
+      "speaker": "rick-santorum",
+      "correct": false
+    },
+    "liar_10638": {
+      "answer": "Georgia Democratic Party",
+      "speaker": "tyrone-brooks",
+      "correct": false
+    },
+    "liar_379": {
+      "answer": "Hillary Clinton",
+      "speaker": "hillary-clinton",
+      "correct": true
+    },
+    "liar_5272": {
+      "answer": "Rick Perry",
+      "speaker": "ron-paul",
+      "correct": false
+    },
+    "liar_683": {
+      "answer": "John McCain",
+      "speaker": "rudy-giuliani",
+      "correct": false
+    },
+    "liar_1781": {
+      "answer": "Wendy Davis",
+      "speaker": "linda-chavez-thompson",
+      "correct": false
+    },
+    "liar_11687": {
+      "answer": "Hillary Clinton",
+      "speaker": "jeb-bush",
+      "correct": false
+    },
+    "liar_2975": {
+      "answer": "Chain email",
+      "speaker": "kay-bailey-hutchison",
+      "correct": false
+    },
+    "liar_771": {
+      "answer": "Barack Obama",
+      "speaker": "sarah-palin",
+      "correct": false
+    },
+    "liar_3991": {
+      "answer": "Rick Scott",
+      "speaker": "scott-walker",
+      "correct": false
+    },
+    "liar_11923": {
+      "answer": "Hillary Clinton",
+      "speaker": "hillary-clinton",
+      "correct": true
+    },
+    "liar_10749": {
+      "answer": "Bernie Sanders",
+      "speaker": "gwyneth-paltrow",
+      "correct": false
+    },
+    "liar_3946": {
+      "answer": "Greg Walden",
+      "speaker": "doug-whitsett",
+      "correct": false
+    },
+    "liar_7834": {
+      "answer": "Elizabeth Warren",
+      "speaker": "mark-pocan",
+      "correct": false
+    },
+    "liar_6290": {
+      "answer": "Josh Mandel",
+      "speaker": "ohio-republican-party",
+      "correct": false
+    },
+    "liar_10881": {
+      "answer": "Mark Pocan",
+      "speaker": "chris-taylor",
+      "correct": false
+    },
+    "liar_4396": {
+      "answer": "Rick Scott",
+      "speaker": "george-allen",
+      "correct": false
+    },
+    "liar_6206": {
+      "answer": "Chris Christie",
+      "speaker": "chris-christie",
+      "correct": true
+    },
+    "liar_9970": {
+      "answer": "Jason Carter",
+      "speaker": "jason-carter",
+      "correct": true
+    },
+    "liar_4353": {
+      "answer": "Bernie Sanders",
+      "speaker": "sherrod-brown",
+      "correct": false
+    },
+    "liar_1394": {
+      "answer": "Rick Noriega",
+      "speaker": "texas-democratic-party",
+      "correct": false
+    },
+    "liar_7695": {
+      "answer": "Chuck Schumer",
+      "speaker": "johnny-isakson",
+      "correct": false
+    },
+    "liar_4770": {
+      "answer": "Mitt Romney",
+      "speaker": "mitt-romney",
+      "correct": true
+    },
+    "liar_1052": {
+      "answer": "Ted Cruz",
+      "speaker": "john-mccain",
+      "correct": false
+    },
+    "liar_5249": {
+      "answer": "Tim Kaine",
+      "speaker": "donald-mceachin",
+      "correct": false
+    },
+    "liar_3700": {
+      "answer": "Hillary Clinton",
+      "speaker": "stephen-ucci",
+      "correct": false
+    },
+    "liar_8683": {
+      "answer": "Barack Obama",
+      "speaker": "peter-orszag",
+      "correct": false
+    },
+    "liar_12798": {
+      "answer": "Hillary Clinton",
+      "speaker": "harry-reid",
+      "correct": false
+    },
+    "liar_4838": {
+      "answer": "Democratic Party of Florida",
+      "speaker": "george-lemieux",
+      "correct": false
+    },
+    "liar_7680": {
+      "answer": "Dianne Feinstein",
+      "speaker": "dianne-feinstein",
+      "correct": true
+    },
+    "liar_1999": {
+      "answer": "Charlie Crist",
+      "speaker": "charlie-crist",
+      "correct": true
+    },
+    "liar_6660": {
+      "answer": "Barack Obama",
+      "speaker": "barack-obama",
+      "correct": true
+    },
+    "liar_13527": {
+      "answer": "Donald Trump",
+      "speaker": "reince-priebus",
+      "correct": false
+    },
+    "liar_2626": {
+      "answer": "Rick Scott",
+      "speaker": "edwin-pacheco",
+      "correct": false
+    },
+    "liar_7598": {
+      "answer": "John Lewis",
+      "speaker": "john-lewis",
+      "correct": true
+    },
+    "liar_2746": {
+      "answer": "Tim Walz",
+      "speaker": "matt-wand",
+      "correct": false
+    },
+    "liar_12448": {
+      "answer": "Donald Trump",
+      "speaker": "donald-trump",
+      "correct": true
+    },
+    "liar_3232": {
+      "answer": "Rick Scott",
+      "speaker": "matt-lundy",
+      "correct": false
+    },
+    "liar_11226": {
+      "answer": "Ron Paul",
+      "speaker": "jim-webb",
+      "correct": false
+    },
+    "liar_487": {
+      "answer": "Donald Trump",
+      "speaker": "hillary-clinton",
+      "correct": false
+    },
+    "liar_6858": {
+      "answer": "Dan Sebring",
+      "speaker": "dan-sebring",
+      "correct": true
+    },
+    "liar_8701": {
+      "answer": "Mary Burke",
+      "speaker": "state-democratic-party-wisconsin",
+      "correct": false
+    },
+    "liar_10606": {
+      "answer": "Jeb Bush",
+      "speaker": "jeb-bush",
+      "correct": true
+    },
+    "liar_9016": {
+      "answer": "Sonny Perdue",
+      "speaker": "tom-graves",
+      "correct": false
+    },
+    "liar_2371": {
+      "answer": "Jeff Flake",
+      "speaker": "john-mccain",
+      "correct": false
+    },
+    "liar_12065": {
+      "answer": "Donald Trump",
+      "speaker": "donald-trump",
+      "correct": true
+    },
+    "liar_2362": {
+      "answer": "Barack Obama",
+      "speaker": "barack-obama",
+      "correct": true
+    },
+    "liar_2868": {
+      "answer": "Scott Walker",
+      "speaker": "jim-doyle",
+      "correct": false
+    },
+    "liar_13305": {
+      "answer": "Donald Trump",
+      "speaker": "donald-trump",
+      "correct": true
+    },
+    "liar_2428": {
+      "answer": "Sonny Perdue",
+      "speaker": "republican-governors-association",
+      "correct": false
+    },
+    "liar_636": {
+      "answer": "Barack Obama",
+      "speaker": "barack-obama",
+      "correct": true
+    },
+    "liar_2793": {
+      "answer": "Ken Paxton",
+      "speaker": "greg-abbott",
+      "correct": false
+    },
+    "liar_5898": {
+      "answer": "Connie Mack's opponent campaign (Democratic Party of Florida)",
+      "speaker": "george-lemieux",
+      "correct": false
+    },
+    "liar_11218": {
+      "answer": "Mitt Romney",
+      "speaker": "marco-rubio",
+      "correct": false
+    },
+    "liar_1955": {
+      "answer": "Jim Langevin's political opponent (likely Mark Zaccaria)",
+      "speaker": "michael-j-gardiner",
+      "correct": false
+    },
+    "liar_11139": {
+      "answer": "Rick Perry",
+      "speaker": "jeb-bush",
+      "correct": false
+    },
+    "liar_1648": {
+      "answer": "Barack Obama",
+      "speaker": "barack-obama",
+      "correct": true
+    },
+    "liar_5371": {
+      "answer": "Newt Gingrich",
+      "speaker": "rick-santorum",
+      "correct": false
+    },
+    "liar_4425": {
+      "answer": "Barack Obama",
+      "speaker": "john-kasich",
+      "correct": false
+    },
+    "liar_2498": {
+      "answer": "Barack Obama",
+      "speaker": "bill-white",
+      "correct": false
+    },
+    "liar_4131": {
+      "answer": "Brad Raffensperger",
+      "speaker": "brian-kemp",
+      "correct": false
+    },
+    "liar_2341": {
+      "answer": "Scott Walker",
+      "speaker": "mark-neumann",
+      "correct": false
+    },
+    "liar_5551": {
+      "answer": "Knute Buehler",
+      "speaker": "dennis-richardson",
+      "correct": false
+    },
+    "liar_11519": {
+      "answer": "Bernie Sanders",
+      "speaker": "tammy-baldwin",
+      "correct": false
+    },
+    "liar_12650": {
+      "answer": "Donald Trump",
+      "speaker": "donald-trump",
+      "correct": true
+    },
+    "liar_9480": {
+      "answer": "Bernie Sanders",
+      "speaker": "erin-lynch",
+      "correct": false
+    },
+    "liar_643": {
+      "answer": "Barack Obama",
+      "speaker": "joe-biden",
+      "correct": false
+    },
+    "liar_7038": {
+      "answer": "Sherrod Brown",
+      "speaker": "sherrod-brown",
+      "correct": true
+    },
+    "liar_7952": {
+      "answer": "Jon Kyl",
+      "speaker": "jeff-sessions",
+      "correct": false
+    },
+    "liar_13134": {
+      "answer": "Hillary Clinton",
+      "speaker": "hillary-clinton",
+      "correct": true
+    },
+    "liar_2181": {
+      "answer": "Barack Obama",
+      "speaker": "james-langevin",
+      "correct": false
+    },
+    "liar_9629": {
+      "answer": "Barack Obama",
+      "speaker": "john-kerry",
+      "correct": false
+    },
+    "liar_3668": {
+      "answer": "",
+      "speaker": "richard-saslaw",
+      "correct": false
+    },
+    "liar_11327": {
+      "answer": "Mitt Romney",
+      "speaker": "marco-rubio",
+      "correct": false
+    },
+    "liar_3818": {
+      "answer": "Connie Mack",
+      "speaker": "adam-hasner",
+      "correct": false
+    },
+    "liar_2218": {
+      "answer": "Todd Staples",
+      "speaker": "todd-staples",
+      "correct": true
+    },
+    "liar_11562": {
+      "answer": "Donald Trump",
+      "speaker": "donald-trump",
+      "correct": true
+    },
+    "liar_9622": {
+      "answer": "Barack Obama",
+      "speaker": "mitch-mcconnell",
+      "correct": false
+    },
+    "liar_9995": {
+      "answer": "Tony Evers",
+      "speaker": "mary-burke",
+      "correct": false
+    },
+    "liar_7344": {
+      "answer": "Donald Trump",
+      "speaker": "paul-ryan",
+      "correct": false
+    },
+    "liar_13127": {
+      "answer": "Hillary Clinton",
+      "speaker": "hillary-clinton",
+      "correct": true
+    },
+    "liar_12098": {
+      "answer": "Hillary Clinton",
+      "speaker": "john-kasich",
+      "correct": false
+    },
+    "liar_12272": {
+      "answer": "Hillary Clinton",
+      "speaker": "hillary-clinton",
+      "correct": true
+    },
+    "liar_11025": {
+      "answer": "John Kasich",
+      "speaker": "maggie-hassan",
+      "correct": false
+    },
+    "liar_2719": {
+      "answer": "Bill White",
+      "speaker": "bill-white",
+      "correct": true
+    },
+    "liar_3631": {
+      "answer": "Donald Trump",
+      "speaker": "kathleen-angelucci",
+      "correct": false
+    },
+    "liar_7211": {
+      "answer": "Mitch McConnell",
+      "speaker": "john-boehner",
+      "correct": false
+    },
+    "liar_1512": {
+      "answer": "Marco Rubio",
+      "speaker": "marco-rubio",
+      "correct": true
+    },
+    "liar_10517": {
+      "answer": "Rick Santorum",
+      "speaker": "nathan-deal",
+      "correct": false
+    },
+    "liar_5723": {
+      "answer": "Allen West",
+      "speaker": "allen-west",
+      "correct": true
+    },
+    "liar_7378": {
+      "answer": "Mitt Romney",
+      "speaker": "marco-rubio",
+      "correct": false
+    },
+    "liar_531": {
+      "answer": "Mike Huckabee",
+      "speaker": "john-mccain",
+      "correct": false
+    },
+    "liar_474": {
+      "answer": "Barack Obama",
+      "speaker": "barack-obama",
+      "correct": true
+    },
+    "liar_2250": {
+      "answer": "Alex Sink",
+      "speaker": "rick-scott",
+      "correct": false
+    },
+    "liar_126": {
+      "answer": "Barack Obama",
+      "speaker": "joe-biden",
+      "correct": false
+    },
+    "liar_9731": {
+      "answer": "Rick Scott",
+      "speaker": "rick-scott",
+      "correct": true
+    },
+    "liar_12026": {
+      "answer": "Michael Bloomberg",
+      "speaker": "jim-kenney",
+      "correct": false
+    },
+    "liar_5971": {
+      "answer": "Debbie Wasserman Schultz",
+      "speaker": "cory-booker",
+      "correct": false
+    },
+    "liar_6857": {
+      "answer": "Newt Gingrich",
+      "speaker": "mitt-romney",
+      "correct": false
+    },
+    "liar_3112": {
+      "answer": "Greg Abbott",
+      "speaker": "mario-gallegos",
+      "correct": false
+    },
+    "liar_2337": {
+      "answer": "Barack Obama",
+      "speaker": "rick-scott",
+      "correct": false
+    },
+    "liar_10853": {
+      "answer": "Bernie Sanders",
+      "speaker": "hillary-clinton",
+      "correct": false
+    },
+    "liar_9050": {
+      "answer": "Debbie Wasserman Schultz",
+      "speaker": "dan-pfeiffer",
+      "correct": false
+    },
+    "liar_9427": {
+      "answer": "Scott Walker",
+      "speaker": "robin-vos",
+      "correct": false
+    },
+    "liar_9756": {
+      "answer": "Alison Lundergan Grimes",
+      "speaker": "alison-lundergan-grimes",
+      "correct": true
+    },
+    "liar_6532": {
+      "answer": "Barack Obama",
+      "speaker": "barack-obama",
+      "correct": true
+    },
+    "liar_4805": {
+      "answer": "Scott Walker",
+      "speaker": "kurt-schuller",
+      "correct": false
+    },
+    "liar_3648": {
+      "answer": "Rick Scott",
+      "speaker": "miguel-diaz-de-la-portilla",
+      "correct": false
+    },
+    "liar_4994": {
+      "answer": "Newt Gingrich",
+      "speaker": "newt-gingrich",
+      "correct": true
+    },
+    "liar_526": {
+      "answer": "John McCain",
+      "speaker": "john-mccain",
+      "correct": true
+    },
+    "liar_8673": {
+      "answer": "John Ashcroft",
+      "speaker": "pam-bondi",
+      "correct": false
+    },
+    "liar_3": {
+      "answer": "Susana Martinez",
+      "speaker": "bill-richardson",
+      "correct": false
+    },
+    "liar_9197": {
+      "answer": "Bernie Sanders",
+      "speaker": "jim-demint",
+      "correct": false
+    },
+    "liar_9610": {
+      "answer": "Karen Handel",
+      "speaker": "jack-kingston",
+      "correct": false
+    },
+    "liar_1150": {
+      "answer": "Mitt Romney",
+      "speaker": "orrin-hatch",
+      "correct": false
+    },
+    "liar_2087": {
+      "answer": "Barack Obama",
+      "speaker": "dennis-kucinich",
+      "correct": false
+    },
+    "liar_7051": {
+      "answer": "Sherrod Brown",
+      "speaker": "betty-sutton",
+      "correct": false
+    },
+    "liar_8035": {
+      "answer": "Facebook posts",
+      "speaker": "robert-reich",
+      "correct": false
+    },
+    "liar_1329": {
+      "answer": "Nancy Pelosi",
+      "speaker": "ed-rendell",
+      "correct": false
+    },
+    "liar_6745": {
+      "answer": "John McCain",
+      "speaker": "mitt-romney",
+      "correct": false
+    },
+    "liar_4289": {
+      "answer": "Sam Adams",
+      "speaker": "sam-adams",
+      "correct": true
+    },
+    "liar_4383": {
+      "answer": "Dan Gardner",
+      "speaker": "dennis-richardson",
+      "correct": false
+    },
+    "liar_12089": {
+      "answer": "Josh Shapiro",
+      "speaker": "katie-mcginty",
+      "correct": false
+    },
+    "liar_5170": {
+      "answer": "Barack Obama",
+      "speaker": "lou-greenwald",
+      "correct": false
+    },
+    "liar_6976": {
+      "answer": "Barack Obama",
+      "speaker": "george-allen",
+      "correct": false
+    },
+    "liar_2643": {
+      "answer": "Sam Brownback",
+      "speaker": "scott-walker",
+      "correct": false
+    },
+    "liar_1810": {
+      "answer": "Ron Paul",
+      "speaker": "todd-staples",
+      "correct": false
+    },
+    "liar_13236": {
+      "answer": "Hillary Clinton",
+      "speaker": "tim-kaine",
+      "correct": false
+    },
+    "liar_2568": {
+      "answer": "",
+      "speaker": "doug-ainge",
+      "correct": false
+    },
+    "liar_12833": {
+      "answer": "Michelle Obama",
+      "speaker": "dave-brat",
+      "correct": false
+    },
+    "liar_1894": {
+      "answer": "Mike Huckabee",
+      "speaker": "donna-brazile",
+      "correct": false
+    },
+    "liar_7881": {
+      "answer": "Kirsten Gillibrand",
+      "speaker": "kirsten-gillibrand",
+      "correct": true
+    },
+    "liar_5603": {
+      "answer": "Mike Huckabee",
+      "speaker": "glenn-grothman",
+      "correct": false
+    },
+    "liar_6207": {
+      "answer": "Rick Scott",
+      "speaker": "chris-christie",
+      "correct": false
+    },
+    "liar_2149": {
+      "answer": "Mark Kirk",
+      "speaker": "kendrick-meek",
+      "correct": false
+    },
+    "liar_5910": {
+      "answer": "Mike Fina",
+      "speaker": "john-ludlow",
+      "correct": false
+    },
+    "liar_2596": {
+      "answer": "John Kitzhaber",
+      "speaker": "john-kitzhaber",
+      "correct": true
+    },
+    "liar_10399": {
+      "answer": "Mick Mulvaney",
+      "speaker": "rand-paul",
+      "correct": false
+    },
+    "liar_792": {
+      "answer": "John McCain",
+      "speaker": "john-mccain",
+      "correct": true
+    },
+    "liar_12929": {
+      "answer": "Gavin Newsom",
+      "speaker": "julian-castro",
+      "correct": false
+    },
+    "liar_12791": {
+      "answer": "Mike Coffman's opponent (Morgan Carroll)",
+      "speaker": "democratic-congressional-campaign-committee",
+      "correct": false
+    },
+    "liar_9003": {
+      "answer": "Rick Scott",
+      "speaker": "rick-scott",
+      "correct": true
+    },
+    "liar_3811": {
+      "answer": "Scott Walker",
+      "speaker": "scott-fitzgerald",
+      "correct": false
+    },
+    "liar_3399": {
+      "answer": "Chuck Grassley",
+      "speaker": "morgan-griffith",
+      "correct": false
+    },
+    "liar_11229": {
+      "answer": "Terry McAuliffe",
+      "speaker": "glen-sturtevant",
+      "correct": false
+    },
+    "liar_3800": {
+      "answer": "Joe Biden",
+      "speaker": "herman-cain",
+      "correct": false
+    },
+    "liar_352": {
+      "answer": "Hillary Clinton",
+      "speaker": "hillary-clinton",
+      "correct": true
+    },
+    "liar_4134": {
+      "answer": "Donald Trump",
+      "speaker": "alan-hays",
+      "correct": false
+    },
+    "liar_5278": {
+      "answer": "Mitt Romney",
+      "speaker": "jim-jordan",
+      "correct": false
+    },
+    "liar_7448": {
+      "answer": "Kasim Reed",
+      "speaker": "kasim-reed",
+      "correct": true
+    },
+    "liar_12987": {
+      "answer": "Gary Johnson",
+      "speaker": "jimmy-carter",
+      "correct": false
+    },
+    "liar_5132": {
+      "answer": "Chain email",
+      "speaker": "georgia-democrats",
+      "correct": false
+    },
+    "liar_13329": {
+      "answer": "Donald Trump",
+      "speaker": "kellyanne-conway",
+      "correct": false
+    },
+    "liar_4588": {
+      "answer": "Rick Perry",
+      "speaker": "rick-perry",
+      "correct": true
+    },
+    "liar_6455": {
+      "answer": "Glenn Richardson",
+      "speaker": "warren-kampf",
+      "correct": false
+    },
+    "liar_10282": {
+      "answer": "Donald Trump",
+      "speaker": "jesse-ventura",
+      "correct": false
+    },
+    "liar_211": {
+      "answer": "Barack Obama",
+      "speaker": "john-mccain",
+      "correct": false
+    },
+    "liar_7676": {
+      "answer": "Wayne LaPierre",
+      "speaker": "michael-chippendale",
+      "correct": false
+    },
+    "liar_2443": {
+      "answer": "Mike DeWine",
+      "speaker": "john-kasich",
+      "correct": false
+    },
+    "liar_3841": {
+      "answer": "Paul Ryan",
+      "speaker": "tim-pawlenty",
+      "correct": false
+    },
+    "liar_12284": {
+      "answer": "Bernie Sanders",
+      "speaker": "bernie-s",
+      "correct": false
+    },
+    "liar_7197": {
+      "answer": "Kate Brown",
+      "speaker": "john-kitzhaber",
+      "correct": false
+    },
+    "liar_12858": {
+      "answer": "Barack Obama",
+      "speaker": "barack-obama",
+      "correct": true
+    },
+    "liar_2633": {
+      "answer": "Mark Kirk",
+      "speaker": "mark-kirk",
+      "correct": true
+    },
+    "liar_6041": {
+      "answer": "Jared Huffman",
+      "speaker": "jack-latvala",
+      "correct": false
+    },
+    "liar_3414": {
+      "answer": "Bernie Sanders",
+      "speaker": "bernie-s",
+      "correct": false
+    },
+    "liar_4323": {
+      "answer": "Barack Obama",
+      "speaker": "thaddeus-mccotter",
+      "correct": false
+    },
+    "liar_275": {
+      "answer": "Barack Obama",
+      "speaker": "rudy-giuliani",
+      "correct": false
+    },
+    "liar_13208": {
+      "answer": "Unknown",
+      "speaker": "jason-kander",
+      "correct": false
+    },
+    "liar_5911": {
+      "answer": "Mitt Romney",
+      "speaker": "rob-portman",
+      "correct": false
+    },
+    "liar_4277": {
+      "answer": "Donald Trump",
+      "speaker": "reince-priebus",
+      "correct": false
+    },
+    "liar_752": {
+      "answer": "Barack Obama",
+      "speaker": "barack-obama",
+      "correct": true
+    },
+    "liar_2601": {
+      "answer": "Barack Obama",
+      "speaker": "kurt-schrader",
+      "correct": false
+    },
+    "liar_1450": {
+      "answer": "Chain email",
+      "speaker": "debra-medina",
+      "correct": false
+    },
+    "liar_5653": {
+      "answer": "Facebook posts",
+      "speaker": "andrew-napolitano",
+      "correct": false
+    },
+    "liar_3103": {
+      "answer": "Tim Kaine",
+      "speaker": "jamie-radtke",
+      "correct": false
+    },
+    "liar_1012": {
+      "answer": "Nancy Pelosi",
+      "speaker": "nancy-pelosi",
+      "correct": true
+    },
+    "liar_2945": {
+      "answer": "Mitt Romney",
+      "speaker": "jack-kingston",
+      "correct": false
+    },
+    "liar_9944": {
+      "answer": "Barack Obama",
+      "speaker": "bob-goodlatte",
+      "correct": false
+    },
+    "liar_6839": {
+      "answer": "Tammy Baldwin",
+      "speaker": "tammy-baldwin",
+      "correct": true
+    },
+    "liar_3673": {
+      "answer": "Democratic Party of Wisconsin",
+      "speaker": "chris-larson",
+      "correct": false
+    },
+    "liar_13058": {
+      "answer": "Hillary Clinton",
+      "speaker": "barack-obama",
+      "correct": false
+    },
+    "liar_3941": {
+      "answer": "John Boehner",
+      "speaker": "rob-portman",
+      "correct": false
+    },
+    "liar_10917": {
+      "answer": "Jeb Bush",
+      "speaker": "bobby-jindal",
+      "correct": false
+    },
+    "liar_13155": {
+      "answer": "Russ Feingold",
+      "speaker": "russ-feingold",
+      "correct": true
+    },
+    "liar_5486": {
+      "answer": "Ted Cruz",
+      "speaker": "silvestre-reyes",
+      "correct": false
+    },
+    "liar_4579": {
+      "answer": "Mitt Romney",
+      "speaker": "american-crossroads",
+      "correct": false
+    },
+    "liar_10943": {
+      "answer": "Barack Obama",
+      "speaker": "austin-scott",
+      "correct": false
+    },
+    "liar_12728": {
+      "answer": "Donald Trump",
+      "speaker": "rick-scott",
+      "correct": false
+    },
+    "liar_92": {
+      "answer": "Barack Obama",
+      "speaker": "mitt-romney",
+      "correct": false
+    },
+    "liar_11230": {
+      "answer": "Jeb Bush",
+      "speaker": "bobby-jindal",
+      "correct": false
+    },
+    "liar_582": {
+      "answer": "John McCain",
+      "speaker": "barack-obama",
+      "correct": false
+    },
+    "liar_13227": {
+      "answer": "Donald Trump",
+      "speaker": "donald-trump",
+      "correct": true
+    },
+    "liar_12052": {
+      "answer": "Barack Obama",
+      "speaker": "marco-rubio",
+      "correct": false
+    },
+    "liar_1010": {
+      "answer": "Kent Conrad",
+      "speaker": "barack-obama",
+      "correct": false
+    },
+    "liar_2603": {
+      "answer": "Sid Miller",
+      "speaker": "hank-gilbert",
+      "correct": false
+    },
+    "liar_2731": {
+      "answer": "Barack Obama",
+      "speaker": "barack-obama",
+      "correct": true
+    },
+    "liar_3434": {
+      "answer": "Greg Abbott",
+      "speaker": "rick-perry",
+      "correct": false
+    },
+    "liar_788": {
+      "answer": "John McCain",
+      "speaker": "john-mccain",
+      "correct": true
+    },
+    "liar_605": {
+      "answer": "John McCain",
+      "speaker": "john-mccain",
+      "correct": true
+    },
+    "liar_6195": {
+      "answer": "Sherrod Brown",
+      "speaker": "dan-ramos",
+      "correct": false
+    },
+    "liar_1350": {
+      "answer": "Barack Obama",
+      "speaker": "mitch-mcconnell",
+      "correct": false
+    },
+    "liar_7706": {
+      "answer": "Sheldon Whitehouse",
+      "speaker": "sheldon-whitehouse",
+      "correct": true
+    },
+    "liar_12037": {
+      "answer": "Donald Trump",
+      "speaker": "ron-johnson",
+      "correct": false
+    },
+    "liar_8710": {
+      "answer": "Angel Taveras",
+      "speaker": "brett-smiley",
+      "correct": false
+    },
+    "liar_960": {
+      "answer": "Donald Trump",
+      "speaker": "chuck-grassley",
+      "correct": false
+    },
+    "liar_10544": {
+      "answer": "Newt Gingrich",
+      "speaker": "rudy-giuliani",
+      "correct": false
+    },
+    "liar_4391": {
+      "answer": "Donald Trump",
+      "speaker": "kinky-friedman",
+      "correct": false
+    },
+    "liar_13186": {
+      "answer": "Hillary Clinton",
+      "speaker": "tim-kaine",
+      "correct": false
+    },
+    "liar_9692": {
+      "answer": "Carlos Curbelo",
+      "speaker": "ed-macdougall",
+      "correct": false
+    },
+    "liar_7401": {
+      "answer": "Peter Courtney",
+      "speaker": "peter-courtney",
+      "correct": true
+    },
+    "liar_13405": {
+      "answer": "Mitt Romney",
+      "speaker": "mike-pence",
+      "correct": false
+    },
+    "liar_230": {
+      "answer": "Barack Obama",
+      "speaker": "hillary-clinton",
+      "correct": false
+    },
+    "liar_3037": {
+      "answer": "Debbie Wasserman Schultz",
+      "speaker": "tim-kaine",
+      "correct": false
+    },
+    "liar_207": {
+      "answer": "John McCain",
+      "speaker": "john-mccain",
+      "correct": true
+    },
+    "liar_7775": {
+      "answer": "Bernie Sanders",
+      "speaker": "ron-meyer",
+      "correct": false
+    },
+    "liar_10069": {
+      "answer": "Hillary Clinton",
+      "speaker": "debbie-wasserman-schultz",
+      "correct": false
+    },
+    "liar_3366": {
+      "answer": "Rick Scott",
+      "speaker": "ward-armstrong",
+      "correct": false
+    },
+    "liar_1015": {
+      "answer": "Dick Cheney",
+      "speaker": "newt-gingrich",
+      "correct": false
+    },
+    "liar_2514": {
+      "answer": "Barack Obama",
+      "speaker": "phil-gingrey",
+      "correct": false
+    },
+    "liar_13213": {
+      "answer": "Kamala Harris",
+      "speaker": "kamala-harris",
+      "correct": true
+    },
+    "liar_5698": {
+      "answer": "Patty Murray",
+      "speaker": "barack-obama",
+      "correct": false
+    },
+    "liar_11701": {
+      "answer": "Ted Cruz",
+      "speaker": "lamar-smith",
+      "correct": false
+    },
+    "liar_2315": {
+      "answer": "Rebekah Hartsell",
+      "speaker": "blanche-lincoln",
+      "correct": false
+    },
+    "liar_11307": {
+      "answer": "Donald Trump",
+      "speaker": "donald-trump",
+      "correct": true
+    },
+    "liar_11925": {
+      "answer": "Kamala Harris",
+      "speaker": "tim-mcginty",
+      "correct": false
+    },
+    "liar_4259": {
+      "answer": "Chris Christie",
+      "speaker": "richard-codey",
+      "correct": false
+    },
+    "liar_5061": {
+      "answer": "Chris Christie",
+      "speaker": "chris-christie",
+      "correct": true
+    },
+    "liar_4141": {
+      "answer": "Harry Reid",
+      "speaker": "ann-marie-buerkle",
+      "correct": false
+    },
+    "liar_4175": {
+      "answer": "Barack Obama",
+      "speaker": "debbie-wasserman-schultz",
+      "correct": false
+    },
+    "liar_9462": {
+      "answer": "Charlie Crist",
+      "speaker": "florida-democratic-party",
+      "correct": false
+    },
+    "liar_7728": {
+      "answer": "Chris Christie",
+      "speaker": "chris-christie",
+      "correct": true
+    },
+    "liar_2117": {
+      "answer": "Susana Martinez",
+      "speaker": "susana-martinez",
+      "correct": true
+    },
+    "liar_9516": {
+      "answer": "Greg Abbott",
+      "speaker": "greg-abbott",
+      "correct": true
+    },
+    "liar_12834": {
+      "answer": "Donald Trump",
+      "speaker": "donald-trump",
+      "correct": true
+    },
+    "liar_3231": {
+      "answer": "Donald Trump",
+      "speaker": "herman-cain",
+      "correct": false
+    },
+    "liar_386": {
+      "answer": "John McCain",
+      "speaker": "john-mccain",
+      "correct": true
+    },
+    "liar_11288": {
+      "answer": "Hillary Clinton",
+      "speaker": "reid-ribble",
+      "correct": false
+    },
+    "liar_660": {
+      "answer": "Barack Obama",
+      "speaker": "mark-warner",
+      "correct": false
+    },
+    "liar_2105": {
+      "answer": "Unknown - insufficient information to identify a speaker",
+      "speaker": "rick-perry",
+      "correct": false
+    },
+    "liar_10271": {
+      "answer": "Jim Galloway",
+      "speaker": "keisha-lance-bottoms",
+      "correct": false
+    },
+    "liar_4866": {
+      "answer": "Mitt Romney",
+      "speaker": "republican-national-committee-republican",
+      "correct": false
+    },
+    "liar_8419": {
+      "answer": "Donald Trump",
+      "speaker": "ted-cruz",
+      "correct": false
+    },
+    "liar_3136": {
+      "answer": "John Morton",
+      "speaker": "peter-kilmartin",
+      "correct": false
+    },
+    "liar_12093": {
+      "answer": "Chuck Schumer",
+      "speaker": "mark-herring",
+      "correct": false
+    },
+    "liar_317": {
+      "answer": "Bill Clinton",
+      "speaker": "bill-clinton",
+      "correct": true
+    },
+    "liar_6295": {
+      "answer": "Mitch McConnell",
+      "speaker": "josh-mandel",
+      "correct": false
+    },
+    "liar_4995": {
+      "answer": "Nancy Pelosi",
+      "speaker": "jim-sensenbrenner",
+      "correct": false
+    },
+    "liar_10451": {
+      "answer": "Mitt Romney",
+      "speaker": "john-boehner",
+      "correct": false
+    },
+    "liar_4679": {
+      "answer": "Rick Perry",
+      "speaker": "rick-perry",
+      "correct": true
+    },
+    "liar_6011": {
+      "answer": "Mitt Romney",
+      "speaker": "caroline-casagrande",
+      "correct": false
+    },
+    "liar_255": {
+      "answer": "Barack Obama",
+      "speaker": "chris-dodd",
+      "correct": false
+    },
+    "liar_9388": {
+      "answer": "Donald Trump",
+      "speaker": "mike-collins",
+      "correct": false
+    },
+    "liar_12596": {
+      "answer": "Roy Cooper",
+      "speaker": "hillary-clinton",
+      "correct": false
+    },
+    "liar_13420": {
+      "answer": "Hillary Clinton",
+      "speaker": "hillary-clinton",
+      "correct": true
+    },
+    "liar_11911": {
+      "answer": "Mitch McConnell",
+      "speaker": "marco-rubio",
+      "correct": false
+    },
+    "liar_5450": {
+      "answer": "Mitt Romney",
+      "speaker": "ron-paul",
+      "correct": false
+    },
+    "liar_2993": {
+      "answer": "Ron Paul",
+      "speaker": "rick-perry",
+      "correct": false
+    },
+    "liar_3740": {
+      "answer": "Tim Kaine",
+      "speaker": "tim-kaine",
+      "correct": true
+    },
+    "liar_12720": {
+      "answer": "Donald Trump",
+      "speaker": "chris-christie",
+      "correct": false
+    },
+    "liar_1653": {
+      "answer": "Tim Pawlenty",
+      "speaker": "rick-green",
+      "correct": false
+    },
+    "liar_2552": {
+      "answer": "Barack Obama",
+      "speaker": "jack-conway",
+      "correct": false
+    },
+    "liar_9353": {
+      "answer": "Barack Obama",
+      "speaker": "bobby-jindal",
+      "correct": false
+    },
+    "liar_9577": {
+      "answer": "Barack Obama",
+      "speaker": "kirk-cox",
+      "correct": false
+    },
+    "liar_4318": {
+      "answer": "Dannel Malloy",
+      "speaker": "chris-christie",
+      "correct": false
+    },
+    "liar_8243": {
+      "answer": "Harvey Hilderbran",
+      "speaker": "raul-torres",
+      "correct": false
+    },
+    "liar_13500": {
+      "answer": "Hillary Clinton",
+      "speaker": "bill-de-blasio",
+      "correct": false
+    },
+    "liar_9854": {
+      "answer": "Thomas Jefferson",
+      "speaker": "jody-hice",
+      "correct": false
+    },
+    "liar_12293": {
+      "answer": "Hillary Clinton",
+      "speaker": "ted-cruz",
+      "correct": false
+    },
+    "liar_3731": {
+      "answer": "Barack Obama",
+      "speaker": "barack-obama",
+      "correct": true
+    },
+    "liar_8103": {
+      "answer": "Rahm Emanuel",
+      "speaker": "rick-kriseman",
+      "correct": false
+    },
+    "liar_10111": {
+      "answer": "Rick Scott",
+      "speaker": "rick-scott",
+      "correct": true
+    },
+    "liar_10543": {
+      "answer": "Scott Walker",
+      "speaker": "scott-walker",
+      "correct": true
+    },
+    "liar_7904": {
+      "answer": "Scott Walker",
+      "speaker": "scott-walker",
+      "correct": true
+    },
+    "liar_4709": {
+      "answer": "Mitt Romney",
+      "speaker": "allen-west",
+      "correct": false
+    },
+    "liar_8854": {
+      "answer": "Tim Burns",
+      "speaker": "mary-burke",
+      "correct": false
+    },
+    "liar_4116": {
+      "answer": "John Boehner",
+      "speaker": "john-boehner",
+      "correct": true
+    },
+    "liar_11861": {
+      "answer": "Ted Cruz",
+      "speaker": "sarah-palin",
+      "correct": false
+    },
+    "liar_9435": {
+      "answer": "Hillary Clinton",
+      "speaker": "hillary-clinton",
+      "correct": true
+    },
+    "liar_12805": {
+      "answer": "Barack Obama",
+      "speaker": "joe-biden",
+      "correct": false
+    },
+    "liar_9801": {
+      "answer": "Gina Raimondo",
+      "speaker": "gina-raimondo",
+      "correct": true
+    },
+    "liar_2195": {
+      "answer": "Rick Perry",
+      "speaker": "rick-perry",
+      "correct": true
+    },
+    "liar_3676": {
+      "answer": "Chain email",
+      "speaker": "adam-hasner",
+      "correct": false
+    },
+    "liar_4615": {
+      "answer": "Chris Christie",
+      "speaker": "tom-kean-jr",
+      "correct": false
+    },
+    "liar_2394": {
+      "answer": "Nathan Deal",
+      "speaker": "republican-governors-association",
+      "correct": false
+    },
+    "liar_817": {
+      "answer": "Mitt Romney",
+      "speaker": "republican-national-committee-republican",
+      "correct": false
+    },
+    "liar_7387": {
+      "answer": "Barack Obama",
+      "speaker": "marco-rubio",
+      "correct": false
+    },
+    "liar_3541": {
+      "answer": "Barack Obama",
+      "speaker": "armond-budish",
+      "correct": false
+    },
+    "liar_7340": {
+      "answer": "Barack Obama",
+      "speaker": "barack-obama",
+      "correct": true
+    },
+    "liar_10467": {
+      "answer": "Rick Perry",
+      "speaker": "rick-perry",
+      "correct": true
+    },
+    "liar_12526": {
+      "answer": "Mitch McConnell",
+      "speaker": "larry-yarborough",
+      "correct": false
+    },
+    "liar_10898": {
+      "answer": "Ted Cruz",
+      "speaker": "al-sharpton",
+      "correct": false
+    },
+    "liar_7541": {
+      "answer": "Chris Christie",
+      "speaker": "chris-christie",
+      "correct": true
+    },
+    "liar_7136": {
+      "answer": "Mike Huckabee",
+      "speaker": "john-kitzhaber",
+      "correct": false
+    },
+    "liar_6325": {
+      "answer": "Barack Obama",
+      "speaker": "michael-bloomberg",
+      "correct": false
+    },
+    "liar_12855": {
+      "answer": "Dick Durbin",
+      "speaker": "richard-durbin",
+      "correct": false
+    },
+    "liar_10512": {
+      "answer": "Barack Obama",
+      "speaker": "leonidas-raptakis",
+      "correct": false
+    },
+    "liar_11726": {
+      "answer": "Donald Trump",
+      "speaker": "dan-patrick",
+      "correct": false
+    },
+    "liar_3904": {
+      "answer": "Barack Obama",
+      "speaker": "brian-deese",
+      "correct": false
+    },
+    "liar_6813": {
+      "answer": "Mitt Romney",
+      "speaker": "paul-ryan",
+      "correct": false
+    },
+    "liar_6366": {
+      "answer": "Mitt Romney",
+      "speaker": "scott-garrett",
+      "correct": false
+    },
+    "liar_9316": {
+      "answer": "Mitch McConnell",
+      "speaker": "harry-reid",
+      "correct": false
+    },
+    "liar_992": {
+      "answer": "Barack Obama",
+      "speaker": "barack-obama",
+      "correct": true
+    },
+    "liar_699": {
+      "answer": "John McCain",
+      "speaker": "john-mccain",
+      "correct": true
+    },
+    "liar_9033": {
+      "answer": "Barack Obama",
+      "speaker": "rob-portman",
+      "correct": false
+    },
+    "liar_5950": {
+      "answer": "Barack Obama",
+      "speaker": "mitt-romney",
+      "correct": false
+    },
+    "liar_10041": {
+      "answer": "Dan Patrick",
+      "speaker": "dan-patrick",
+      "correct": true
+    },
+    "liar_5528": {
+      "answer": "Ted Cruz",
+      "speaker": "paul-sadler",
+      "correct": false
+    },
+    "liar_8414": {
+      "answer": "Rick Baker",
+      "speaker": "rick-kriseman",
+      "correct": false
+    },
+    "liar_4189": {
+      "answer": "Dan Kapanke",
+      "speaker": "national-republican-congressional-committee",
+      "correct": false
+    },
+    "liar_9052": {
+      "answer": "Dan Branch",
+      "speaker": "david-dewhurst",
+      "correct": false
+    },
+    "liar_12478": {
+      "answer": "Catherine Cortez Masto",
+      "speaker": "sharron-angle",
+      "correct": false
+    },
+    "liar_3235": {
+      "answer": "Barack Obama",
+      "speaker": "barack-obama",
+      "correct": true
+    },
+    "liar_1514": {
+      "answer": "Bill McCollum",
+      "speaker": "alex-sink",
+      "correct": false
+    },
+    "liar_9774": {
+      "answer": "Rick Scott",
+      "speaker": "republican-party-florida",
+      "correct": false
+    },
+    "liar_9444": {
+      "answer": "Tony Evers",
+      "speaker": "mary-burke",
+      "correct": false
+    },
+    "liar_12449": {
+      "answer": "New Hampshire Republican Party",
+      "speaker": "kelly-ayotte",
+      "correct": false
+    },
+    "liar_4432": {
+      "answer": "Ohio Democratic Party",
+      "speaker": "dan-ramos",
+      "correct": false
+    },
+    "liar_5749": {
+      "answer": "Greg Abbott",
+      "speaker": "greg-abbott",
+      "correct": true
+    },
+    "liar_8192": {
+      "answer": "Marco Rubio",
+      "speaker": "rene-garcia",
+      "correct": false
+    },
+    "liar_7886": {
+      "answer": "Chris Christie",
+      "speaker": "christine-whitman",
+      "correct": false
+    },
+    "liar_7721": {
+      "answer": "Marco Rubio",
+      "speaker": "bob-goodlatte",
+      "correct": false
+    },
+    "liar_2616": {
+      "answer": "Barack Obama",
+      "speaker": "christine-odonnell",
+      "correct": false
+    },
+    "liar_1280": {
+      "answer": "Rick Scott",
+      "speaker": "charlie-crist",
+      "correct": false
+    },
+    "liar_2477": {
+      "answer": "Scott Walker",
+      "speaker": "steve-southerland",
+      "correct": false
+    },
+    "liar_6123": {
+      "answer": "Eric Cantor",
+      "speaker": "eric-hovde",
+      "correct": false
+    },
+    "liar_901": {
+      "answer": "Mitt Romney",
+      "speaker": "spencer-bachus",
+      "correct": false
+    },
+    "liar_6720": {
+      "answer": "Rob Zerban",
+      "speaker": "rob-zerban",
+      "correct": true
+    },
+    "liar_4628": {
+      "answer": "Barack Obama",
+      "speaker": "hank-johnson",
+      "correct": false
+    },
+    "liar_11303": {
+      "answer": "Jay Nixon",
+      "speaker": "jay-nixon",
+      "correct": true
+    },
+    "liar_13350": {
+      "answer": "Hillary Clinton",
+      "speaker": "patrick-murphy",
+      "correct": false
+    },
+    "liar_258": {
+      "answer": "Barack Obama",
+      "speaker": "mitt-romney",
+      "correct": false
+    },
+    "liar_10450": {
+      "answer": "Paul Ryan",
+      "speaker": "rand-paul",
+      "correct": false
+    },
+    "liar_8758": {
+      "answer": "Sherrod Brown",
+      "speaker": "barack-obama",
+      "correct": false
+    },
+    "liar_4442": {
+      "answer": "Ron Paul",
+      "speaker": "ron-paul",
+      "correct": true
+    },
+    "liar_7930": {
+      "answer": "Debbie Stabenow",
+      "speaker": "pete-gallego",
+      "correct": false
+    },
+    "liar_12122": {
+      "answer": "Marco Rubio",
+      "speaker": "paul-ryan",
+      "correct": false
+    },
+    "liar_6678": {
+      "answer": "John Thune",
+      "speaker": "leonard-lance",
+      "correct": false
+    },
+    "liar_7111": {
+      "answer": "Heidi Heitkamp",
+      "speaker": "sam-adams",
+      "correct": false
+    },
+    "liar_5693": {
+      "answer": "Tammy Baldwin",
+      "speaker": "kathleen-falk",
+      "correct": false
+    },
+    "liar_2305": {
+      "answer": "Michele Bachmann",
+      "speaker": "john-boehner",
+      "correct": false
+    },
+    "liar_11375": {
+      "answer": "Greg Abbott",
+      "speaker": "glenn-hegar",
+      "correct": false
+    },
+    "liar_9674": {
+      "answer": "Greg Abbott",
+      "speaker": "jeb-bush",
+      "correct": false
+    },
+    "liar_3369": {
+      "answer": "Charlie Hales",
+      "speaker": "sam-adams",
+      "correct": false
+    },
+    "liar_8855": {
+      "answer": "Newt Gingrich",
+      "speaker": "wendy-davis",
+      "correct": false
+    },
+    "liar_1641": {
+      "answer": "Rick Santorum",
+      "speaker": "michele-bachmann",
+      "correct": false
+    },
+    "liar_9080": {
+      "answer": "Newt Gingrich",
+      "speaker": "greg-morris",
+      "correct": false
+    },
+    "liar_4233": {
+      "answer": "Jennifer Granholm",
+      "speaker": "jennifer-granholm",
+      "correct": true
+    },
+    "liar_12952": {
+      "answer": "Donald Trump",
+      "speaker": "donald-trump",
+      "correct": true
+    },
+    "liar_2135": {
+      "answer": "Donald Trump",
+      "speaker": "lincoln-chafee",
+      "correct": false
+    },
+    "liar_7696": {
+      "answer": "Bernie Sanders",
+      "speaker": "mark-pocan",
+      "correct": false
+    },
+    "liar_11751": {
+      "answer": "Joe Biden",
+      "speaker": "barack-obama",
+      "correct": false
+    },
+    "liar_2187": {
+      "answer": "Barack Obama",
+      "speaker": "michael-bloomberg",
+      "correct": false
+    },
+    "liar_3196": {
+      "answer": "Mitt Romney",
+      "speaker": "rick-scott",
+      "correct": false
+    },
+    "liar_6263": {
+      "answer": "Scott Walker",
+      "speaker": "ovide-lamontagne",
+      "correct": false
+    },
+    "liar_2774": {
+      "answer": "Unknown - insufficient information to identify the speaker",
+      "speaker": "scott-walker",
+      "correct": false
+    },
+    "liar_6555": {
+      "answer": "Barack Obama",
+      "speaker": "teresa-fedor",
+      "correct": false
+    },
+    "liar_8011": {
+      "answer": "Lloyd Doggett",
+      "speaker": "elliott-naishtat",
+      "correct": false
+    },
+    "liar_1290": {
+      "answer": "Mike Gravel",
+      "speaker": "ginny-brown-waite",
+      "correct": false
+    },
+    "liar_9151": {
+      "answer": "Donald Trump",
+      "speaker": "michael-mccaul",
+      "correct": false
+    },
+    "liar_11625": {
+      "answer": "Greg Abbott",
+      "speaker": "greg-abbott",
+      "correct": true
+    },
+    "liar_7426": {
+      "answer": "Rand Paul",
+      "speaker": "bill-jackson",
+      "correct": false
+    },
+    "liar_1462": {
+      "answer": "Bill White",
+      "speaker": "kay-bailey-hutchison",
+      "correct": false
+    },
+    "liar_1777": {
+      "answer": "John Cornyn",
+      "speaker": "john-cornyn",
+      "correct": true
+    },
+    "liar_12982": {
+      "answer": "Donald Trump",
+      "speaker": "reince-priebus",
+      "correct": false
+    },
+    "liar_6015": {
+      "answer": "Ron Johnson",
+      "speaker": "reince-priebus",
+      "correct": false
+    },
+    "liar_6035": {
+      "answer": "Deval Patrick",
+      "speaker": "eric-fehrnstrom",
+      "correct": false
+    },
+    "liar_10309": {
+      "answer": "Ted Cruz",
+      "speaker": "michael-needham",
+      "correct": false
+    },
+    "liar_7336": {
+      "answer": "Donald Trump",
+      "speaker": "texas-federation-republican-women",
+      "correct": false
+    },
+    "liar_7726": {
+      "answer": "Sherrod Brown",
+      "speaker": "ed-fitzgerald",
+      "correct": false
+    },
+    "liar_12768": {
+      "answer": "Hillary Clinton",
+      "speaker": "kirsten-gillibrand",
+      "correct": false
+    },
+    "liar_12012": {
+      "answer": "Bernie Sanders",
+      "speaker": "chris-koster",
+      "correct": false
+    },
+    "liar_5710": {
+      "answer": "Donald Trump",
+      "speaker": "joe-biden",
+      "correct": false
+    },
+    "liar_4901": {
+      "answer": "Barack Obama",
+      "speaker": "florida-democratic-party",
+      "correct": false
+    },
+    "liar_7806": {
+      "answer": "Scott Walker",
+      "speaker": "leah-vukmir",
+      "correct": false
+    },
+    "liar_12537": {
+      "answer": "Donald Trump",
+      "speaker": "donald-trump",
+      "correct": true
+    },
+    "liar_3593": {
+      "answer": "Bob McDonnell",
+      "speaker": "rick-scott",
+      "correct": false
+    },
+    "liar_8990": {
+      "answer": "Joe Biden",
+      "speaker": "john-kerry",
+      "correct": false
+    },
+    "liar_3979": {
+      "answer": "Chuck Grassley",
+      "speaker": "george-allen",
+      "correct": false
+    },
+    "liar_10897": {
+      "answer": "Barack Obama",
+      "speaker": "rick-perry",
+      "correct": false
+    },
+    "liar_4841": {
+      "answer": "Kate Brown",
+      "speaker": "eileen-brady",
+      "correct": false
+    },
+    "liar_2570": {
+      "answer": "Russ Feingold",
+      "speaker": "russ-feingold",
+      "correct": true
+    },
+    "liar_7236": {
+      "answer": "Bruce Rauner",
+      "speaker": "rick-scott",
+      "correct": false
+    },
+    "liar_6571": {
+      "answer": "Rick Scott",
+      "speaker": "chris-christie",
+      "correct": false
+    },
+    "liar_2640": {
+      "answer": "Dennis Richardson",
+      "speaker": "chuck-riley",
+      "correct": false
+    },
+    "liar_166": {
+      "answer": "George W. Bush",
+      "speaker": "mitt-romney",
+      "correct": false
+    },
+    "liar_13385": {
+      "answer": "Donald Trump",
+      "speaker": "donald-trump",
+      "correct": true
+    },
+    "liar_11670": {
+      "answer": "Newt Gingrich",
+      "speaker": "american-action-network",
+      "correct": false
+    },
+    "liar_13029": {
+      "answer": "Marco Rubio",
+      "speaker": "national-republican-senatorial-committee",
+      "correct": false
+    },
+    "liar_9937": {
+      "answer": "Elizabeth Warren",
+      "speaker": "jeanne-shaheen",
+      "correct": false
+    },
+    "liar_2811": {
+      "answer": "Barack Obama",
+      "speaker": "mark-warner",
+      "correct": false
+    },
+    "liar_6333": {
+      "answer": "Chris Christie",
+      "speaker": "chris-christie",
+      "correct": true
+    },
+    "liar_5124": {
+      "answer": "Rick Santorum",
+      "speaker": "restore-our-future",
+      "correct": false
+    },
+    "liar_66": {
+      "answer": "Elizabeth Warren",
+      "speaker": "john-edwards",
+      "correct": false
+    },
+    "liar_5403": {
+      "answer": "Rick Perry",
+      "speaker": "bruce-starr",
+      "correct": false
+    },
+    "liar_9437": {
+      "answer": "Scott Walker",
+      "speaker": "scott-walker",
+      "correct": true
+    },
+    "liar_235": {
+      "answer": "Chris Matthews",
+      "speaker": "john-mccain",
+      "correct": false
+    },
+    "liar_793": {
+      "answer": "Barack Obama",
+      "speaker": "barack-obama",
+      "correct": true
+    },
+    "liar_11080": {
+      "answer": "Rick Perry",
+      "speaker": "rick-perry",
+      "correct": true
+    },
+    "liar_9489": {
+      "answer": "Scott Walker",
+      "speaker": "scott-walker",
+      "correct": true
+    },
+    "liar_2484": {
+      "answer": "Alan Grayson",
+      "speaker": "alan-grayson",
+      "correct": true
+    },
+    "liar_5836": {
+      "answer": "Mary Nolan",
+      "speaker": "mary-nolan",
+      "correct": true
+    },
+    "liar_12": {
+      "answer": "Newt Gingrich",
+      "speaker": "mike-huckabee",
+      "correct": false
+    },
+    "liar_6264": {
+      "answer": "Mitch McConnell",
+      "speaker": "eric-cantor",
+      "correct": false
+    },
+    "liar_13324": {
+      "answer": "Donald Trump",
+      "speaker": "donald-trump",
+      "correct": true
+    },
+    "liar_5230": {
+      "answer": "Nathan Deal",
+      "speaker": "nathan-deal",
+      "correct": true
+    },
+    "liar_6900": {
+      "answer": "Donna Campbell",
+      "speaker": "karen-huber",
+      "correct": false
+    },
+    "liar_10524": {
+      "answer": "Jeh Johnson",
+      "speaker": "lloyd-doggett",
+      "correct": false
+    },
+    "liar_12599": {
+      "answer": "Hillary Clinton",
+      "speaker": "thomas-perez",
+      "correct": false
+    },
+    "liar_917": {
+      "answer": "Mitt Romney",
+      "speaker": "eric-cantor",
+      "correct": false
+    },
+    "liar_7084": {
+      "answer": "Rick Perry",
+      "speaker": "dan-patrick",
+      "correct": false
+    },
+    "liar_7900": {
+      "answer": "Scott Walker",
+      "speaker": "john-nygren",
+      "correct": false
+    },
+    "liar_9323": {
+      "answer": "Dan Patrick's opponent (e.g., Leticia Van de Putte)",
+      "speaker": "julian-castro",
+      "correct": false
+    },
+    "liar_1460": {
+      "answer": "Bill White",
+      "speaker": "bill-white",
+      "correct": true
+    },
+    "liar_7607": {
+      "answer": "John Kasich",
+      "speaker": "john-kasich",
+      "correct": true
+    },
+    "liar_1061": {
+      "answer": "Ron Paul",
+      "speaker": "lynn-westmoreland",
+      "correct": false
+    },
+    "liar_12321": {
+      "answer": "Pat McCrory",
+      "speaker": "pat-mccrory",
+      "correct": true
+    },
+    "liar_6473": {
+      "answer": "Barack Obama",
+      "speaker": "stephanie-cutter",
+      "correct": false
+    },
+    "liar_2877": {
+      "answer": "Scott Walker",
+      "speaker": "scott-walker",
+      "correct": true
+    },
+    "liar_7145": {
+      "answer": "John Kitzhaber",
+      "speaker": "john-kitzhaber",
+      "correct": true
+    },
+    "liar_6945": {
+      "answer": "Josh Mandel",
+      "speaker": "crossroads-gps",
+      "correct": false
+    },
+    "liar_4899": {
+      "answer": "Mitt Romney",
+      "speaker": "newt-gingrich",
+      "correct": false
+    },
+    "liar_6953": {
+      "answer": "Connie Mack IV's opponent Bill Nelson",
+      "speaker": "bill-nelson",
+      "correct": true
+    },
+    "liar_5510": {
+      "answer": "Joe Biden",
+      "speaker": "steve-rothman",
+      "correct": false
+    },
+    "liar_10061": {
+      "answer": "Rick Scott",
+      "speaker": "rick-scott",
+      "correct": true
+    },
+    "liar_2316": {
+      "answer": "Rick Scott",
+      "speaker": "charlie-crist",
+      "correct": false
+    },
+    "liar_1497": {
+      "answer": "Rebecca Bradley",
+      "speaker": "eve-schatelowitz-alcantar",
+      "correct": false
+    },
+    "liar_4337": {
+      "answer": "Barack Obama",
+      "speaker": "ron-kind",
+      "correct": false
+    },
+    "liar_5091": {
+      "answer": "Mitt Romney",
+      "speaker": "jon-huntsman",
+      "correct": false
+    },
+    "liar_40": {
+      "answer": "Rudy Giuliani",
+      "speaker": "rudy-giuliani",
+      "correct": true
+    },
+    "liar_5122": {
+      "answer": "Barack Obama",
+      "speaker": "sheila-oliver",
+      "correct": false
+    },
+    "liar_11191": {
+      "answer": "Ted Cruz",
+      "speaker": "carly-fiorina",
+      "correct": false
+    },
+    "liar_1964": {
+      "answer": "Tea Party",
+      "speaker": "ted-ankrum",
+      "correct": false
+    },
+    "liar_2852": {
+      "answer": "Donald Trump",
+      "speaker": "sherrod-brown",
+      "correct": false
+    },
+    "liar_2506": {
+      "answer": "Mike Erickson",
+      "speaker": "scott-bruun",
+      "correct": false
+    },
+    "liar_4212": {
+      "answer": "Barack Obama",
+      "speaker": "john-kasich",
+      "correct": false
+    },
+    "liar_10474": {
+      "answer": "Rick Santorum",
+      "speaker": "greg-abbott",
+      "correct": false
+    },
+    "liar_7877": {
+      "answer": "Arne Duncan",
+      "speaker": "john-lewis",
+      "correct": false
+    },
+    "liar_12051": {
+      "answer": "Hillary Clinton",
+      "speaker": "ted-cruz",
+      "correct": false
+    },
+    "liar_3957": {
+      "answer": "Ed Gillespie",
+      "speaker": "national-republican-senatorial-committee",
+      "correct": false
+    },
+    "liar_10893": {
+      "answer": "Jeb Bush",
+      "speaker": "jeb-bush",
+      "correct": true
+    },
+    "liar_1623": {
+      "answer": "Charlie Crist",
+      "speaker": "charlie-crist",
+      "correct": true
+    },
+    "liar_9793": {
+      "answer": "Terri Lynn Land",
+      "speaker": "ending-spending-action-fund",
+      "correct": false
+    },
+    "liar_2910": {
+      "answer": "Donald Trump",
+      "speaker": "donald-carcieri",
+      "correct": false
+    },
+    "liar_4653": {
+      "answer": "Barack Obama",
+      "speaker": "barack-obama",
+      "correct": true
+    },
+    "liar_12279": {
+      "answer": "Hillary Clinton",
+      "speaker": "robby-mook",
+      "correct": false
+    },
+    "liar_6982": {
+      "answer": "Barack Obama",
+      "speaker": "barack-obama",
+      "correct": true
+    },
+    "liar_11802": {
+      "answer": "Joe Biden",
+      "speaker": "bernie-s",
+      "correct": false
+    },
+    "liar_4609": {
+      "answer": "Mitt Romney",
+      "speaker": "mitt-romney",
+      "correct": true
+    },
+    "liar_8115": {
+      "answer": "Jason Carter",
+      "speaker": "michelle-nunn",
+      "correct": false
+    },
+    "liar_9093": {
+      "answer": "Paul Ryan",
+      "speaker": "rick-scott",
+      "correct": false
+    },
+    "liar_9383": {
+      "answer": "Ken Block",
+      "speaker": "dawson-hodgson",
+      "correct": false
+    },
+    "liar_12009": {
+      "answer": "",
+      "speaker": "mitt-romney",
+      "correct": false
+    },
+    "liar_7223": {
+      "answer": "Mike Rounds",
+      "speaker": "kenneth-block",
+      "correct": false
+    },
+    "liar_3381": {
+      "answer": "Donald Trump",
+      "speaker": "rick-scott",
+      "correct": false
+    },
+    "liar_7244": {
+      "answer": "Ken Block",
+      "speaker": "dawson-hodgson",
+      "correct": false
+    },
+    "liar_2581": {
+      "answer": "Pat Kreitlow",
+      "speaker": "julie-lassa",
+      "correct": false
+    },
+    "liar_9588": {
+      "answer": "David Perdue",
+      "speaker": "david-perdue",
+      "correct": true
+    },
+    "liar_3430": {
+      "answer": "Paul Ryan",
+      "speaker": "eric-cantor",
+      "correct": false
+    },
+    "liar_9364": {
+      "answer": "Michael Bloomberg",
+      "speaker": "angel-taveras",
+      "correct": false
+    },
+    "liar_10695": {
+      "answer": "Bernie Sanders",
+      "speaker": "rick-santorum",
+      "correct": false
+    },
+    "liar_1158": {
+      "answer": "Barack Obama",
+      "speaker": "anthony-weiner",
+      "correct": false
+    },
+    "liar_5848": {
+      "answer": "Mitt Romney",
+      "speaker": "bill-johnson",
+      "correct": false
+    },
+    "liar_10561": {
+      "answer": "Donald Trump",
+      "speaker": "tom-graves",
+      "correct": false
+    },
+    "liar_512": {
+      "answer": "Barack Obama",
+      "speaker": "barack-obama",
+      "correct": true
+    },
+    "liar_5815": {
+      "answer": "Steven Rothman",
+      "speaker": "steve-rothman",
+      "correct": false
+    },
+    "liar_12906": {
+      "answer": "Donald Trump",
+      "speaker": "paul-manafort",
+      "correct": false
+    },
+    "liar_11761": {
+      "answer": "Ted Cruz",
+      "speaker": "ted-cruz",
+      "correct": true
+    },
+    "liar_13291": {
+      "answer": "Catherine Cortez Masto",
+      "speaker": "catherine-cortez-masto",
+      "correct": true
+    },
+    "liar_6933": {
+      "answer": "Barack Obama",
+      "speaker": "mitt-romney",
+      "correct": false
+    },
+    "liar_9916": {
+      "answer": "Rick Scott",
+      "speaker": "pam-bondi",
+      "correct": false
+    },
+    "liar_544": {
+      "answer": "Barack Obama",
+      "speaker": "joe-biden",
+      "correct": false
+    },
+    "liar_3679": {
+      "answer": "Scott Walker",
+      "speaker": "john-kasich",
+      "correct": false
+    },
+    "liar_11825": {
+      "answer": "Jolanda Jones",
+      "speaker": "paul-saldana",
+      "correct": false
+    },
+    "liar_7420": {
+      "answer": "Paul Ryan",
+      "speaker": "josh-mandel",
+      "correct": false
+    },
+    "liar_2723": {
+      "answer": "Democratic National Committee",
+      "speaker": "ted-strickland",
+      "correct": false
+    },
+    "liar_5530": {
+      "answer": "John Boehner",
+      "speaker": "johnny-isakson",
+      "correct": false
+    },
+    "liar_4617": {
+      "answer": "Ron Paul",
+      "speaker": "michele-bachmann",
+      "correct": false
+    },
+    "liar_4498": {
+      "answer": "Barack Obama",
+      "speaker": "rush-holt",
+      "correct": false
+    },
+    "liar_2994": {
+      "answer": "Wendy Davis",
+      "speaker": "boyd-richie",
+      "correct": false
+    },
+    "liar_1184": {
+      "answer": "John Boehner",
+      "speaker": "charles-boustany",
+      "correct": false
+    },
+    "liar_11169": {
+      "answer": "Ron DeSantis",
+      "speaker": "marco-rubio",
+      "correct": false
+    },
+    "liar_8924": {
+      "answer": "Todd Vasos",
+      "speaker": "david-perdue",
+      "correct": false
+    },
+    "liar_7379": {
+      "answer": "Barack Obama",
+      "speaker": "barack-obama",
+      "correct": true
+    },
+    "liar_2926": {
+      "answer": "Lamar Smith",
+      "speaker": "ted-poe",
+      "correct": false
+    },
+    "liar_5283": {
+      "answer": "Mitt Romney",
+      "speaker": "phil-gingrey",
+      "correct": false
+    },
+    "liar_4204": {
+      "answer": "Ted Cruz",
+      "speaker": "tom-leppert",
+      "correct": false
+    },
+    "liar_7288": {
+      "answer": "Terry McAuliffe",
+      "speaker": "terry-mcauliffe",
+      "correct": true
+    },
+    "liar_10493": {
+      "answer": "John McCain",
+      "speaker": "ted-cruz",
+      "correct": false
+    },
+    "liar_3933": {
+      "answer": "Paul Ryan",
+      "speaker": "rick-santorum",
+      "correct": false
+    },
+    "liar_7268": {
+      "answer": "Bill Haslam",
+      "speaker": "scott-walker",
+      "correct": false
+    },
+    "liar_2717": {
+      "answer": "Barack Obama",
+      "speaker": "marco-rubio",
+      "correct": false
+    },
+    "liar_2252": {
+      "answer": "Barack Obama",
+      "speaker": "tim-kaine",
+      "correct": false
+    },
+    "liar_3029": {
+      "answer": "Scott Walker",
+      "speaker": "scott-walker",
+      "correct": true
+    },
+    "liar_3471": {
+      "answer": "Scott Walker",
+      "speaker": "jeff-stone",
+      "correct": false
+    },
+    "liar_3710": {
+      "answer": "Nathan Deal",
+      "speaker": "nathan-deal",
+      "correct": true
+    },
+    "liar_1855": {
+      "answer": "Bill White",
+      "speaker": "bill-white",
+      "correct": true
+    },
+    "liar_13409": {
+      "answer": "Barack Obama",
+      "speaker": "donald-trump",
+      "correct": false
+    },
+    "liar_5101": {
+      "answer": "John Boehner",
+      "speaker": "mitt-romney",
+      "correct": false
+    },
+    "liar_7356": {
+      "answer": "Bernie Sanders",
+      "speaker": "sherrod-brown",
+      "correct": false
+    },
+    "liar_4568": {
+      "answer": "Democratic Assembly Committee",
+      "speaker": "new-jersey-democratic-state-committee",
+      "correct": false
+    },
+    "liar_2099": {
+      "answer": "Chris Smith",
+      "speaker": "john-boehner",
+      "correct": false
+    },
+    "liar_1849": {
+      "answer": "Mike Huckabee",
+      "speaker": "john-oxendine",
+      "correct": false
+    },
+    "liar_6320": {
+      "answer": "Barack Obama",
+      "speaker": "barack-obama",
+      "correct": true
+    },
+    "liar_2460": {
+      "answer": "Democratic Congressional Campaign Committee",
+      "speaker": "steve-kagen",
+      "correct": false
+    },
+    "liar_1948": {
+      "answer": "Sheila Jackson Lee",
+      "speaker": "john-faulk",
+      "correct": false
+    },
+    "liar_10739": {
+      "answer": "Mitch McConnell",
+      "speaker": "karl-rove",
+      "correct": false
+    },
+    "liar_13020": {
+      "answer": "Catherine Cortez Masto",
+      "speaker": "catherine-cortez-masto",
+      "correct": true
+    },
+    "liar_1119": {
+      "answer": "Joe Donnelly",
+      "speaker": "barack-obama",
+      "correct": false
+    },
+    "liar_13128": {
+      "answer": "Donald Trump",
+      "speaker": "donald-trump",
+      "correct": true
+    },
+    "liar_11050": {
+      "answer": "Hillary Clinton",
+      "speaker": "generation-forward-pac",
+      "correct": false
+    },
+    "liar_7195": {
+      "answer": "Rick Scott",
+      "speaker": "lenny-curry",
+      "correct": false
+    },
+    "liar_13047": {
+      "answer": "Donald Trump",
+      "speaker": "donald-trump",
+      "correct": true
+    },
+    "liar_2560": {
+      "answer": "Mike Schmidt",
+      "speaker": "future-pac-oregon-house-democrats",
+      "correct": false
+    },
+    "liar_3458": {
+      "answer": "Morgan Griffith",
+      "speaker": "morgan-griffith",
+      "correct": true
+    },
+    "liar_11847": {
+      "answer": "Adam Laxalt",
+      "speaker": "national-republican-senatorial-committee",
+      "correct": false
+    },
+    "liar_8170": {
+      "answer": "Michele Bachmann",
+      "speaker": "eric-cantor",
+      "correct": false
+    },
+    "liar_10293": {
+      "answer": "Greg Abbott",
+      "speaker": "steve-adler",
+      "correct": false
+    },
+    "liar_5314": {
+      "answer": "Jennifer Brunner",
+      "speaker": "kathleen-clyde",
+      "correct": false
+    },
+    "liar_2625": {
+      "answer": "Rick Santorum",
+      "speaker": "jack-conway",
+      "correct": false
+    },
+    "liar_12749": {
+      "answer": "Donald Trump",
+      "speaker": "donald-trump",
+      "correct": true
+    },
+    "liar_6905": {
+      "answer": "Mitt Romney",
+      "speaker": "paul-ryan",
+      "correct": false
+    },
+    "liar_10232": {
+      "answer": "Mitch McConnell",
+      "speaker": "mitch-mcconnell",
+      "correct": true
+    },
+    "liar_7230": {
+      "answer": "Jerry Brown",
+      "speaker": "chris-christie",
+      "correct": false
+    },
+    "liar_4993": {
+      "answer": "Michelle Malkin",
+      "speaker": "maciver-institute",
+      "correct": false
+    },
+    "liar_794": {
+      "answer": "Barack Obama",
+      "speaker": "barack-obama",
+      "correct": true
+    },
+    "liar_12011": {
+      "answer": "Donald Trump",
+      "speaker": "donald-trump",
+      "correct": true
+    },
+    "liar_3306": {
+      "answer": "Michele Bachmann",
+      "speaker": "rob-woodall",
+      "correct": false
+    },
+    "liar_1189": {
+      "answer": "Ted Cruz",
+      "speaker": "tom-price",
+      "correct": false
+    },
+    "liar_9107": {
+      "answer": "Alison Lundergan Grimes",
+      "speaker": "alison-lundergan-grimes",
+      "correct": true
+    },
+    "liar_171": {
+      "answer": "Mitt Romney",
+      "speaker": "rudy-giuliani",
+      "correct": false
+    },
+    "liar_1739": {
+      "answer": "John Boehner",
+      "speaker": "kay-bailey-hutchison",
+      "correct": false
+    },
+    "liar_9047": {
+      "answer": "Mike Collier",
+      "speaker": "david-dewhurst",
+      "correct": false
+    },
+    "liar_7685": {
+      "answer": "Gina Raimondo",
+      "speaker": "linda-finn",
+      "correct": false
+    },
+    "liar_13490": {
+      "answer": "Barack Obama",
+      "speaker": "don-beyer",
+      "correct": false
+    },
+    "liar_10962": {
+      "answer": "Sheldon Whitehouse",
+      "speaker": "sheldon-whitehouse",
+      "correct": true
+    },
+    "liar_7845": {
+      "answer": "Chris Christie",
+      "speaker": "chris-christie",
+      "correct": true
+    },
+    "liar_180": {
+      "answer": "Barack Obama",
+      "speaker": "bill-richardson",
+      "correct": false
+    },
+    "liar_781": {
+      "answer": "Barack Obama",
+      "speaker": "barack-obama",
+      "correct": true
+    },
+    "liar_12627": {
+      "answer": "Hillary Clinton",
+      "speaker": "hillary-clinton",
+      "correct": true
+    },
+    "liar_2594": {
+      "answer": "Facebook posts",
+      "speaker": "joe-manchin",
+      "correct": false
+    },
+    "liar_7543": {
+      "answer": "Newt Gingrich",
+      "speaker": "michele-bachmann",
+      "correct": false
+    },
+    "liar_7073": {
+      "answer": "Newt Gingrich",
+      "speaker": "priorities-usa-action",
+      "correct": false
+    },
+    "liar_12195": {
+      "answer": "Barack Obama",
+      "speaker": "mark-pocan",
+      "correct": false
+    },
+    "liar_13190": {
+      "answer": "Donald Trump",
+      "speaker": "mike-pence",
+      "correct": false
+    },
+    "liar_7447": {
+      "answer": "Rick Scott",
+      "speaker": "greg-abbott",
+      "correct": false
+    },
+    "liar_12368": {
+      "answer": "Donald Trump",
+      "speaker": "donald-trump",
+      "correct": true
+    },
+    "liar_5788": {
+      "answer": "Mitt Romney",
+      "speaker": "frank-wolf",
+      "correct": false
+    },
+    "liar_6665": {
+      "answer": "Barack Obama",
+      "speaker": "barack-obama",
+      "correct": true
+    },
+    "liar_13502": {
+      "answer": "Donald Trump",
+      "speaker": "sean-duffy",
+      "correct": false
+    },
+    "liar_7991": {
+      "answer": "Rick Santorum",
+      "speaker": "phil-burress",
+      "correct": false
+    },
+    "liar_7994": {
+      "answer": "Ted Cruz",
+      "speaker": "jonathan-stickland",
+      "correct": false
+    },
+    "liar_10846": {
+      "answer": "Rush Limbaugh",
+      "speaker": "scott-walker",
+      "correct": false
+    },
+    "liar_8830": {
+      "answer": "Ron DeSantis",
+      "speaker": "rick-scott",
+      "correct": false
+    },
+    "liar_6033": {
+      "answer": "Al Gore",
+      "speaker": "bill-nelson",
+      "correct": false
+    },
+    "liar_700": {
+      "answer": "Barack Obama",
+      "speaker": "john-mccain",
+      "correct": false
+    },
+    "liar_8986": {
+      "answer": "Barack Obama",
+      "speaker": "barack-obama",
+      "correct": true
+    },
+    "liar_6922": {
+      "answer": "Allen West",
+      "speaker": "lois-frankel",
+      "correct": false
+    },
+    "liar_7416": {
+      "answer": "Luis Gutierrez",
+      "speaker": "david-plouffe",
+      "correct": false
+    },
+    "liar_9101": {
+      "answer": "Nancy Pelosi",
+      "speaker": "barbara-boxer",
+      "correct": false
+    },
+    "liar_553": {
+      "answer": "Barack Obama",
+      "speaker": "wesley-clark",
+      "correct": false
+    },
+    "liar_9900": {
+      "answer": "Tom Nelson",
+      "speaker": "mark-harris",
+      "correct": false
+    },
+    "liar_1677": {
+      "answer": "Rick Perry",
+      "speaker": "karen-sage",
+      "correct": false
+    },
+    "liar_447": {
+      "answer": "Barack Obama",
+      "speaker": "barack-obama",
+      "correct": true
+    },
+    "liar_11308": {
+      "answer": "Donald Trump",
+      "speaker": "hugh-hewitt",
+      "correct": false
+    },
+    "liar_3697": {
+      "answer": "Barack Obama",
+      "speaker": "jim-renacci",
+      "correct": false
+    },
+    "liar_12770": {
+      "answer": "Michelle Obama",
+      "speaker": "michelle-obama",
+      "correct": true
+    },
+    "liar_13423": {
+      "answer": "Donald Trump",
+      "speaker": "donald-trump",
+      "correct": true
+    },
+    "liar_3087": {
+      "answer": "Mitt Romney",
+      "speaker": "brian-moran",
+      "correct": false
+    },
+    "liar_3046": {
+      "answer": "Scott Walker",
+      "speaker": "jim-doyle",
+      "correct": false
+    },
+    "liar_12203": {
+      "answer": "Paul Ryan",
+      "speaker": "tom-price",
+      "correct": false
+    },
+    "liar_12734": {
+      "answer": "Donald Trump",
+      "speaker": "mike-pence",
+      "correct": false
+    },
+    "liar_9553": {
+      "answer": "Rick Perry",
+      "speaker": "ted-cruz",
+      "correct": false
+    },
+    "liar_8557": {
+      "answer": "Bernie Sanders",
+      "speaker": "jan-schakowsky",
+      "correct": false
+    },
+    "liar_4194": {
+      "answer": "Tim Pawlenty",
+      "speaker": "tim-pawlenty",
+      "correct": true
+    },
+    "liar_12221": {
+      "answer": "Ed FitzGerald",
+      "speaker": "ted-cruz",
+      "correct": false
+    },
+    "liar_3460": {
+      "answer": "John Kasich",
+      "speaker": "john-kasich",
+      "correct": true
+    },
+    "liar_10717": {
+      "answer": "Rick Perry",
+      "speaker": "rick-perry",
+      "correct": true
+    },
+    "liar_4714": {
+      "answer": "Barack Obama",
+      "speaker": "barack-obama",
+      "correct": true
+    },
+    "liar_4017": {
+      "answer": "Chris Matthews",
+      "speaker": "newt-gingrich",
+      "correct": false
+    },
+    "liar_6006": {
+      "answer": "Chris Sununu",
+      "speaker": "william-obrien",
+      "correct": false
+    },
+    "liar_6197": {
+      "answer": "Mitt Romney",
+      "speaker": "sean-duffy",
+      "correct": false
+    },
+    "liar_1556": {
+      "answer": "Rick Perry",
+      "speaker": "bill-white",
+      "correct": false
+    },
+    "liar_7970": {
+      "answer": "Paul Ryan",
+      "speaker": "todd-young",
+      "correct": false
+    },
+    "liar_12487": {
+      "answer": "Rob Portman",
+      "speaker": "joyce-beatty",
+      "correct": false
+    },
+    "liar_1310": {
+      "answer": "Barack Obama",
+      "speaker": "cw-bill-young",
+      "correct": false
+    },
+    "liar_6163": {
+      "answer": "Kate Brown",
+      "speaker": "shawn-lindsay",
+      "correct": false
+    },
+    "liar_7819": {
+      "answer": "Scott Walker",
+      "speaker": "alberta-darling",
+      "correct": false
+    },
+    "liar_814": {
+      "answer": "Nate Silver",
+      "speaker": "barack-obama",
+      "correct": false
+    },
+    "liar_12141": {
+      "answer": "Mitch McConnell",
+      "speaker": "roy-blunt",
+      "correct": false
+    },
+    "liar_3257": {
+      "answer": "Rick Perry",
+      "speaker": "dan-patrick",
+      "correct": false
+    },
+    "liar_3330": {
+      "answer": "Rick Scott",
+      "speaker": "rick-scott",
+      "correct": true
+    },
+    "liar_6436": {
+      "answer": "Tammy Baldwin",
+      "speaker": "eric-hovde",
+      "correct": false
+    },
+    "liar_10140": {
+      "answer": "Ken Block",
+      "speaker": "john-carlevale",
+      "correct": false
+    },
+    "liar_1120": {
+      "answer": "John Boehner",
+      "speaker": "john-boehner",
+      "correct": true
+    },
+    "liar_8595": {
+      "answer": "Ed Gillespie",
+      "speaker": "ken-cuccinelli",
+      "correct": false
+    },
+    "liar_4885": {
+      "answer": "John McCain",
+      "speaker": "joe-biden",
+      "correct": false
+    },
+    "liar_11917": {
+      "answer": "Donald Trump",
+      "speaker": "john-mccain",
+      "correct": false
+    },
+    "liar_10773": {
+      "answer": "Hillary Clinton",
+      "speaker": "marco-rubio",
+      "correct": false
+    },
+    "liar_6616": {
+      "answer": "Marco Rubio",
+      "speaker": "george-lemieux",
+      "correct": false
+    },
+    "liar_3284": {
+      "answer": "Newt Gingrich",
+      "speaker": "bill-posey",
+      "correct": false
+    },
+    "liar_2290": {
+      "answer": "Joe Biden",
+      "speaker": "barack-obama",
+      "correct": false
+    },
+    "liar_10978": {
+      "answer": "Charles Murray",
+      "speaker": "don-beyer",
+      "correct": false
+    },
+    "liar_8764": {
+      "answer": "Mitt Romney",
+      "speaker": "marilinda-garcia",
+      "correct": false
+    },
+    "liar_2203": {
+      "answer": "John McCain",
+      "speaker": "marco-rubio",
+      "correct": false
+    },
+    "liar_7118": {
+      "answer": "Mitt Romney",
+      "speaker": "patricia-morgan",
+      "correct": false
+    },
+    "liar_7164": {
+      "answer": "Sherrod Brown",
+      "speaker": "john-kasich",
+      "correct": false
+    },
+    "liar_4208": {
+      "answer": "John Boehner",
+      "speaker": "allen-west",
+      "correct": false
+    },
+    "liar_13437": {
+      "answer": "Maggie Hassan",
+      "speaker": "maggie-hassan",
+      "correct": true
+    },
+    "liar_6401": {
+      "answer": "Dan Quayle Jr.",
+      "speaker": "american-bridge-21st-century",
+      "correct": false
+    },
+    "liar_378": {
+      "answer": "John McCain",
+      "speaker": "hillary-clinton",
+      "correct": false
+    },
+    "liar_5095": {
+      "answer": "Donald Trump",
+      "speaker": "rick-perry",
+      "correct": false
+    },
+    "liar_11000": {
+      "answer": "Scott Walker",
+      "speaker": "jim-steineke",
+      "correct": false
+    },
+    "liar_3741": {
+      "answer": "Mitt Romney",
+      "speaker": "sherrod-brown",
+      "correct": false
+    },
+    "liar_8979": {
+      "answer": "Mark Pryor",
+      "speaker": "mark-pryor",
+      "correct": true
+    },
+    "liar_3803": {
+      "answer": "Rick Perry",
+      "speaker": "todd-staples",
+      "correct": false
+    },
+    "liar_12087": {
+      "answer": "Bernie Sanders",
+      "speaker": "hillary-clinton",
+      "correct": false
+    },
+    "liar_1712": {
+      "answer": "Marco Rubio",
+      "speaker": "tom-grady",
+      "correct": false
+    },
+    "liar_1093": {
+      "answer": "Barack Obama",
+      "speaker": "sarah-palin",
+      "correct": false
+    },
+    "liar_3027": {
+      "answer": "Jason Furman",
+      "speaker": "gerry-connolly",
+      "correct": false
+    },
+    "liar_4977": {
+      "answer": "Jim Renacci",
+      "speaker": "marish-agana",
+      "correct": false
+    },
+    "liar_4689": {
+      "answer": "Mitt Romney",
+      "speaker": "jeb-hensarling",
+      "correct": false
+    },
+    "liar_9227": {
+      "answer": "Donald Trump",
+      "speaker": "charlie-crist",
+      "correct": false
+    },
+    "liar_12927": {
+      "answer": "Wendy Davis",
+      "speaker": "joaquin-castro",
+      "correct": false
+    },
+    "liar_3997": {
+      "answer": "Barack Obama",
+      "speaker": "martin-omalley",
+      "correct": false
+    },
+    "liar_13000": {
+      "answer": "Donald Trump",
+      "speaker": "bruce-rauner",
+      "correct": false
+    },
+    "liar_11704": {
+      "answer": "Ted Cruz",
+      "speaker": "greg-abbott",
+      "correct": false
+    },
+    "liar_340": {
+      "answer": "John McCain",
+      "speaker": "john-mccain",
+      "correct": true
+    },
+    "liar_6485": {
+      "answer": "Barack Obama",
+      "speaker": "barack-obama",
+      "correct": true
+    },
+    "liar_10416": {
+      "answer": "Barack Obama",
+      "speaker": "barack-obama",
+      "correct": true
+    },
+    "liar_12924": {
+      "answer": "Bernie Sanders",
+      "speaker": "gary-johnson",
+      "correct": false
+    },
+    "liar_13172": {
+      "answer": "Claire McCaskill",
+      "speaker": "chris-koster",
+      "correct": false
+    },
+    "liar_9823": {
+      "answer": "Kay Hagan",
+      "speaker": "senate-majority-pac",
+      "correct": false
+    },
+    "liar_3738": {
+      "answer": "Bill Clinton",
+      "speaker": "newt-gingrich",
+      "correct": false
+    },
+    "liar_8552": {
+      "answer": "Barack Obama",
+      "speaker": "ellen-qualls",
+      "correct": false
+    },
+    "liar_3044": {
+      "answer": "Michele Bachmann",
+      "speaker": "allen-west",
+      "correct": false
+    },
+    "liar_6121": {
+      "answer": "Scott Walker",
+      "speaker": "chris-christie",
+      "correct": false
+    },
+    "liar_11261": {
+      "answer": "Scott Walker",
+      "speaker": "scott-walker",
+      "correct": true
+    },
+    "liar_12392": {
+      "answer": "Carlos Beruff",
+      "speaker": "alan-grayson",
+      "correct": false
+    },
+    "liar_4522": {
+      "answer": "Jane Timken",
+      "speaker": "josh-mandel",
+      "correct": false
+    },
+    "liar_8285": {
+      "answer": "Rick Baker",
+      "speaker": "bill-foster",
+      "correct": false
+    },
+    "liar_12244": {
+      "answer": "Elizabeth Warren",
+      "speaker": "hillary-clinton",
+      "correct": false
+    },
+    "liar_2775": {
+      "answer": "Mitt Romney",
+      "speaker": "eric-cantor",
+      "correct": false
+    },
+    "liar_1909": {
+      "answer": "Barack Obama",
+      "speaker": "barack-obama",
+      "correct": true
+    },
+    "liar_8303": {
+      "answer": "Barbara Buono",
+      "speaker": "barbara-buono",
+      "correct": true
+    },
+    "liar_10466": {
+      "answer": "Donald Trump",
+      "speaker": "barack-obama",
+      "correct": false
+    },
+    "liar_8498": {
+      "answer": "Gina Raimondo",
+      "speaker": "gina-raimondo",
+      "correct": true
+    },
+    "liar_11895": {
+      "answer": "Tom Wolf",
+      "speaker": "tom-wolf",
+      "correct": true
+    },
+    "liar_1385": {
+      "answer": "Donald Trump",
+      "speaker": "farouk-shami",
+      "correct": false
+    },
+    "liar_6097": {
+      "answer": "Jim Whitehead",
+      "speaker": "stephen-simpson",
+      "correct": false
+    },
+    "liar_1652": {
+      "answer": "Barack Obama",
+      "speaker": "barack-obama",
+      "correct": true
+    },
+    "liar_1950": {
+      "answer": "Vernon Jones",
+      "speaker": "vernon-jones",
+      "correct": true
+    },
+    "liar_8685": {
+      "answer": "Rick Perry",
+      "speaker": "kathleen-sebelius",
+      "correct": false
+    },
+    "liar_9200": {
+      "answer": "Donald Trump",
+      "speaker": "louie-gohmert",
+      "correct": false
+    },
+    "liar_2374": {
+      "answer": "Tommy Thompson",
+      "speaker": "jim-sensenbrenner",
+      "correct": false
+    },
+    "liar_5416": {
+      "answer": "Barack Obama",
+      "speaker": "alan-bates",
+      "correct": false
+    },
+    "liar_2557": {
+      "answer": "Gwen Graham",
+      "speaker": "allen-boyd",
+      "correct": false
+    },
+    "liar_5087": {
+      "answer": "Donald Trump",
+      "speaker": "mitt-romney",
+      "correct": false
+    },
+    "liar_8960": {
+      "answer": "Tim Kaine",
+      "speaker": "mark-obenshain",
+      "correct": false
+    },
+    "liar_3362": {
+      "answer": "Chain email",
+      "speaker": "phyllis-schlafly",
+      "correct": false
+    },
+    "liar_9844": {
+      "answer": "Donald Trump",
+      "speaker": "david-dewhurst",
+      "correct": false
+    },
+    "liar_9292": {
+      "answer": "Charlie Crist",
+      "speaker": "charlie-crist",
+      "correct": true
+    },
+    "liar_6119": {
+      "answer": "Reince Priebus",
+      "speaker": "jim-demint",
+      "correct": false
+    },
+    "liar_12371": {
+      "answer": "Terry McAuliffe",
+      "speaker": "ed-gillespie",
+      "correct": false
+    },
+    "liar_7665": {
+      "answer": "Barack Obama",
+      "speaker": "gabrielle-giffords",
+      "correct": false
+    },
+    "liar_6637": {
+      "answer": "Barack Obama",
+      "speaker": "jack-markell",
+      "correct": false
+    },
+    "liar_9096": {
+      "answer": "Paul Ryan",
+      "speaker": "john-mccallum",
+      "correct": false
+    },
+    "liar_7698": {
+      "answer": "Joe Courtney",
+      "speaker": "randy-forbes",
+      "correct": false
+    },
+    "liar_187": {
+      "answer": "Marco Rubio",
+      "speaker": "hillary-clinton",
+      "correct": false
+    },
+    "liar_2470": {
+      "answer": "Jeff Sessions",
+      "speaker": "allen-west",
+      "correct": false
+    },
+    "liar_339": {
+      "answer": "Hillary Clinton",
+      "speaker": "hillary-clinton",
+      "correct": true
+    },
+    "liar_11004": {
+      "answer": "Barack Obama",
+      "speaker": "hillary-clinton",
+      "correct": false
+    },
+    "liar_11337": {
+      "answer": "Bernie Sanders",
+      "speaker": "martin-omalley",
+      "correct": false
+    },
+    "liar_4250": {
+      "answer": "Jim Ward",
+      "speaker": "alberta-darling",
+      "correct": false
+    },
+    "liar_631": {
+      "answer": "Chain email / anonymous viral post",
+      "speaker": "jerome-corsi",
+      "correct": false
+    },
+    "liar_9351": {
+      "answer": "Pam Bondi",
+      "speaker": "charles-van-zant",
+      "correct": false
+    },
+    "liar_4136": {
+      "answer": "John Kasich",
+      "speaker": "kris-jordan",
+      "correct": false
+    },
+    "liar_1681": {
+      "answer": "Mitt Romney",
+      "speaker": "paul-ryan",
+      "correct": false
+    },
+    "liar_5074": {
+      "answer": "Scott Walker",
+      "speaker": "john-kasich",
+      "correct": false
+    },
+    "liar_4195": {
+      "answer": "Mike Huckabee",
+      "speaker": "rick-santorum",
+      "correct": false
+    },
+    "liar_3931": {
+      "answer": "Jeff Greene",
+      "speaker": "adam-hasner",
+      "correct": false
+    },
+    "liar_4883": {
+      "answer": "Mitt Romney",
+      "speaker": "matt-mackowiak",
+      "correct": false
+    },
+    "liar_6795": {
+      "answer": "Barack Obama",
+      "speaker": "bill-clinton",
+      "correct": false
+    },
+    "liar_9818": {
+      "answer": "George H. W. Bush",
+      "speaker": "michelle-nunn",
+      "correct": false
+    },
+    "liar_8573": {
+      "answer": "Americans for Prosperity",
+      "speaker": "tom-cotton",
+      "correct": false
+    },
+    "liar_13184": {
+      "answer": "Bob McDonnell",
+      "speaker": "mike-pence",
+      "correct": false
+    },
+    "liar_11559": {
+      "answer": "Donald Trump",
+      "speaker": "rand-paul",
+      "correct": false
+    },
+    "liar_9241": {
+      "answer": "Tom Coburn",
+      "speaker": "don-balfour",
+      "correct": false
+    },
+    "liar_8902": {
+      "answer": "Donald Trump",
+      "speaker": "hugh-fitzsimons",
+      "correct": false
+    },
+    "liar_12511": {
+      "answer": "Donald Trump",
+      "speaker": "donald-trump",
+      "correct": true
+    },
+    "liar_7285": {
+      "answer": "Barbara Buono",
+      "speaker": "barbara-buono",
+      "correct": true
+    },
+    "liar_609": {
+      "answer": "Barack Obama",
+      "speaker": "barack-obama",
+      "correct": true
+    },
+    "liar_9436": {
+      "answer": "Hillary Clinton",
+      "speaker": "hillary-clinton",
+      "correct": true
+    },
+    "liar_5671": {
+      "answer": "Ron DeSantis",
+      "speaker": "rick-santorum",
+      "correct": false
+    },
+    "liar_7334": {
+      "answer": "Rick Scott",
+      "speaker": "rick-scott",
+      "correct": true
+    },
+    "liar_9788": {
+      "answer": "Donald Trump",
+      "speaker": "jay-nixon",
+      "correct": false
+    },
+    "liar_3186": {
+      "answer": "John Kasich",
+      "speaker": "john-kasich",
+      "correct": true
+    },
+    "liar_6743": {
+      "answer": "Tony Evers",
+      "speaker": "john-burzichelli",
+      "correct": false
+    }
+  }
+}

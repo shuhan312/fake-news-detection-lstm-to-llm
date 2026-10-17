@@ -1,0 +1,14 @@
+{
+  "batch_id": "msgbatch_019DbEnaftM2LoB1BhjXNYBW",
+  "model": "claude-sonnet-5-5",
+  "n_requests": 1284,
+  "sets": [
+    "LIAR val"
+  ],
+  "system_prompt": "You are a professional political fact-checker. You will be given a statement made by a US political figure. Estimate the probability that a professional fact-checker would rate the statement as true, mostly true, or half true (rather than barely true, false, or \"pants on fire\"). Use your general knowledge. Reply with only an integer from 0 to 100.",
+  "max_tokens": 40,
+  "temperature": "not sent (model default)",
+  "thinking": {
+    "type": "between_tools"
+  }
+}

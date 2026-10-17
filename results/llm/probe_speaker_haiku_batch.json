@@ -1,0 +1,6 @@
+{
+  "batch_id": "msgbatch_01UrwtdoM2dPFEQn1AuWadLq",
+  "model": "claude-haiku-4-5",
+  "n_requests": 971,
+  "system_prompt": "You will be given a statement from US politics. Who made this statement? If you are not sure, give your best guess. Reply with the name of the person or organisation only."
+}

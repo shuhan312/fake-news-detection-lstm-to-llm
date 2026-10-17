@@ -1,0 +1,96 @@
+{
+  "split": "val",
+  "n": 1284,
+  "reference": "DistilBERT + TF-IDF + Haiku",
+  "rule": "run Sonnet on test only if the best Sonnet combination beats the reference by at least 0.01 mean 5-fold CV AUC on LIAR val",
+  "cv_auc": {
+    "Haiku": {
+      "seed 42": 0.6658,
+      "seed 43": 0.6658,
+      "seed 44": 0.6658,
+      "mean CV AUC": 0.6658
+    },
+    "Sonnet": {
+      "seed 42": 0.766,
+      "seed 43": 0.766,
+      "seed 44": 0.766,
+      "mean CV AUC": 0.766
+    },
+    "DistilBERT + TF-IDF + Haiku": {
+      "seed 42": 0.7457,
+      "seed 43": 0.7401,
+      "seed 44": 0.7379,
+      "mean CV AUC": 0.7412
+    },
+    "DistilBERT + TF-IDF + Sonnet": {
+      "seed 42": 0.7957,
+      "seed 43": 0.7917,
+      "seed 44": 0.7892,
+      "mean CV AUC": 0.7922
+    },
+    "DistilBERT + TF-IDF + Haiku + Sonnet": {
+      "seed 42": 0.799,
+      "seed 43": 0.7945,
+      "seed 44": 0.7921,
+      "mean CV AUC": 0.7952
+    }
+  },
+  "best_with_sonnet": "DistilBERT + TF-IDF + Haiku + Sonnet",
+  "gain_over_reference": 0.054,
+  "run_test": true,
+  "chosen": "DistilBERT + TF-IDF + Haiku + Sonnet",
+  "single_model_val_auc": {
+    "haiku": 0.6713,
+    "sonnet": 0.7657
+  },
+  "spearman": {
+    "haiku": {
+      "haiku": 1.0,
+      "sonnet": 0.53,
+      "distilbert_seed42": 0.15,
+      "distilbert_seed43": 0.17,
+      "distilbert_seed44": 0.13,
+      "tfidf": 0.12
+    },
+    "sonnet": {
+      "haiku": 0.53,
+      "sonnet": 1.0,
+      "distilbert_seed42": 0.29,
+      "distilbert_seed43": 0.3,
+      "distilbert_seed44": 0.28,
+      "tfidf": 0.28
+    },
+    "distilbert_seed42": {
+      "haiku": 0.15,
+      "sonnet": 0.29,
+      "distilbert_seed42": 1.0,
+      "distilbert_seed43": 0.92,
+      "distilbert_seed44": 0.89,
+      "tfidf": 0.75
+    },
+    "distilbert_seed43": {
+      "haiku": 0.17,
+      "sonnet": 0.3,
+      "distilbert_seed42": 0.92,
+      "distilbert_seed43": 1.0,
+      "distilbert_seed44": 0.89,
+      "tfidf": 0.73
+    },
+    "distilbert_seed44": {
+      "haiku": 0.13,
+      "sonnet": 0.28,
+      "distilbert_seed42": 0.89,
+      "distilbert_seed43": 0.89,
+      "distilbert_seed44": 1.0,
+      "tfidf": 0.77
+    },
+    "tfidf": {
+      "haiku": 0.12,
+      "sonnet": 0.28,
+      "distilbert_seed42": 0.75,
+      "distilbert_seed43": 0.73,
+      "distilbert_seed44": 0.77,
+      "tfidf": 1.0
+    }
+  }
+}

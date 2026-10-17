@@ -1,0 +1,42 @@
+{
+  "name": "llm_no_evidence_sonnet",
+  "batch_id": "msgbatch_018EC64Ng6SC77aup6MoucsH",
+  "model": "claude-sonnet-5-5",
+  "n_requests": 1283,
+  "sets": [
+    "LIAR test"
+  ],
+  "system_prompt": "You are a professional political fact-checker. You will be given a statement made by a US political figure. Estimate the probability that a professional fact-checker would rate the statement as true, mostly true, or half true (rather than barely true, false, or \"pants on fire\"). Use your general knowledge. Reply with only an integer from 0 to 100.",
+  "max_tokens": 40,
+  "temperature": "not sent (model default)",
+  "thinking": {
+    "type": "between_tools"
+  },
+  "retry_batch_ids": [
+    "msgbatch_01A8EwzPgcLTHKdLVoAqZ1E1"
+  ],
+  "metrics": {
+    "LIAR test": {
+      "n": 1283,
+      "real %": 56.7,
+      "majority baseline %": 56.7,
+      "accuracy %": 67.2,
+      "balanced accuracy %": 68.1,
+      "AUC": 0.742,
+      "F1 fake": 0.665,
+      "F1 real": 0.678,
+      "predicted real %": 45.4
+    }
+  },
+  "unparsed_or_failed": {
+    "LIAR test": 0
+  },
+  "failed_types": {},
+  "evidence_relevant_%": {
+    "LIAR test": null
+  },
+  "usage": {
+    "input_tokens": 434134,
+    "output_tokens": 11547
+  }
+}
