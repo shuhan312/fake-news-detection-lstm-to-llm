@@ -63,7 +63,7 @@ fake-news-detection-lstm-to-llm/
 | `05_cross_dataset` | Does an ISOT-trained model transfer to other sources? External sets: WELFake minus ISOT, LIAR |
 | `06_reducing_source_reliance` | Step 4: content words only, de-biased reweighting, multi-source training with a held-out outlet (TF-IDF, then DistilBERT) |
 | `07_liar_benchmark` | LIAR fact-checked statements: how well text alone detects falsehood once the source shortcut is gone |
-| `08_llm_prompting` | LLM fact-checking on LIAR (Claude Haiku 4.5): without evidence (done, `src/llm_factcheck.py`), with retrieved evidence (planned) |
+| `08_llm_prompting` | LLM fact-checking on LIAR (Claude Haiku 4.5): without evidence, with retrieved Wikipedia evidence (`src/evidence.py`), and a random-evidence control (`src/llm_factcheck.py`); notebook being written |
 | `09_error_analysis` | Planned: cross-model FP/FN breakdown |
 
 ## Results Summary
@@ -100,6 +100,8 @@ Removing style words or de-biased reweighting (ISOT only) made transfer worse.
 | TF-IDF | 62.5% | 0.672 |
 | DistilBERT (3 seeds) | 64.3 ± 0.8% | 0.682 ± 0.006 |
 | Claude Haiku 4.5, no evidence (zero-shot) | 61.1% | 0.655 |
+| Claude Haiku 4.5 + Wikipedia evidence | 53.5% | 0.647 |
+| Claude Haiku 4.5 + another statement's evidence (control) | 49.9% | 0.613 |
 
 ## Data
 
@@ -130,4 +132,5 @@ The split is locked in `data/processed/splits.csv` (committed); the cleaned-text
 - **Changing the data helps; changing the model barely does** (`06`): removing style words or de-biased reweighting made transfer worse, because source information sits in both style (style words alone: 96.6% on ISOT) and topic (content words alone: 97.8%). Training on several sources raised AUC on an unseen outlet by about 0.2, while DistilBERT added only 0.007 over TF-IDF.
 - **Without the source shortcut, text alone is weak** (`07`): on fact-checked LIAR statements, TF-IDF and DistilBERT reach only AUC 0.67–0.68 (62–64% accuracy against a 56.7% baseline), and DistilBERT is not reliably better than TF-IDF.
 - **An LLM's own knowledge is not enough either** (step 5a): Claude Haiku 4.5 judging LIAR statements without evidence reaches AUC 0.655, statistically indistinguishable from TF-IDF and DistilBERT. That it does not score higher also suggests it is not simply recalling PolitiFact verdicts.
-- Next: give the LLM retrieved evidence (step 5b).
+- **Wikipedia evidence does not raise the ceiling** (step 5b): with three retrieved passages per statement Haiku reaches AUC 0.647, no different from 0.655 without evidence (paired difference −0.008, 95% CI −0.034 to 0.018). A control that shows each statement another statement's passages scores 0.613, so the right evidence is reliably better than unrelated evidence (+0.034, CI 0.008 to 0.060), but adding passages also makes the model sceptical: it calls only 21% of statements true (vs 57% in the data), treating "not in the passages" as "false". In a manual check only 3 of 30 passages contained the fact needed to judge the statement.
+- Next: notebook 08, then validation-set improvements (combining DistilBERT with the LLM, a prompt that does not penalise missing evidence, a larger model) and error analysis.
