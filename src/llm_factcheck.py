@@ -28,14 +28,33 @@
                       unrelated content). If 5b's gain came only from the longer prompt,
                       this control would match it.
 
-只使用陈述文本，和 07 中的模型保持一致（不给说话人、党派等信息）。
-Only the statement text is given, as for the models in notebook 07.
+    5f  context       陈述 + 发言背景：说话人、职务、州、场合（例如 "a campaign ad"）。
+                      notebook 09 发现：含"他""这项法案"等指代的陈述上，Haiku 接近随机（AUC 0.568）。
+                      5f 直接检验"缺少发言背景"是不是瓶颈。
+                      statement + who said it, their job and state, and the setting.
+                      Notebook 09 found Haiku near chance on statements with
+                      references like "he" or "this bill"; 5f tests that bottleneck.
+        shuffled_context  对照组：陈述 + *另一条* 陈述的发言背景（和 5b 的对照组同样的错位分配）。
+                      区分"背景的内容有用"和"提示格式变了"。
+                      control: another statement's context (same derangement as 5b).
+
+    5f 刻意 *不* 给党派：党派标签本身就是"按来源判断"的捷径，而且说话人的名字已经提供了
+    消除指代所需的信息。历史核查次数也不给：它们包含当前这条陈述的标签。
+    5f deliberately omits the party (a direct source shortcut that adds no
+    context beyond the speaker's name) and the credit-history counts (they
+    include the current label).
+
+除 5f 外，只使用陈述文本，和 07 中的模型保持一致。
+Apart from 5f, only the statement text is given, as for the models in notebook 07.
 
 命令行 / Command line:
     python -m src.llm_factcheck --sample 20          # 小样本即时测试，检查输出格式 / quick sync check
     python -m src.llm_factcheck --submit no_evidence # 提交批量任务 / submit the batch
     python -m src.llm_factcheck --collect no_evidence  # 等待并收集结果 / wait and collect
     python -m src.llm_factcheck --submit no_evidence --split val   # 验证集（用于第 5c 步的组合）/ validation set
+    python -m src.llm_factcheck --sample 20 --model sonnet          # 5d：更大的模型 / 5d: a larger model
+    python -m src.llm_factcheck --submit no_evidence --split val --model sonnet
+    python -m src.llm_factcheck --submit context --split val        # 5f
 """
 
 import argparse
@@ -48,7 +67,10 @@ from src import baselines as B
 from src.data import PROJECT_ROOT
 from src.external import load_liar
 
-MODEL = 'claude-haiku-4-5'
+# 5a–5c 用最便宜的 Haiku 4.5；5d 换成更大的 Sonnet 5.5，检验"知识更多的模型"能否让组合继续提高
+# 5a-5c use the cheapest Haiku 4.5; 5d swaps in the larger Sonnet 5.5
+MODELS = {'haiku': 'claude-haiku-4-5', 'sonnet': 'claude-sonnet-5-5'}
+MODEL = MODELS['haiku']
 RESULTS_DIR = PROJECT_ROOT / 'results' / 'llm'
 
 # 提示词：要求模型只输出一个 0–100 的整数，表示"属实或基本属实"的概率。
@@ -60,6 +82,17 @@ SYSTEM_NO_EVIDENCE = (
     'US political figure. Estimate the probability that a professional fact-checker would rate '
     'the statement as true, mostly true, or half true (rather than barely true, false, or '
     '"pants on fire"). Use your general knowledge. Reply with only an integer from 0 to 100.')
+
+# 5f 的提示词：和 5a 只差一处，即说明会同时给出"谁、在哪里说的"。其余（任务、输出格式）完全相同，
+# 所以 5f 和 5a 的差别只来自发言背景。
+# 5f prompt: identical to 5a except that it announces who said it and where,
+# so any difference from 5a comes from the context alone.
+SYSTEM_CONTEXT = (
+    'You are a professional political fact-checker. You will be given a statement made by a '
+    'US political figure, together with who made it and where. Estimate the probability that a '
+    'professional fact-checker would rate the statement as true, mostly true, or half true '
+    '(rather than barely true, false, or "pants on fire"). Use your general knowledge. '
+    'Reply with only an integer from 0 to 100.')
 
 # 结构化输出：强制模型只能返回 {"probability": 整数}。
 # 第一次小样本测试时只用文字要求"只回答一个整数"，20 条里有 16 条没有遵守，模型开始写推理并被截断；
@@ -115,6 +148,20 @@ OUTPUT_FORMAT_EVIDENCE = {
 }
 MAX_TOKENS_EVIDENCE = 40     # 两个字段的 JSON 约 25 个 token / a two-field JSON is ~25 tokens
 
+# Sonnet 5.5 的请求和 Haiku 有两处必须不同（否则返回 400 错误）：
+#   1. 思考（thinking）默认开启。思考会消耗 max_tokens、增加费用，而这里只需要一个数字，
+#      所以关掉它。Sonnet 5.5 不接受 "disabled"，最低的设置是 "between_tools"（不做扩展思考）。
+#   2. 不接受非默认的 temperature，所以不传。这意味着 Sonnet 的回答有少量随机性，
+#      而 Haiku 是 temperature 0。这一点作为局限记录下来。
+# Sonnet 5.5 needs two differences (otherwise a 400): thinking is on by default
+# and "disabled" is rejected, so the lowest setting "between_tools" is sent; a
+# non-default temperature is rejected, so none is sent (its answers are therefore
+# slightly random, unlike Haiku at temperature 0 - recorded as a limitation).
+# 新的分词器对同样的文字产生更多 token，所以 max_tokens 留出余量
+# Its tokenizer yields more tokens for the same text, so max_tokens has headroom
+SONNET_THINKING = {'type': 'between_tools'}
+SONNET_MAX_TOKENS = 40
+
 
 def _client():
     import anthropic
@@ -129,17 +176,69 @@ def format_evidence(passages: list) -> str:
         f'[{i}] ({p["title"]}) {p["text"]}' for i, p in enumerate(passages, 1))
 
 
-def _params(statement: str, passages: list = None) -> dict:
-    """一条陈述对应的请求参数；passages 为 None 时是 5a（不给证据），否则是 5b。
-    Request parameters; passages=None gives 5a (no evidence), otherwise 5b."""
-    if passages is None:
-        return {'model': MODEL, 'max_tokens': MAX_TOKENS, 'temperature': TEMPERATURE,
-                'system': SYSTEM_NO_EVIDENCE, 'output_config': OUTPUT_FORMAT,
-                'messages': [{'role': 'user', 'content': f'Statement: {statement}'}]}
-    return {'model': MODEL, 'max_tokens': MAX_TOKENS_EVIDENCE, 'temperature': TEMPERATURE,
-            'system': SYSTEM_EVIDENCE, 'output_config': OUTPUT_FORMAT_EVIDENCE,
-            'messages': [{'role': 'user',
-                          'content': f'Statement: {statement}\n\n{format_evidence(passages)}'}]}
+def format_context(row) -> str:
+    """把 LIAR 的元数据排成发言背景，例如：
+        Speaker: Rick Scott (Governor, Florida)
+        Setting: a campaign ad
+    说话人在 LIAR 中是 "rick-scott" 这样的形式，转成 "Rick Scott"。空字段直接省略，不写 "unknown"，
+    以免模型把"未知"当成信息。
+    Format LIAR metadata as the context of a statement; speaker slugs become
+    names; empty fields are omitted rather than written as "unknown".
+    """
+    speaker = ' '.join(w.capitalize() for w in str(row['speaker']).split('-')) or 'unknown'
+    details = ', '.join(x.strip() for x in (row['job_title'], row['state']) if str(x).strip())
+    lines = [f'Speaker: {speaker}' + (f' ({details})' if details else '')]
+    if str(row['context']).strip():
+        lines.append(f"Setting: {str(row['context']).strip()}")
+    return '\n'.join(lines)
+
+
+def contexts_for(experiment: str, doc_ids, seed: int = 42) -> dict:
+    """每条陈述要给模型看的发言背景：5f 是它自己的；对照组是另一条陈述的（错位分配，没有一条拿到自己的）。
+    Context shown per statement: its own (5f) or another statement's (control,
+    a derangement so that no statement keeps its own)."""
+    from src.external import load_liar_metadata
+    doc_ids = list(doc_ids)
+    meta = load_liar_metadata().set_index('doc_id').loc[doc_ids]
+    own = {d: format_context(meta.loc[d]) for d in doc_ids}
+    if experiment == 'context':
+        return own
+    if experiment == 'shuffled_context':
+        order = list(np.random.default_rng(seed).permutation(doc_ids))
+        donor = {order[i]: order[(i + 1) % len(order)] for i in range(len(order))}
+        return {d: own[donor[d]] for d in doc_ids}
+    raise ValueError(f'unknown experiment: {experiment}')
+
+
+def _params(statement: str, passages: list = None, model: str = 'haiku', context: str = None) -> dict:
+    """一条陈述对应的请求参数：passages 和 context 都为 None 时是 5a；给 passages 是 5b；给 context 是 5f。
+    Request parameters: neither given = 5a; passages = 5b; context = 5f.
+
+    model='sonnet' 时，提示词和输出格式完全相同，只改模型和上面说明的两处设置。
+    With model='sonnet' the prompt and output format are identical; only the
+    model and the two settings explained above change.
+    """
+    if passages is not None and context is not None:
+        raise ValueError('give either passages (5b) or context (5f), not both')
+    if context is not None:
+        # 背景放在陈述前面，格式和 5a 的 "Statement: ..." 保持一致 / context first, then the same "Statement: ..."
+        params = {'model': MODELS[model], 'max_tokens': MAX_TOKENS, 'temperature': TEMPERATURE,
+                  'system': SYSTEM_CONTEXT, 'output_config': OUTPUT_FORMAT,
+                  'messages': [{'role': 'user', 'content': f'{context}\nStatement: {statement}'}]}
+    elif passages is None:
+        params = {'model': MODELS[model], 'max_tokens': MAX_TOKENS, 'temperature': TEMPERATURE,
+                  'system': SYSTEM_NO_EVIDENCE, 'output_config': OUTPUT_FORMAT,
+                  'messages': [{'role': 'user', 'content': f'Statement: {statement}'}]}
+    else:
+        params = {'model': MODELS[model], 'max_tokens': MAX_TOKENS_EVIDENCE, 'temperature': TEMPERATURE,
+                  'system': SYSTEM_EVIDENCE, 'output_config': OUTPUT_FORMAT_EVIDENCE,
+                  'messages': [{'role': 'user',
+                                'content': f'Statement: {statement}\n\n{format_evidence(passages)}'}]}
+    if model == 'sonnet':
+        del params['temperature']
+        params['thinking'] = SONNET_THINKING
+        params['max_tokens'] = max(params['max_tokens'], SONNET_MAX_TOKENS)
+    return params
 
 
 def parse_relevant(text: str):
@@ -193,9 +292,11 @@ def parse_probability(text: str) -> float:
     return min(max(float(value), 0.0), 100.0) / 100
 
 
-def run_name(experiment: str, split: str = 'test') -> str:
-    """结果文件名：测试集沿用原来的名字（llm_no_evidence 等），其他划分加上后缀（no_evidence_val）。
-    File-name stem: the test set keeps the original names, other splits get a suffix.
+def run_name(experiment: str, split: str = 'test', model: str = 'haiku') -> str:
+    """结果文件名：测试集沿用原来的名字（llm_no_evidence 等），其他划分加上后缀（no_evidence_val）；
+    Haiku 以外的模型再加上模型名（no_evidence_sonnet_val）。
+    File-name stem: the test set keeps the original names, other splits get a
+    suffix, and models other than Haiku add their name.
 
     以前所有结果都存成同一个名字；如果直接在验证集上运行，会覆盖已经保存的测试集结果。
     Previously every run used one name, so a validation run would have
@@ -203,7 +304,10 @@ def run_name(experiment: str, split: str = 'test') -> str:
     """
     if split not in ('val', 'test'):
         raise ValueError(f'unknown split: {split}')
-    return experiment if split == 'test' else f'{experiment}_{split}'
+    if model not in MODELS:
+        raise ValueError(f'unknown model: {model}')
+    stem = experiment if model == 'haiku' else f'{experiment}_{model}'
+    return stem if split == 'test' else f'{stem}_{split}'
 
 
 def _liar_sets():
@@ -212,14 +316,14 @@ def _liar_sets():
             for name, split in (('LIAR val', 'val'), ('LIAR test', 'test'))}
 
 
-def run_sample(n: int = 20):
+def run_sample(n: int = 20, model: str = 'haiku'):
     """即时调用（非批量）测试 n 条验证集陈述：检查回答格式能否解析，并估算 token 用量。
     Synchronous check on n validation statements: parsing and token usage."""
     client = _client()
     val = _liar_sets()['LIAR val'].head(n)
     usage_in = usage_out = 0
     for _, row in val.iterrows():
-        msg = client.messages.create(**_params(row['text']))
+        msg = client.messages.create(**_params(row['text'], model=model))
         reply = next((b.text for b in msg.content if b.type == 'text'), '')
         usage_in += msg.usage.input_tokens
         usage_out += msg.usage.output_tokens
@@ -229,7 +333,63 @@ def run_sample(n: int = 20):
     return usage_in / n, usage_out / n
 
 
-def submit(experiment: str = 'no_evidence', split: str = 'test') -> str:
+def _all_params(experiment: str, split: str, model: str) -> dict:
+    """一个划分里每条陈述的请求参数 {doc_id: params}；submit 和 retry_failed 共用，保证重试的请求完全相同。
+    Request parameters per statement; shared by submit and retry_failed so retries are identical."""
+    df = _liar_sets()[f'LIAR {split}']
+    if experiment in ('context', 'shuffled_context'):
+        ctx = contexts_for(experiment, df['doc_id'])
+        return {d: _params(t, None, model, context=ctx[d]) for d, t in zip(df['doc_id'], df['text'])}
+    shown = passages_for(experiment, df['doc_id'], split)
+    return {d: _params(t, shown[d], model) for d, t in zip(df['doc_id'], df['text'])}
+
+
+def _batch_ids(meta: dict) -> list:
+    """一次运行的所有批次：最初的批次，加上之后为失败的请求重新提交的批次（按时间顺序）。
+    All batches of a run: the original one plus any retries of failed requests, in order."""
+    return [meta['batch_id']] + meta.get('retry_batch_ids', [])
+
+
+def _succeeded_ids(client, meta: dict) -> set:
+    done = set()
+    for bid in _batch_ids(meta):
+        done |= {r.custom_id for r in client.messages.batches.results(bid) if r.result.type == 'succeeded'}
+    return done
+
+
+def retry_failed(experiment: str = 'no_evidence', split: str = 'test', model: str = 'haiku'):
+    """只重新提交失败的请求（例如账户余额不足时被拒绝的），参数和原来完全相同；collect 会合并所有批次。
+    Resubmit only the failed requests (e.g. rejected while the credit balance was
+    empty) with identical parameters; collect merges all batches.
+
+    为什么不能把失败的请求当作 0.5：在 2026-10-17 的 Sonnet test 运行中，余额耗尽导致 86 条请求失败；
+    如果按"不知道"(0.5) 计入，会人为地拉低 Sonnet 的分数，影响结论。
+    Why not count failures as 0.5: 86 Sonnet test requests failed when the
+    balance ran out; scoring them as "don't know" would bias the result.
+    """
+    from anthropic.types.message_create_params import MessageCreateParamsNonStreaming
+    from anthropic.types.messages.batch_create_params import Request
+    name = run_name(experiment, split, model)
+    path = RESULTS_DIR / f'{name}_batch.json'
+    meta = json.loads(path.read_text())
+    client = _client()
+    for bid in _batch_ids(meta):
+        if client.messages.batches.retrieve(bid).processing_status != 'ended':
+            raise RuntimeError(f'batch {bid} is still running; retry after it ends')
+    done = _succeeded_ids(client, meta)          # 只下载一次结果 / download the results once, not per statement
+    todo = {d: p for d, p in _all_params(experiment, split, model).items() if d not in done}
+    if not todo:
+        print('nothing to retry')
+        return None
+    batch = client.messages.batches.create(requests=[
+        Request(custom_id=d, params=MessageCreateParamsNonStreaming(**p)) for d, p in todo.items()])
+    meta['retry_batch_ids'] = meta.get('retry_batch_ids', []) + [batch.id]
+    path.write_text(json.dumps(meta, indent=2))
+    print(f'resubmitted {len(todo)} failed requests as batch {batch.id}')
+    return batch.id
+
+
+def submit(experiment: str = 'no_evidence', split: str = 'test', model: str = 'haiku') -> str:
     """把 LIAR 一个划分的全部陈述作为一个批量任务提交，保存批次 ID。
     Submit every statement of one LIAR split as one batch; save the batch id.
 
@@ -241,49 +401,55 @@ def submit(experiment: str = 'no_evidence', split: str = 'test') -> str:
     from anthropic.types.message_create_params import MessageCreateParamsNonStreaming
     from anthropic.types.messages.batch_create_params import Request
 
-    name = run_name(experiment, split)
+    name = run_name(experiment, split, model)
     chosen = {k: v for k, v in _liar_sets().items() if k == f'LIAR {split}'}
-    requests = []
-    for df in chosen.values():
-        shown = passages_for(experiment, df['doc_id'], split)
-        requests += [Request(custom_id=doc_id,
-                             params=MessageCreateParamsNonStreaming(**_params(text, shown[doc_id])))
-                     for doc_id, text in zip(df['doc_id'], df['text'])]
+    requests = [Request(custom_id=doc_id, params=MessageCreateParamsNonStreaming(**params))
+                for doc_id, params in _all_params(experiment, split, model).items()]
     batch = _client().messages.batches.create(requests=requests)
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+    # 记录实际发送的设置（从第一条请求里取），而不是常量，这样 Sonnet 的不同设置也会被如实记录
+    # Record the settings actually sent (taken from the first request), so Sonnet's differences are logged
+    sent = requests[0]['params']
     (RESULTS_DIR / f'{name}_batch.json').write_text(json.dumps(
-        {'batch_id': batch.id, 'model': MODEL, 'n_requests': len(requests), 'sets': list(chosen),
-         'system_prompt': SYSTEM_NO_EVIDENCE if experiment == 'no_evidence' else SYSTEM_EVIDENCE,
-         'max_tokens': MAX_TOKENS if experiment == 'no_evidence' else MAX_TOKENS_EVIDENCE,
-         'temperature': TEMPERATURE}, indent=2))
+        {'batch_id': batch.id, 'model': sent['model'], 'n_requests': len(requests), 'sets': list(chosen),
+         'system_prompt': sent['system'], 'max_tokens': sent['max_tokens'],
+         'temperature': sent.get('temperature', 'not sent (model default)'),
+         'thinking': sent.get('thinking', 'model default')}, indent=2))
     print(f'submitted batch {batch.id} with {len(requests)} requests')
     return batch.id
 
 
-def collect(experiment: str = 'no_evidence', split: str = 'test', poll_seconds: int = 60):
+def collect(experiment: str = 'no_evidence', split: str = 'test', poll_seconds: int = 60,
+            model: str = 'haiku'):
     """等待批量任务完成，取回结果，计算指标并保存（格式与 results/liar 相同）。
     Wait for the batch, fetch results, compute metrics, save (same format as results/liar)."""
-    name = run_name(experiment, split)
+    name = run_name(experiment, split, model)
     meta = json.loads((RESULTS_DIR / f'{name}_batch.json').read_text())
     client = _client()
-    while True:
-        batch = client.messages.batches.retrieve(meta['batch_id'])
-        if batch.processing_status == 'ended':
-            break
-        print(f'status {batch.processing_status}: {batch.request_counts.processing} processing', flush=True)
-        time.sleep(poll_seconds)
+    for bid in _batch_ids(meta):
+        while True:
+            batch = client.messages.batches.retrieve(bid)
+            if batch.processing_status == 'ended':
+                break
+            print(f'status {batch.processing_status}: {batch.request_counts.processing} processing', flush=True)
+            time.sleep(poll_seconds)
 
-    # 结果的返回顺序是任意的，必须按 custom_id（也就是 doc_id）对应，不能按位置
-    # Results arrive in any order: key them by custom_id (= doc_id), never by position
+    # 结果的返回顺序是任意的，必须按 custom_id（也就是 doc_id）对应，不能按位置。
+    # 多个批次（原始 + 重试）依次合并：任何一个批次成功的回答都会被采用，只有从未成功的才记为失败。
+    # Results arrive in any order: key them by custom_id (= doc_id), never by
+    # position. Batches (original + retries) are merged; a request counts as
+    # failed only if it never succeeded.
     replies, usage_in, usage_out, failed = {}, 0, 0, {}
-    for result in client.messages.batches.results(meta['batch_id']):
-        if result.result.type == 'succeeded':
-            msg = result.result.message
-            replies[result.custom_id] = next((b.text for b in msg.content if b.type == 'text'), '')
-            usage_in += msg.usage.input_tokens
-            usage_out += msg.usage.output_tokens
-        else:
-            failed[result.custom_id] = result.result.type
+    for bid in _batch_ids(meta):
+        for result in client.messages.batches.results(bid):
+            if result.result.type == 'succeeded':
+                msg = result.result.message
+                replies[result.custom_id] = next((b.text for b in msg.content if b.type == 'text'), '')
+                usage_in += msg.usage.input_tokens
+                usage_out += msg.usage.output_tokens
+                failed.pop(result.custom_id, None)
+            elif result.custom_id not in replies:
+                failed[result.custom_id] = result.result.type
 
     eval_sets = {k: v for k, v in _liar_sets().items() if k in meta['sets']}
     probs, metrics, unparsed, relevant_share = {}, {}, {}, {}
@@ -321,15 +487,20 @@ def main():
     parser.add_argument('--sample', type=int, help='synchronous test on N validation statements')
     parser.add_argument('--submit', help='experiment name to submit as a batch')
     parser.add_argument('--collect', help='experiment name to collect')
+    parser.add_argument('--retry', help='experiment name whose failed requests to resubmit')
     parser.add_argument('--split', default='test', choices=['val', 'test'],
                         help='LIAR split to run on (default: test)')
+    parser.add_argument('--model', default='haiku', choices=list(MODELS),
+                        help='haiku (5a-5c) or sonnet (5d)')
     args = parser.parse_args()
     if args.sample:
-        run_sample(args.sample)
+        run_sample(args.sample, args.model)
     if args.submit:
-        submit(args.submit, args.split)
+        submit(args.submit, args.split, args.model)
+    if args.retry:
+        retry_failed(args.retry, args.split, args.model)
     if args.collect:
-        collect(args.collect, args.split)
+        collect(args.collect, args.split, model=args.model)
 
 
 if __name__ == '__main__':
