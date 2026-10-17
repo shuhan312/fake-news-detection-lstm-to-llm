@@ -63,7 +63,7 @@ fake-news-detection-lstm-to-llm/
 | `05_cross_dataset` | Does an ISOT-trained model transfer to other sources? External sets: WELFake minus ISOT, LIAR |
 | `06_reducing_source_reliance` | Step 4: content words only, de-biased reweighting, multi-source training with a held-out outlet (TF-IDF, then DistilBERT) |
 | `07_liar_benchmark` | LIAR fact-checked statements: how well text alone detects falsehood once the source shortcut is gone |
-| `08_llm_prompting` | LLM fact-checking on LIAR (Claude Haiku 4.5): without evidence, with retrieved Wikipedia evidence (`src/evidence.py`), and a random-evidence control (`src/llm_factcheck.py`); notebook being written |
+| `08_llm_prompting` | LLM fact-checking on LIAR (Claude Haiku 4.5): without evidence, with retrieved Wikipedia evidence (`src/evidence.py`), a random-evidence control (`src/llm_factcheck.py`), and the LLM combined with the text models (`src/ensemble.py`) |
 | `09_error_analysis` | Planned: cross-model FP/FN breakdown |
 
 ## Results Summary
@@ -78,7 +78,7 @@ Accuracy on the ISOT test set (in-domain) and on WELFake minus ISOT (cross-datas
 | BiLSTM, old notebook 02 settings (A4) | 94.2 ± 2.6% | 0.979 | 56.6 ± 1.2% | 0.647 | `02` |
 | BiLSTM, tuned (A6) | 97.6 ± 0.4% | 0.997 | 56.4 ± 0.2% | 0.673 | `02` |
 | DistilBERT | **99.0 ± 0.3%** | 0.999 | 58.6 ± 0.7% | 0.693 | `03` |
-| LLM | — | — | — | — | in progress |
+| LLM | — | — | — | — | LIAR only (`08`) |
 
 Every model scores 93–99% inside ISOT but barely beats the majority baseline on other sources.
 
@@ -102,6 +102,7 @@ Removing style words or de-biased reweighting (ISOT only) made transfer worse.
 | Claude Haiku 4.5, no evidence (zero-shot) | 61.1% | 0.655 |
 | Claude Haiku 4.5 + Wikipedia evidence | 53.5% | 0.647 |
 | Claude Haiku 4.5 + another statement's evidence (control) | 49.9% | 0.613 |
+| **DistilBERT + TF-IDF + Haiku, combined on val (3 seeds)** | **66.4–67.5%** | **0.725–0.729** |
 
 ## Data
 
@@ -133,4 +134,5 @@ The split is locked in `data/processed/splits.csv` (committed); the cleaned-text
 - **Without the source shortcut, text alone is weak** (`07`): on fact-checked LIAR statements, TF-IDF and DistilBERT reach only AUC 0.67–0.68 (62–64% accuracy against a 56.7% baseline), and DistilBERT is not reliably better than TF-IDF.
 - **An LLM's own knowledge is not enough either** (step 5a): Claude Haiku 4.5 judging LIAR statements without evidence reaches AUC 0.655, statistically indistinguishable from TF-IDF and DistilBERT. That it does not score higher also suggests it is not simply recalling PolitiFact verdicts.
 - **Wikipedia evidence does not raise the ceiling** (step 5b): with three retrieved passages per statement Haiku reaches AUC 0.647, no different from 0.655 without evidence (paired difference −0.008, 95% CI −0.034 to 0.018). A control that shows each statement another statement's passages scores 0.613, so the right evidence is reliably better than unrelated evidence (+0.034, CI 0.008 to 0.060), but adding passages also makes the model sceptical: it calls only 21% of statements true (vs 57% in the data), treating "not in the passages" as "false". In a manual check only 3 of 30 passages contained the fact needed to judge the statement.
-- Next: notebook 08, then validation-set improvements (combining DistilBERT with the LLM, a prompt that does not penalise missing evidence, a larger model) and error analysis.
+- **Combining the LLM with the text models breaks the ceiling** (step 5c): Haiku's scores are almost uncorrelated with the text models' (Spearman 0.12–0.17 on val, vs 0.73–0.77 between TF-IDF and DistilBERT). A logistic-regression combiner, chosen and fitted on LIAR val only, reaches test AUC 0.725–0.729 and 66.4–67.5% accuracy, reliably above DistilBERT for every seed (+0.042 to +0.050, 95% CIs exclude 0). Language patterns and world knowledge are complementary; a bigger model on its own is not the answer.
+- Next: check on val whether a prompt that does not penalise missing evidence or a larger model improves the combination further, then error analysis (`09`).

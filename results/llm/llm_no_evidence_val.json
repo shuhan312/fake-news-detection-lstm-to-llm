@@ -1,0 +1,36 @@
+{
+  "name": "llm_no_evidence_val",
+  "batch_id": "msgbatch_0197vryzwAYmVWCtpdb8EeA8",
+  "model": "claude-haiku-4-5",
+  "n_requests": 1284,
+  "sets": [
+    "LIAR val"
+  ],
+  "system_prompt": "You are a professional political fact-checker. You will be given a statement made by a US political figure. Estimate the probability that a professional fact-checker would rate the statement as true, mostly true, or half true (rather than barely true, false, or \"pants on fire\"). Use your general knowledge. Reply with only an integer from 0 to 100.",
+  "max_tokens": 20,
+  "temperature": 0.0,
+  "metrics": {
+    "LIAR val": {
+      "n": 1284,
+      "real %": 52.0,
+      "majority baseline %": 52.0,
+      "accuracy %": 63.1,
+      "balanced accuracy %": 63.6,
+      "AUC": 0.671,
+      "F1 fake": 0.662,
+      "F1 real": 0.593,
+      "predicted real %": 38.8
+    }
+  },
+  "unparsed_or_failed": {
+    "LIAR val": 0
+  },
+  "failed_types": {},
+  "evidence_relevant_%": {
+    "LIAR val": null
+  },
+  "usage": {
+    "input_tokens": 322376,
+    "output_tokens": 11556
+  }
+}

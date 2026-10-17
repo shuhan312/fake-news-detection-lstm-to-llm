@@ -1,0 +1,88 @@
+{
+  "split": "val",
+  "n": 1284,
+  "real %": 52.0,
+  "rule": "highest mean 5-fold CV AUC on LIAR val over DistilBERT seeds",
+  "cv_auc": {
+    "TF-IDF": {
+      "seed 42": 0.6803,
+      "seed 43": 0.6803,
+      "seed 44": 0.6803,
+      "mean CV AUC": 0.6803
+    },
+    "DistilBERT": {
+      "seed 42": 0.692,
+      "seed 43": 0.6819,
+      "seed 44": 0.6764,
+      "mean CV AUC": 0.6834
+    },
+    "Haiku": {
+      "seed 42": 0.6658,
+      "seed 43": 0.6658,
+      "seed 44": 0.6658,
+      "mean CV AUC": 0.6658
+    },
+    "DistilBERT + TF-IDF": {
+      "seed 42": 0.6979,
+      "seed 43": 0.6928,
+      "seed 44": 0.6875,
+      "mean CV AUC": 0.6927
+    },
+    "TF-IDF + Haiku": {
+      "seed 42": 0.7361,
+      "seed 43": 0.7361,
+      "seed 44": 0.7361,
+      "mean CV AUC": 0.7361
+    },
+    "DistilBERT + Haiku": {
+      "seed 42": 0.743,
+      "seed 43": 0.7332,
+      "seed 44": 0.7326,
+      "mean CV AUC": 0.7363
+    },
+    "DistilBERT + TF-IDF + Haiku": {
+      "seed 42": 0.7457,
+      "seed 43": 0.7401,
+      "seed 44": 0.7379,
+      "mean CV AUC": 0.7412
+    }
+  },
+  "chosen": "DistilBERT + TF-IDF + Haiku",
+  "spearman": {
+    "tfidf": {
+      "tfidf": 1.0,
+      "distilbert_seed42": 0.75,
+      "distilbert_seed43": 0.73,
+      "distilbert_seed44": 0.77,
+      "haiku": 0.12
+    },
+    "distilbert_seed42": {
+      "tfidf": 0.75,
+      "distilbert_seed42": 1.0,
+      "distilbert_seed43": 0.92,
+      "distilbert_seed44": 0.89,
+      "haiku": 0.15
+    },
+    "distilbert_seed43": {
+      "tfidf": 0.73,
+      "distilbert_seed42": 0.92,
+      "distilbert_seed43": 1.0,
+      "distilbert_seed44": 0.89,
+      "haiku": 0.17
+    },
+    "distilbert_seed44": {
+      "tfidf": 0.77,
+      "distilbert_seed42": 0.89,
+      "distilbert_seed43": 0.89,
+      "distilbert_seed44": 1.0,
+      "haiku": 0.13
+    },
+    "haiku": {
+      "tfidf": 0.12,
+      "distilbert_seed42": 0.15,
+      "distilbert_seed43": 0.17,
+      "distilbert_seed44": 0.13,
+      "haiku": 1.0
+    }
+  }
+}
