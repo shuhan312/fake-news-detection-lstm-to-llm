@@ -521,6 +521,32 @@ def load_liar() -> pd.DataFrame:
     return df[['doc_id', 'label', 'label6', 'title', 'text', 'content', 'model_text', 'split']]
 
 
+def load_liar_metadata() -> pd.DataFrame:
+    """LIAR 的说话人、职务、州、党派、话题和场合。
+    LIAR speaker, job title, state, party, subject and context.
+
+    notebook 09 只用它们给错误分组；5f 把说话人、职务、州和场合（不含党派）作为 *发言背景*
+    交给 LLM，检验"缺少背景"是不是瓶颈（见 src/llm_factcheck.py）。
+    Notebook 09 uses them for grouping only; step 5f gives the LLM the speaker,
+    job title, state and setting (not the party) as the context of the statement.
+
+    不返回"历史核查次数"（barely_true_count 等）：按数据集说明，它们包含当前这条陈述的标签。
+    The credit-history counts are not returned: they include the current label.
+    """
+    path = download(LIAR_URL, LIAR_FILE, LIAR_MD5)
+    frames = []
+    with zipfile.ZipFile(path) as z:
+        for part, split in (('train', 'train'), ('valid', 'val'), ('test', 'test')):
+            with z.open(f'{part}.tsv') as f:
+                d = pd.read_csv(io.TextIOWrapper(f, encoding='utf-8'), sep='\t', header=None,
+                                names=LIAR_COLUMNS, quoting=3, keep_default_na=False)
+            frames.append(d.assign(split=split))
+    df = pd.concat(frames, ignore_index=True)
+    df['doc_id'] = 'liar_' + df['id'].str.replace('.json', '', regex=False)
+    # job_title、state 用于 5f（告诉模型说话人的职务和所在州）/ job title and state are used by 5f
+    return df[['doc_id', 'split', 'speaker', 'job_title', 'state', 'party', 'subject', 'context']]
+
+
 # ─────────────────────────────────────────────────────────────────────────────
 # 内部辅助函数 / Internal helpers
 # ─────────────────────────────────────────────────────────────────────────────
