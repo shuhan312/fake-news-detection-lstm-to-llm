@@ -35,6 +35,7 @@ Only the statement text is given, as for the models in notebook 07.
     python -m src.llm_factcheck --sample 20          # 小样本即时测试，检查输出格式 / quick sync check
     python -m src.llm_factcheck --submit no_evidence # 提交批量任务 / submit the batch
     python -m src.llm_factcheck --collect no_evidence  # 等待并收集结果 / wait and collect
+    python -m src.llm_factcheck --submit no_evidence --split val   # 验证集（用于第 5c 步的组合）/ validation set
 """
 
 import argparse
@@ -151,7 +152,7 @@ def parse_relevant(text: str):
     return value if isinstance(value, bool) else None
 
 
-def passages_for(experiment: str, doc_ids, seed: int = 42) -> dict:
+def passages_for(experiment: str, doc_ids, split: str = 'test', seed: int = 42) -> dict:
     """每条陈述要给模型看的证据：5a 为 None；5b 是它自己的证据；对照组是另一条陈述的证据。
     Evidence shown per statement: None (5a), its own (5b) or another statement's (control).
 
@@ -163,7 +164,7 @@ def passages_for(experiment: str, doc_ids, seed: int = 42) -> dict:
     if experiment == 'no_evidence':
         return {d: None for d in doc_ids}
     from src.evidence import load_evidence
-    evidence = load_evidence('test')
+    evidence = load_evidence(split)
     own = {d: evidence.get(d, {}).get('passages', []) for d in doc_ids}
     if experiment == 'evidence':
         return own
@@ -192,6 +193,19 @@ def parse_probability(text: str) -> float:
     return min(max(float(value), 0.0), 100.0) / 100
 
 
+def run_name(experiment: str, split: str = 'test') -> str:
+    """结果文件名：测试集沿用原来的名字（llm_no_evidence 等），其他划分加上后缀（no_evidence_val）。
+    File-name stem: the test set keeps the original names, other splits get a suffix.
+
+    以前所有结果都存成同一个名字；如果直接在验证集上运行，会覆盖已经保存的测试集结果。
+    Previously every run used one name, so a validation run would have
+    overwritten the saved test results.
+    """
+    if split not in ('val', 'test'):
+        raise ValueError(f'unknown split: {split}')
+    return experiment if split == 'test' else f'{experiment}_{split}'
+
+
 def _liar_sets():
     liar = load_liar()
     return {name: liar[liar['split'] == split].reset_index(drop=True)
@@ -215,26 +229,29 @@ def run_sample(n: int = 20):
     return usage_in / n, usage_out / n
 
 
-def submit(experiment: str = 'no_evidence', sets=('LIAR test',)) -> str:
-    """把指定数据集的全部陈述作为一个批量任务提交，保存批次 ID。
-    Submit every statement of the chosen sets as one batch; save the batch id.
+def submit(experiment: str = 'no_evidence', split: str = 'test') -> str:
+    """把 LIAR 一个划分的全部陈述作为一个批量任务提交，保存批次 ID。
+    Submit every statement of one LIAR split as one batch; save the batch id.
 
-    默认只提交 LIAR test（1,283 条）：5a 不需要调参，验证集用不上，只跑测试集可以把费用减半。
-    Default is LIAR test only (1,283): 5a has nothing to tune, so skipping val halves the cost.
+    5a、5b 只在 test 上运行（它们没有需要调的东西）。val 用于之后的优化：
+    组合权重、阈值等都只能在 val 上选择，所以需要 LLM 在 val 上的预测。
+    5a / 5b ran on test only (nothing to tune). val is needed for later
+    improvements: combination weights and thresholds may only be chosen on val.
     """
     from anthropic.types.message_create_params import MessageCreateParamsNonStreaming
     from anthropic.types.messages.batch_create_params import Request
 
-    chosen = {k: v for k, v in _liar_sets().items() if k in sets}
+    name = run_name(experiment, split)
+    chosen = {k: v for k, v in _liar_sets().items() if k == f'LIAR {split}'}
     requests = []
     for df in chosen.values():
-        shown = passages_for(experiment, df['doc_id'])
+        shown = passages_for(experiment, df['doc_id'], split)
         requests += [Request(custom_id=doc_id,
                              params=MessageCreateParamsNonStreaming(**_params(text, shown[doc_id])))
                      for doc_id, text in zip(df['doc_id'], df['text'])]
     batch = _client().messages.batches.create(requests=requests)
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
-    (RESULTS_DIR / f'{experiment}_batch.json').write_text(json.dumps(
+    (RESULTS_DIR / f'{name}_batch.json').write_text(json.dumps(
         {'batch_id': batch.id, 'model': MODEL, 'n_requests': len(requests), 'sets': list(chosen),
          'system_prompt': SYSTEM_NO_EVIDENCE if experiment == 'no_evidence' else SYSTEM_EVIDENCE,
          'max_tokens': MAX_TOKENS if experiment == 'no_evidence' else MAX_TOKENS_EVIDENCE,
@@ -243,10 +260,11 @@ def submit(experiment: str = 'no_evidence', sets=('LIAR test',)) -> str:
     return batch.id
 
 
-def collect(experiment: str = 'no_evidence', poll_seconds: int = 60):
+def collect(experiment: str = 'no_evidence', split: str = 'test', poll_seconds: int = 60):
     """等待批量任务完成，取回结果，计算指标并保存（格式与 results/liar 相同）。
     Wait for the batch, fetch results, compute metrics, save (same format as results/liar)."""
-    meta = json.loads((RESULTS_DIR / f'{experiment}_batch.json').read_text())
+    name = run_name(experiment, split)
+    meta = json.loads((RESULTS_DIR / f'{name}_batch.json').read_text())
     client = _client()
     while True:
         batch = client.messages.batches.retrieve(meta['batch_id'])
@@ -269,22 +287,25 @@ def collect(experiment: str = 'no_evidence', poll_seconds: int = 60):
 
     eval_sets = {k: v for k, v in _liar_sets().items() if k in meta['sets']}
     probs, metrics, unparsed, relevant_share = {}, {}, {}, {}
-    for name, df in eval_sets.items():
+    # 循环变量叫 set_name，不能叫 name：name 是上面的结果文件名，被覆盖后文件会存成 "llm_LIAR val"
+    # The loop variable must not be called `name`: that would overwrite the
+    # result-file name above (it once saved the file as "llm_LIAR val")
+    for set_name, df in eval_sets.items():
         relevant = [parse_relevant(replies.get(d)) for d in df['doc_id']]
         flags = [r for r in relevant if r is not None]
-        relevant_share[name] = round(100 * sum(flags) / len(flags), 1) if flags else None
+        relevant_share[set_name] = round(100 * sum(flags) / len(flags), 1) if flags else None
         p = np.array([parse_probability(replies.get(d)) for d in df['doc_id']])
-        unparsed[name] = int(np.isnan(p).sum())
+        unparsed[set_name] = int(np.isnan(p).sum())
         # 无法解析或失败的请求按 0.5（"不知道"）处理，并单独报告数量
         # Unparsed / failed answers count as 0.5 ("don't know") and are reported
-        probs[name] = np.where(np.isnan(p), 0.5, p)
-        metrics[name] = B.evaluate(df['label'], probs[name])
+        probs[set_name] = np.where(np.isnan(p), 0.5, p)
+        metrics[set_name] = B.evaluate(df['label'], probs[set_name])
 
-    record = {'name': f'llm_{experiment}', **meta, 'metrics': metrics,
+    record = {'name': f'llm_{name}', **meta, 'metrics': metrics,
               'unparsed_or_failed': unparsed, 'failed_types': failed,
               'evidence_relevant_%': relevant_share,
               'usage': {'input_tokens': usage_in, 'output_tokens': usage_out}}
-    path = RESULTS_DIR / f'llm_{experiment}'
+    path = RESULTS_DIR / f'llm_{name}'
     path.with_suffix('.json').write_text(json.dumps(record, indent=2))
     np.savez_compressed(path.with_suffix('.npz'),
                         **{f'prob::{k}': probs[k] for k in eval_sets},
@@ -300,13 +321,15 @@ def main():
     parser.add_argument('--sample', type=int, help='synchronous test on N validation statements')
     parser.add_argument('--submit', help='experiment name to submit as a batch')
     parser.add_argument('--collect', help='experiment name to collect')
+    parser.add_argument('--split', default='test', choices=['val', 'test'],
+                        help='LIAR split to run on (default: test)')
     args = parser.parse_args()
     if args.sample:
         run_sample(args.sample)
     if args.submit:
-        submit(args.submit)
+        submit(args.submit, args.split)
     if args.collect:
-        collect(args.collect)
+        collect(args.collect, args.split)
 
 
 if __name__ == '__main__':
