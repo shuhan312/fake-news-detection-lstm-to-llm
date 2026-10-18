@@ -1,0 +1,15 @@
+{
+  "batch_id": "msgbatch_011283Y9JXQyH26Grn2MyaSe",
+  "model": "claude-sonnet-5-5",
+  "n_requests": 1501,
+  "system_prompt": "You are a professional fact-checker. You will be given the title and the beginning of a news article. Estimate the probability that it is a real news article rather than fake news (fabricated or false stories). Use your general knowledge. Reply with only an integer from 0 to 100.",
+  "max_words": 300,
+  "sample_size": 1500,
+  "sample_seed": 42,
+  "max_tokens": 40,
+  "temperature": "not sent (model default)",
+  "thinking": {
+    "type": "between_tools"
+  },
+  "note": "submit created this batch but hung before writing this file (local proxy interruption); the batch id was recovered from the batch list and verified: model claude-sonnet-5-5, 1501 succeeded, same doc_ids as the Haiku batch"
+}
