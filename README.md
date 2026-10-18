@@ -7,8 +7,8 @@ I re-examined my own published fake-news detector, which reported **99% accuracy
 ## Highlights
 
 - **Found the flaw in my own published result.** In the Kaggle ISOT dataset every real article comes from Reuters, so a model can score highly just by recognising Reuters' writing style: the headline alone gives 94%. On news from other outlets, the same models fall to 52–59% accuracy (always answering "real" scores 56%) and call about half of New York Times articles fake.
-- **Showed that changing the data matters more than changing the model.** LSTM → BiLSTM → DistilBERT barely changed cross-source performance, and removing style words made it worse. Training on several outlets raised AUC on an unseen outlet from **0.79 to 0.97**.
-- **Measured the real difficulty, then improved on it with LLMs.** On fact-checked PolitiFact statements (LIAR), where there is no source to recognise, text-only models reach AUC 0.68. Combining them with Claude Sonnet 5.5 reaches **0.77 (about 70% accuracy)**, reliably above every single model.
+- **Showed that changing the data matters more than changing the model.** LSTM → BiLSTM → DistilBERT barely changed cross-source performance, and removing style words made it worse. Training on several outlets raised AUC on an unseen outlet from **0.79 to 0.97**, although that test can still be passed by telling newsroom style from fake-site style rather than by checking claims.
+- **Measured the real difficulty, then improved on it with LLMs.** On fact-checked PolitiFact statements (LIAR), the project's main and fairest benchmark because there is no source to recognise, text-only models reach AUC 0.68. Combining them with Claude Sonnet 5.5 reaches **0.77 (about 70% accuracy)**, reliably above every single model.
 - **Returned to the original problem.** On the same out-of-source articles where my original LSTM scores AUC 0.65, zero-shot Claude Sonnet reaches **0.93** and accepts 99.8% of New York Times articles instead of about half, with the caveat that these 2016–17 articles may be in its training data.
 - **Kept the results honest.** Leakage audit, grouped splits, every choice made on validation data under rules fixed in advance, paired bootstrap tests, a control for every LLM experiment, and memorisation checks. Two promising-looking ideas (Wikipedia evidence and speaker context) are reported as negative results.
 
@@ -18,9 +18,9 @@ I re-examined my own published fake-news detector, which reported **99% accuracy
 
 **2. Nothing transfers** (`02`, `03`, `05`). I trained LSTM, BiLSTM, DistilBERT and a TF-IDF baseline on a cleaned, grouped split (3 seeds each) and tested them on WELFake articles from other outlets, with every article that overlaps ISOT removed. All of them score 93–99% inside ISOT and 52–59% outside it. An ablation of my original LSTM showed that most earlier "optimisations" were within seed noise.
 
-**3. What actually reduces source reliance** (`06`). Removing style words and down-weighting easy-to-recognise articles both made transfer worse, because the source shows in topic as well as style. Training on several outlets, with the New York Times held out, raised AUC on that unseen outlet from 0.79 to 0.97.
+**3. What actually reduces source reliance** (`06`). Removing style words and down-weighting easy-to-recognise articles both made transfer worse, because the source shows in topic as well as style. Training on several outlets, with the New York Times held out, raised AUC on that unseen outlet from 0.79 to 0.97. This shows the model no longer depends on Reuters, but WELFake labels are still per outlet, so it learns "professional newsroom vs fake-news site" style rather than checking claims. This is why LIAR is used as the main benchmark.
 
-**4. A benchmark without the shortcut** (`07`). LIAR contains 12,836 political statements, each rated by PolitiFact editors, so the same speaker says both true and false things and there is no source to recognise. Text-only models reach only AUC 0.67–0.68.
+**4. The main benchmark: no shortcut to exploit** (`07`). LIAR contains 12,836 political statements, each rated by PolitiFact editors, so the same speaker says both true and false things and there is no source to recognise. Text-only models reach only AUC 0.67–0.68.
 
 **5. LLMs on LIAR: what helped and what did not** (`08`–`10`).
 
@@ -79,7 +79,9 @@ The LLMs rank articles well but accept too many fakes at the default threshold, 
 | ISOT + WELFake, NYT held out | TF-IDF | 84.5% | 5.1% | 0.968 |
 | ISOT + WELFake, NYT held out | DistilBERT (3 seeds) | 74–82% | 2–3% | **0.975** |
 
-**LIAR fact-checked statements** (test set, 1,283 statements, majority baseline 56.7%)
+This shows the model no longer depends on Reuters, but WELFake labels are still per outlet, so it learns "professional newsroom vs fake-news site" style rather than checking claims; the test fakes also come from the same fake-news sites seen in training. This is why LIAR is used as the main benchmark.
+
+**LIAR fact-checked statements: the main and fairest benchmark** (test set, 1,283 statements, majority baseline 56.7%). Each statement is rated individually by PolitiFact, the same speakers say both true and false things, and no speaker or party information is given to the final model.
 
 | Model | Accuracy | AUC |
 |-------|---------:|----:|
