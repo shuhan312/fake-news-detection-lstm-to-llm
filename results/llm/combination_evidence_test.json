@@ -1,0 +1,14 @@
+{
+  "split": "test",
+  "step": "5e",
+  "questions": {
+    "Q1: improves the 5c combination": {
+      "evaluated": false,
+      "reason": "val gain 0.0035 < 0.01"
+    },
+    "Q2: adds to the 5d Sonnet combination": {
+      "evaluated": false,
+      "reason": "val gain -0.0004 < 0.01"
+    }
+  }
+}

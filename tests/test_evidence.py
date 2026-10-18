@@ -87,3 +87,13 @@ def test_author_date_citation_of_a_fact_check_is_not_used():
                                                  {'Gun show loophole': citation + '\n' + background})
     assert all('stale claim' not in p['text'] for p in passages)
     assert removed['reference'] == 1
+
+
+def test_articles_about_fact_checkers_are_dropped_by_title():
+    # val 审计中发现：标题为 "PolitiFact" 的文章被检索到 / found in the val audit: an article titled "PolitiFact"
+    from src.evidence import select_passages
+    para = ' '.join(['The 2022 Lie of the Year was disinformation about the invasion of Ukraine'] * 3)
+    passages, removed = select_passages('Says Mark Warner told the Lie of the Year in 2013.',
+                                        {'PolitiFact': para, 'Mark Warner': para.replace('Lie of the Year', 'senator')})
+    assert all(p['title'] != 'PolitiFact' for p in passages)
+    assert removed['verdict_article'] == 1

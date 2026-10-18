@@ -1,0 +1,12 @@
+{
+  "batch_id": "msgbatch_019DJmGn4SrxYo1eT6ywGwP2",
+  "model": "claude-haiku-4-5",
+  "n_requests": 1284,
+  "sets": [
+    "LIAR val"
+  ],
+  "system_prompt": "You are a professional political fact-checker. You will be given a statement made by a US political figure, followed by passages retrieved from Wikipedia. Estimate the probability that a professional fact-checker would rate the statement as true, mostly true, or half true (rather than barely true, false, or \"pants on fire\"). Use the passages when they are relevant; when they are not, rely on your general knowledge. Also say whether the passages were relevant to checking the statement.",
+  "max_tokens": 40,
+  "temperature": 0.0,
+  "thinking": "model default"
+}

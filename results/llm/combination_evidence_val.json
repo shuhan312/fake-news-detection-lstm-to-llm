@@ -1,0 +1,123 @@
+{
+  "split": "val",
+  "n": 1284,
+  "step": "5e",
+  "rule": "evaluate on test only if a question gains at least 0.01 mean 5-fold CV AUC on LIAR val",
+  "cv_auc": {
+    "Haiku": {
+      "seed 42": 0.6658,
+      "seed 43": 0.6658,
+      "seed 44": 0.6658,
+      "mean CV AUC": 0.6658
+    },
+    "Haiku + evidence": {
+      "seed 42": 0.6522,
+      "seed 43": 0.6522,
+      "seed 44": 0.6522,
+      "mean CV AUC": 0.6522
+    },
+    "DistilBERT + TF-IDF + Haiku": {
+      "seed 42": 0.7457,
+      "seed 43": 0.7401,
+      "seed 44": 0.7379,
+      "mean CV AUC": 0.7412
+    },
+    "DistilBERT + TF-IDF + Haiku + Haiku evidence": {
+      "seed 42": 0.749,
+      "seed 43": 0.744,
+      "seed 44": 0.7412,
+      "mean CV AUC": 0.7447
+    },
+    "DistilBERT + TF-IDF + Haiku + Sonnet": {
+      "seed 42": 0.799,
+      "seed 43": 0.7945,
+      "seed 44": 0.7921,
+      "mean CV AUC": 0.7952
+    },
+    "DistilBERT + TF-IDF + Haiku + Sonnet + Haiku evidence": {
+      "seed 42": 0.7985,
+      "seed 43": 0.7941,
+      "seed 44": 0.7917,
+      "mean CV AUC": 0.7948
+    }
+  },
+  "questions": {
+    "Q1: improves the 5c combination": {
+      "reference": "DistilBERT + TF-IDF + Haiku",
+      "best": "DistilBERT + TF-IDF + Haiku + Haiku evidence",
+      "gain": 0.0035,
+      "run_test": false
+    },
+    "Q2: adds to the 5d Sonnet combination": {
+      "reference": "DistilBERT + TF-IDF + Haiku + Sonnet",
+      "best": "DistilBERT + TF-IDF + Haiku + Sonnet + Haiku evidence",
+      "gain": -0.0004,
+      "run_test": false
+    }
+  },
+  "spearman": {
+    "haiku": {
+      "haiku": 1.0,
+      "haiku_evidence": 0.67,
+      "distilbert_seed42": 0.15,
+      "distilbert_seed43": 0.17,
+      "distilbert_seed44": 0.13,
+      "tfidf": 0.12,
+      "sonnet": 0.53
+    },
+    "haiku_evidence": {
+      "haiku": 0.67,
+      "haiku_evidence": 1.0,
+      "distilbert_seed42": 0.17,
+      "distilbert_seed43": 0.18,
+      "distilbert_seed44": 0.14,
+      "tfidf": 0.16,
+      "sonnet": 0.53
+    },
+    "distilbert_seed42": {
+      "haiku": 0.15,
+      "haiku_evidence": 0.17,
+      "distilbert_seed42": 1.0,
+      "distilbert_seed43": 0.92,
+      "distilbert_seed44": 0.89,
+      "tfidf": 0.75,
+      "sonnet": 0.29
+    },
+    "distilbert_seed43": {
+      "haiku": 0.17,
+      "haiku_evidence": 0.18,
+      "distilbert_seed42": 0.92,
+      "distilbert_seed43": 1.0,
+      "distilbert_seed44": 0.89,
+      "tfidf": 0.73,
+      "sonnet": 0.3
+    },
+    "distilbert_seed44": {
+      "haiku": 0.13,
+      "haiku_evidence": 0.14,
+      "distilbert_seed42": 0.89,
+      "distilbert_seed43": 0.89,
+      "distilbert_seed44": 1.0,
+      "tfidf": 0.77,
+      "sonnet": 0.28
+    },
+    "tfidf": {
+      "haiku": 0.12,
+      "haiku_evidence": 0.16,
+      "distilbert_seed42": 0.75,
+      "distilbert_seed43": 0.73,
+      "distilbert_seed44": 0.77,
+      "tfidf": 1.0,
+      "sonnet": 0.28
+    },
+    "sonnet": {
+      "haiku": 0.53,
+      "haiku_evidence": 0.53,
+      "distilbert_seed42": 0.29,
+      "distilbert_seed43": 0.3,
+      "distilbert_seed44": 0.28,
+      "tfidf": 0.28,
+      "sonnet": 1.0
+    }
+  }
+}

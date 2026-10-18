@@ -299,7 +299,13 @@ def select_passages(statement: str, pages: dict) -> tuple:
             para = para.strip()
             if len(para.split()) < MIN_PARAGRAPH_WORDS:
                 continue
-            if _RE_VERDICT_ARTICLE.search(title):          # 整篇是"错误说法清单" / verdict catalogue
+            # 整篇是"错误说法清单"，或者文章本身就是事实核查机构（例如标题为 "PolitiFact"）。
+            # 第二种情况是在 val 的审计中发现的：一条关于 PolitiFact"年度谎言"的陈述检索到了
+            # PolitiFact 这篇文章；段落没有透露这条陈述的结论，但为了规则一致，标题也要检查。
+            # A verdict catalogue, or an article about a fact-checker itself (title
+            # "PolitiFact"), found in the val audit: the passages did not reveal this
+            # statement's verdict, but titles are now checked too, for consistency.
+            if _RE_VERDICT_ARTICLE.search(title) or _RE_FACTCHECK.search(title):
                 removed['verdict_article'] += 1
                 continue
             if _RE_REFERENCE.search(para) or _RE_CITATION.search(para):
